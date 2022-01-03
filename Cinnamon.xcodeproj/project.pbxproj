@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFBB2782E03000C6B73B /* CinnamonApp.swift */; };
+		E105FFBE2782E03000C6B73B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFBD2782E03000C6B73B /* ContentView.swift */; };
+		E105FFC02782E03200C6B73B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E105FFBF2782E03200C6B73B /* Assets.xcassets */; };
+		E105FFC32782E03200C6B73B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E105FFC22782E03200C6B73B /* Preview Assets.xcassets */; };
+		E105FFC52782E03200C6B73B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFC42782E03200C6B73B /* Persistence.swift */; };
+		E105FFC82782E03200C6B73B /* Cinnamon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */; };
+		E105FFD22782E03200C6B73B /* CinnamonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFD12782E03200C6B73B /* CinnamonTests.swift */; };
+		E105FFDC2782E03200C6B73B /* CinnamonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */; };
+		E105FFDE2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E105FFCE2782E03200C6B73B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E105FFB02782E03000C6B73B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E105FFB72782E03000C6B73B;
+			remoteInfo = Cinnamon;
+		};
+		E105FFD82782E03200C6B73B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E105FFB02782E03000C6B73B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E105FFB72782E03000C6B73B;
+			remoteInfo = Cinnamon;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E105FFB82782E03000C6B73B /* Cinnamon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinnamon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E105FFBB2782E03000C6B73B /* CinnamonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonApp.swift; sourceTree = "<group>"; };
+		E105FFBD2782E03000C6B73B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E105FFBF2782E03200C6B73B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E105FFC22782E03200C6B73B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E105FFC42782E03200C6B73B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		E105FFC72782E03200C6B73B /* Cinnamon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cinnamon.xcdatamodel; sourceTree = "<group>"; };
+		E105FFCD2782E03200C6B73B /* CinnamonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinnamonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E105FFD12782E03200C6B73B /* CinnamonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonTests.swift; sourceTree = "<group>"; };
+		E105FFD72782E03200C6B73B /* CinnamonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinnamonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITests.swift; sourceTree = "<group>"; };
+		E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E105FFB52782E03000C6B73B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E105FFCA2782E03200C6B73B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E105FFD42782E03200C6B73B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E105FFAF2782E03000C6B73B = {
+			isa = PBXGroup;
+			children = (
+				E105FFBA2782E03000C6B73B /* Cinnamon */,
+				E105FFD02782E03200C6B73B /* CinnamonTests */,
+				E105FFDA2782E03200C6B73B /* CinnamonUITests */,
+				E105FFB92782E03000C6B73B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E105FFB92782E03000C6B73B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E105FFB82782E03000C6B73B /* Cinnamon.app */,
+				E105FFCD2782E03200C6B73B /* CinnamonTests.xctest */,
+				E105FFD72782E03200C6B73B /* CinnamonUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E105FFBA2782E03000C6B73B /* Cinnamon */ = {
+			isa = PBXGroup;
+			children = (
+				E105FFBB2782E03000C6B73B /* CinnamonApp.swift */,
+				E105FFBD2782E03000C6B73B /* ContentView.swift */,
+				E105FFBF2782E03200C6B73B /* Assets.xcassets */,
+				E105FFC42782E03200C6B73B /* Persistence.swift */,
+				E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */,
+				E105FFC12782E03200C6B73B /* Preview Content */,
+			);
+			path = Cinnamon;
+			sourceTree = "<group>";
+		};
+		E105FFC12782E03200C6B73B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E105FFC22782E03200C6B73B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E105FFD02782E03200C6B73B /* CinnamonTests */ = {
+			isa = PBXGroup;
+			children = (
+				E105FFD12782E03200C6B73B /* CinnamonTests.swift */,
+			);
+			path = CinnamonTests;
+			sourceTree = "<group>";
+		};
+		E105FFDA2782E03200C6B73B /* CinnamonUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */,
+				E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */,
+			);
+			path = CinnamonUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E105FFB72782E03000C6B73B /* Cinnamon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E105FFE12782E03200C6B73B /* Build configuration list for PBXNativeTarget "Cinnamon" */;
+			buildPhases = (
+				E105FFB42782E03000C6B73B /* Sources */,
+				E105FFB52782E03000C6B73B /* Frameworks */,
+				E105FFB62782E03000C6B73B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Cinnamon;
+			productName = Cinnamon;
+			productReference = E105FFB82782E03000C6B73B /* Cinnamon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E105FFCC2782E03200C6B73B /* CinnamonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E105FFE42782E03200C6B73B /* Build configuration list for PBXNativeTarget "CinnamonTests" */;
+			buildPhases = (
+				E105FFC92782E03200C6B73B /* Sources */,
+				E105FFCA2782E03200C6B73B /* Frameworks */,
+				E105FFCB2782E03200C6B73B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E105FFCF2782E03200C6B73B /* PBXTargetDependency */,
+			);
+			name = CinnamonTests;
+			productName = CinnamonTests;
+			productReference = E105FFCD2782E03200C6B73B /* CinnamonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E105FFD62782E03200C6B73B /* CinnamonUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E105FFE72782E03200C6B73B /* Build configuration list for PBXNativeTarget "CinnamonUITests" */;
+			buildPhases = (
+				E105FFD32782E03200C6B73B /* Sources */,
+				E105FFD42782E03200C6B73B /* Frameworks */,
+				E105FFD52782E03200C6B73B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E105FFD92782E03200C6B73B /* PBXTargetDependency */,
+			);
+			name = CinnamonUITests;
+			productName = CinnamonUITests;
+			productReference = E105FFD72782E03200C6B73B /* CinnamonUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E105FFB02782E03000C6B73B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					E105FFB72782E03000C6B73B = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					E105FFCC2782E03200C6B73B = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = E105FFB72782E03000C6B73B;
+					};
+					E105FFD62782E03200C6B73B = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = E105FFB72782E03000C6B73B;
+					};
+				};
+			};
+			buildConfigurationList = E105FFB32782E03000C6B73B /* Build configuration list for PBXProject "Cinnamon" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E105FFAF2782E03000C6B73B;
+			productRefGroup = E105FFB92782E03000C6B73B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E105FFB72782E03000C6B73B /* Cinnamon */,
+				E105FFCC2782E03200C6B73B /* CinnamonTests */,
+				E105FFD62782E03200C6B73B /* CinnamonUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E105FFB62782E03000C6B73B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E105FFC32782E03200C6B73B /* Preview Assets.xcassets in Resources */,
+				E105FFC02782E03200C6B73B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E105FFCB2782E03200C6B73B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E105FFD52782E03200C6B73B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E105FFB42782E03000C6B73B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E105FFC82782E03200C6B73B /* Cinnamon.xcdatamodeld in Sources */,
+				E105FFC52782E03200C6B73B /* Persistence.swift in Sources */,
+				E105FFBE2782E03000C6B73B /* ContentView.swift in Sources */,
+				E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E105FFC92782E03200C6B73B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E105FFD22782E03200C6B73B /* CinnamonTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E105FFD32782E03200C6B73B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E105FFDE2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift in Sources */,
+				E105FFDC2782E03200C6B73B /* CinnamonUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E105FFCF2782E03200C6B73B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E105FFB72782E03000C6B73B /* Cinnamon */;
+			targetProxy = E105FFCE2782E03200C6B73B /* PBXContainerItemProxy */;
+		};
+		E105FFD92782E03200C6B73B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E105FFB72782E03000C6B73B /* Cinnamon */;
+			targetProxy = E105FFD82782E03200C6B73B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E105FFDF2782E03200C6B73B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E105FFE02782E03200C6B73B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E105FFE22782E03200C6B73B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cinnamon/Preview Content\"";
+				DEVELOPMENT_TEAM = TBWQTY9PVU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MoNireu.Cinnamon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E105FFE32782E03200C6B73B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cinnamon/Preview Content\"";
+				DEVELOPMENT_TEAM = TBWQTY9PVU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MoNireu.Cinnamon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E105FFE52782E03200C6B73B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TBWQTY9PVU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MoNireu.CinnamonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cinnamon.app/Cinnamon";
+			};
+			name = Debug;
+		};
+		E105FFE62782E03200C6B73B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TBWQTY9PVU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MoNireu.CinnamonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cinnamon.app/Cinnamon";
+			};
+			name = Release;
+		};
+		E105FFE82782E03200C6B73B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TBWQTY9PVU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MoNireu.CinnamonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cinnamon;
+			};
+			name = Debug;
+		};
+		E105FFE92782E03200C6B73B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TBWQTY9PVU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = MoNireu.CinnamonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cinnamon;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E105FFB32782E03000C6B73B /* Build configuration list for PBXProject "Cinnamon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E105FFDF2782E03200C6B73B /* Debug */,
+				E105FFE02782E03200C6B73B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E105FFE12782E03200C6B73B /* Build configuration list for PBXNativeTarget "Cinnamon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E105FFE22782E03200C6B73B /* Debug */,
+				E105FFE32782E03200C6B73B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E105FFE42782E03200C6B73B /* Build configuration list for PBXNativeTarget "CinnamonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E105FFE52782E03200C6B73B /* Debug */,
+				E105FFE62782E03200C6B73B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E105FFE72782E03200C6B73B /* Build configuration list for PBXNativeTarget "CinnamonUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E105FFE82782E03200C6B73B /* Debug */,
+				E105FFE92782E03200C6B73B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E105FFC72782E03200C6B73B /* Cinnamon.xcdatamodel */,
+			);
+			currentVersion = E105FFC72782E03200C6B73B /* Cinnamon.xcdatamodel */;
+			path = Cinnamon.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E105FFB02782E03000C6B73B /* Project object */;
+}
