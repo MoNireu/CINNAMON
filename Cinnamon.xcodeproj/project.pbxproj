@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFBB2782E03000C6B73B /* CinnamonApp.swift */; };
-		E105FFBE2782E03000C6B73B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFBD2782E03000C6B73B /* ContentView.swift */; };
+		E105FFBE2782E03000C6B73B /* SignInUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFBD2782E03000C6B73B /* SignInUpView.swift */; };
 		E105FFC02782E03200C6B73B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E105FFBF2782E03200C6B73B /* Assets.xcassets */; };
 		E105FFC32782E03200C6B73B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E105FFC22782E03200C6B73B /* Preview Assets.xcassets */; };
 		E105FFC52782E03200C6B73B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFC42782E03200C6B73B /* Persistence.swift */; };
@@ -16,6 +16,7 @@
 		E105FFD22782E03200C6B73B /* CinnamonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFD12782E03200C6B73B /* CinnamonTests.swift */; };
 		E105FFDC2782E03200C6B73B /* CinnamonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */; };
 		E105FFDE2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */; };
+		E1D0492C27BB88C00074A9EC /* SignInButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,7 @@
 /* Begin PBXFileReference section */
 		E105FFB82782E03000C6B73B /* Cinnamon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinnamon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E105FFBB2782E03000C6B73B /* CinnamonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonApp.swift; sourceTree = "<group>"; };
-		E105FFBD2782E03000C6B73B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E105FFBD2782E03000C6B73B /* SignInUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpView.swift; sourceTree = "<group>"; };
 		E105FFBF2782E03200C6B73B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E105FFC22782E03200C6B73B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E105FFC42782E03200C6B73B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -48,6 +49,7 @@
 		E105FFD72782E03200C6B73B /* CinnamonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinnamonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITests.swift; sourceTree = "<group>"; };
 		E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +100,10 @@
 		E105FFBA2782E03000C6B73B /* Cinnamon */ = {
 			isa = PBXGroup;
 			children = (
+				E183A61627BB729300A29D8E /* Models */,
+				E183A61827BB72C100A29D8E /* Views */,
+				E183A61727BB729F00A29D8E /* ViewModels */,
 				E105FFBB2782E03000C6B73B /* CinnamonApp.swift */,
-				E105FFBD2782E03000C6B73B /* ContentView.swift */,
 				E105FFBF2782E03200C6B73B /* Assets.xcassets */,
 				E105FFC42782E03200C6B73B /* Persistence.swift */,
 				E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */,
@@ -131,6 +135,37 @@
 				E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */,
 			);
 			path = CinnamonUITests;
+			sourceTree = "<group>";
+		};
+		E183A61627BB729300A29D8E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E183A61727BB729F00A29D8E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E183A61827BB72C100A29D8E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1D0492A27BB835B0074A9EC /* SignInUp */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E1D0492A27BB835B0074A9EC /* SignInUp */ = {
+			isa = PBXGroup;
+			children = (
+				E105FFBD2782E03000C6B73B /* SignInUpView.swift */,
+				E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */,
+			);
+			path = SignInUp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,7 +300,8 @@
 			files = (
 				E105FFC82782E03200C6B73B /* Cinnamon.xcdatamodeld in Sources */,
 				E105FFC52782E03200C6B73B /* Persistence.swift in Sources */,
-				E105FFBE2782E03000C6B73B /* ContentView.swift in Sources */,
+				E1D0492C27BB88C00074A9EC /* SignInButtonsView.swift in Sources */,
+				E105FFBE2782E03000C6B73B /* SignInUpView.swift in Sources */,
 				E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

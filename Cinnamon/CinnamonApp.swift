@@ -13,7 +13,7 @@ struct CinnamonApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SignInUpView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
