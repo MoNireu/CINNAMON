@@ -11,20 +11,31 @@ import CoreData
 
 
 struct SignInUpView: View {
+    @State private var id: String = ""
+    @State private var password: String = ""
+    @State private var showSignInField: Bool = false
     
     var body: some View {
-        VStack() {
-            Spacer()
-            Spacer()
+        ZStack {
+            VStack {
+                Spacer()
+                Spacer()
+                
+                Text("CINNAMON")
+                    .font(.title)
+                    .padding(.bottom, 100.0)
+                
+                SignInButtonsView(isShown: $showSignInField)
+                    
+                Spacer()
+            }
             
-            Text("CINNAMON")
-                .font(.title)
-            
-            Spacer()
-            
-            SignInButtonsView()
-            
-            Spacer()
+            if showSignInField {
+                Color.black.opacity(0.7)
+                    .ignoresSafeArea()
+                
+                SignInFieldView(id: $id, password: $password, isShown: $showSignInField)
+            }
         }
     }
 }

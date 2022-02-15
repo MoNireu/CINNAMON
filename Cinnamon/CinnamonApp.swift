@@ -14,7 +14,6 @@ struct CinnamonApp: App {
     var body: some Scene {
         WindowGroup {
             SignInUpView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

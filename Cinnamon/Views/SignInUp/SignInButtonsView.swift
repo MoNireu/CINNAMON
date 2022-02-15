@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct SignInButtonsView: View {
-    private let buttonWidth = 120.0
+    @Binding var isShown: Bool
+    
+    private let BUTTON_WIDTH: CGFloat = 120.0
+    private let BUTTON_SIDE_MARGIN: CGFloat = 30.0
     
     var body: some View {
         VStack {
@@ -20,7 +23,7 @@ struct SignInButtonsView: View {
                         .resizable()
                         .scaledToFit()
                     Text("Apple 로그인")
-                        .frame(maxWidth: buttonWidth)
+                        .frame(maxWidth: BUTTON_WIDTH)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: 50.0)
@@ -29,8 +32,8 @@ struct SignInButtonsView: View {
                 .background(Color.gray)
                 .cornerRadius(10.0)
             }
-            .padding(.leading, 50.0)
-            .padding(.trailing, 50.0)
+            .padding(.leading, BUTTON_SIDE_MARGIN)
+            .padding(.trailing, BUTTON_SIDE_MARGIN)
             
             
             Button {
@@ -41,7 +44,7 @@ struct SignInButtonsView: View {
                         .resizable()
                         .scaledToFit()
                     Text("Google 로그인")
-                        .frame(maxWidth: buttonWidth)
+                        .frame(maxWidth: BUTTON_WIDTH)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: 50.0)
@@ -50,19 +53,20 @@ struct SignInButtonsView: View {
                 .background(Color.gray)
                 .cornerRadius(10.0)
             }
-            .padding(.leading, 50.0)
-            .padding(.trailing, 50.0)
+            .padding(.leading, BUTTON_SIDE_MARGIN)
+            .padding(.trailing, BUTTON_SIDE_MARGIN)
             
             
             Button {
                 print("Log -", #fileID, #function, #line, "일반 로그인")
+                isShown.toggle()
             } label: {
                 HStack {
                     Image(systemName: "lock.open.fill")
                         .resizable()
                         .scaledToFit()
                     Text("일반 로그인")
-                        .frame(maxWidth: buttonWidth)
+                        .frame(maxWidth: BUTTON_WIDTH)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: 50.0)
@@ -71,14 +75,16 @@ struct SignInButtonsView: View {
                 .background(Color.gray)
                 .cornerRadius(10.0)
             }
-            .padding(.leading, 50.0)
-            .padding(.trailing, 50.0)
+            .padding(.leading, BUTTON_SIDE_MARGIN)
+            .padding(.trailing, BUTTON_SIDE_MARGIN)
+            
         }
+        .frame(height: 170.0)
     }
 }
 
 struct SignInButtonsView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInButtonsView()
+        SignInButtonsView(isShown: Binding.constant(false))
     }
 }
