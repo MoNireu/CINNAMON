@@ -14,28 +14,35 @@ struct SignInUpView: View {
     @State private var id: String = ""
     @State private var password: String = ""
     @State private var showSignInField: Bool = false
+    let ANIMATION_DURATION = 0.2
     
     var body: some View {
-        ZStack {
-            VStack {
-                Spacer()
-                Spacer()
-                
-                Text("CINNAMON")
-                    .font(.title)
-                    .padding(.bottom, 100.0)
-                
-                SignInButtonsView(isShown: $showSignInField)
-                    
-                Spacer()
-            }
+        
+        VStack {
+            Spacer()
+            Spacer()
             
-            if showSignInField {
-                Color.black.opacity(0.7)
-                    .ignoresSafeArea()
+            Text("CINNAMON")
+                .font(.title)
+                .padding(.bottom, 100.0)
+            
+            ZStack {
+                SignInButtonsView(isShown: $showSignInField)
+                    .opacity(showSignInField ? 0 : 1)
+                    .animation(Animation
+                                .easeInOut(duration: ANIMATION_DURATION)
+                                .delay(showSignInField ? 0 : ANIMATION_DURATION),
+                               value: showSignInField)
                 
                 SignInFieldView(id: $id, password: $password, isShown: $showSignInField)
+                    .opacity(showSignInField ? 1 : 0)
+                    .animation(Animation
+                                .easeInOut(duration: ANIMATION_DURATION)
+                                .delay(showSignInField ? ANIMATION_DURATION : 0),
+                               value: showSignInField)
             }
+            
+            Spacer()
         }
     }
 }
@@ -43,7 +50,7 @@ struct SignInUpView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let deviceNames = ["iphone 13 Pro Max", "iPod touch (7th generation)"]
-
+        
         ForEach(deviceNames, id: \.self) {
             SignInUpView()
                 .previewDevice(PreviewDevice(rawValue: $0))
