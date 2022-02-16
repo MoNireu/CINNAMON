@@ -11,10 +11,12 @@ import CoreData
 
 
 struct SignInUpView: View {
-    @State private var id: String = ""
-    @State private var password: String = ""
-    @State private var showSignInField: Bool = false
+    @ObservedObject private var viewModel: SignInUpViewModel
     let ANIMATION_DURATION = 0.2
+    
+    init(viewModel: SignInUpViewModel) {
+        self.viewModel = SignInUpViewModel()
+    }
     
     var body: some View {
         
@@ -27,19 +29,23 @@ struct SignInUpView: View {
                 .padding(.bottom, 0.0)
             
             ZStack {
-                SignInButtonsView(isShown: $showSignInField)
-                    .opacity(showSignInField ? 0 : 1)
+                SignInButtonsView(isShown: $viewModel.showSignInField)
+                    .opacity(viewModel.showSignInField ? 0 : 1)
                     .animation(Animation
                                 .easeInOut(duration: ANIMATION_DURATION)
-                                .delay(showSignInField ? 0 : ANIMATION_DURATION),
-                               value: showSignInField)
+                                .delay(viewModel.showSignInField ? 0 : ANIMATION_DURATION),
+                               value: viewModel.showSignInField)
                 
-                SignInFieldView(id: $id, password: $password, isShown: $showSignInField)
-                    .opacity(showSignInField ? 1 : 0)
+                SignInFieldView (
+                    id: $viewModel.id,
+                    password: $viewModel.password,
+                    isShown: $viewModel.showSignInField
+                )
+                    .opacity(viewModel.showSignInField ? 1 : 0)
                     .animation(Animation
                                 .easeInOut(duration: ANIMATION_DURATION)
-                                .delay(showSignInField ? ANIMATION_DURATION : 0),
-                               value: showSignInField)
+                                .delay(viewModel.showSignInField ? ANIMATION_DURATION : 0),
+                               value: viewModel.showSignInField)
             }
             Spacer()
         }
@@ -51,7 +57,7 @@ struct ContentView_Previews: PreviewProvider {
         let deviceNames = ["iphone 13 Pro Max", "iPod touch (7th generation)"]
         
         ForEach(deviceNames, id: \.self) {
-            SignInUpView()
+            SignInUpView(viewModel: SignInUpViewModel())
                 .previewDevice(PreviewDevice(rawValue: $0))
                 .previewDisplayName($0)
         }

@@ -22,6 +22,7 @@
 		E1189E3227BC886A0005E590 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3127BC886A0005E590 /* FirebaseDatabase */; };
 		E1189E3427BC886A0005E590 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3327BC886A0005E590 /* FirebaseFirestore */; };
 		E1189E3627BC886A0005E590 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3527BC886A0005E590 /* FirebaseStorage */; };
+		E1189E3A27BC94970005E590 /* SignInUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1189E3927BC94970005E590 /* SignInUpViewModel.swift */; };
 		E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */; };
 		E1D0492C27BB88C00074A9EC /* SignInButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITests.swift; sourceTree = "<group>"; };
 		E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E1189E2A27BC88200005E590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E1189E3927BC94970005E590 /* SignInUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpViewModel.swift; sourceTree = "<group>"; };
 		E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFieldView.swift; sourceTree = "<group>"; };
 		E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -162,6 +164,7 @@
 		E183A61727BB729F00A29D8E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				E1189E3927BC94970005E590 /* SignInUpViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -169,19 +172,19 @@
 		E183A61827BB72C100A29D8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E1D0492A27BB835B0074A9EC /* SignInUp */,
+				E1D0492A27BB835B0074A9EC /* SignInUpViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		E1D0492A27BB835B0074A9EC /* SignInUp */ = {
+		E1D0492A27BB835B0074A9EC /* SignInUpViews */ = {
 			isa = PBXGroup;
 			children = (
 				E105FFBD2782E03000C6B73B /* SignInUpView.swift */,
 				E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */,
 				E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */,
 			);
-			path = SignInUp;
+			path = SignInUpViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +334,7 @@
 				E1D0492C27BB88C00074A9EC /* SignInButtonsView.swift in Sources */,
 				E105FFBE2782E03000C6B73B /* SignInUpView.swift in Sources */,
 				E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */,
+				E1189E3A27BC94970005E590 /* SignInUpViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
