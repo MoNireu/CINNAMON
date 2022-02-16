@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct CinnamonApp: App {
     let persistenceController = PersistenceController.shared
 
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             SignInUpView(viewModel: SignInUpViewModel())

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import AuthenticationServices
 
 
 
@@ -26,10 +27,10 @@ struct SignInUpView: View {
             
             Text("CINNAMON")
                 .font(.title)
-                .padding(.bottom, 0.0)
             
             ZStack {
-                SignInButtonsView(isShown: $viewModel.showSignInField)
+                SignInButtonsView(viewModel: viewModel,
+                                  isShown: $viewModel.showSignInField)
                     .opacity(viewModel.showSignInField ? 0 : 1)
                     .animation(Animation
                                 .easeInOut(duration: ANIMATION_DURATION)

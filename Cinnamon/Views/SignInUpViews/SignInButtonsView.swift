@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import AuthenticationServices
+import FirebaseAuth
 
 struct SignInButtonsView: View {
+    var viewModel: SignInUpViewModel
     @Binding var isShown: Bool
     
     private let BUTTON_WIDTH: CGFloat = 120.0
@@ -15,6 +18,21 @@ struct SignInButtonsView: View {
     
     var body: some View {
         VStack {
+            SignInWithAppleButton(.signIn) { request in
+                viewModel.requestSignInWithApple(request)
+            } onCompletion: { result in
+                switch result {
+                case .success(let authorization):
+                    viewModel.signInWithFirebase(authorization: authorization)
+                case .failure(let error):
+                    print("Authorisation failed: \(error.localizedDescription)")
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: 50.0)
+            .cornerRadius(10.0)
+            .padding(.leading, BUTTON_SIDE_MARGIN)
+            .padding(.trailing, BUTTON_SIDE_MARGIN)
+            
             Button {
                 print("Log -", #fileID, #function, #line, "Apple 로그인")
             } label: {
@@ -58,14 +76,14 @@ struct SignInButtonsView: View {
             
             
             Button {
-                print("Log -", #fileID, #function, #line, "일반 로그인")
+                print("Log -", #fileID, #function, #line, "이메일 로그인")
                 isShown.toggle()
             } label: {
                 HStack {
-                    Image(systemName: "lock.open.fill")
+                    Image(systemName: "envelope.fill")
                         .resizable()
                         .scaledToFit()
-                    Text("일반 로그인")
+                    Text("이메일 로그인")
                         .frame(maxWidth: BUTTON_WIDTH)
                 }
                 .padding()
@@ -85,6 +103,6 @@ struct SignInButtonsView: View {
 
 struct SignInButtonsView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInButtonsView(isShown: Binding.constant(false))
+        SignInButtonsView(viewModel: SignInUpViewModel(), isShown: Binding.constant(false))
     }
 }
