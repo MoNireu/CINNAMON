@@ -24,7 +24,7 @@ struct SignInUpView: View {
             
             Text("CINNAMON")
                 .font(.title)
-                .padding(.bottom, 100.0)
+                .padding(.bottom, 0.0)
             
             ZStack {
                 SignInButtonsView(isShown: $showSignInField)
@@ -41,7 +41,6 @@ struct SignInUpView: View {
                                 .delay(showSignInField ? ANIMATION_DURATION : 0),
                                value: showSignInField)
             }
-            
             Spacer()
         }
     }

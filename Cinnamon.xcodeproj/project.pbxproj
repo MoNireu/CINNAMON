@@ -16,6 +16,12 @@
 		E105FFD22782E03200C6B73B /* CinnamonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFD12782E03200C6B73B /* CinnamonTests.swift */; };
 		E105FFDC2782E03200C6B73B /* CinnamonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */; };
 		E105FFDE2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */; };
+		E1189E2B27BC88200005E590 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1189E2A27BC88200005E590 /* GoogleService-Info.plist */; };
+		E1189E2E27BC886A0005E590 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E2D27BC886A0005E590 /* FirebaseAnalytics */; };
+		E1189E3027BC886A0005E590 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E2F27BC886A0005E590 /* FirebaseAuth */; };
+		E1189E3227BC886A0005E590 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3127BC886A0005E590 /* FirebaseDatabase */; };
+		E1189E3427BC886A0005E590 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3327BC886A0005E590 /* FirebaseFirestore */; };
+		E1189E3627BC886A0005E590 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3527BC886A0005E590 /* FirebaseStorage */; };
 		E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */; };
 		E1D0492C27BB88C00074A9EC /* SignInButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +56,7 @@
 		E105FFD72782E03200C6B73B /* CinnamonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinnamonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITests.swift; sourceTree = "<group>"; };
 		E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E1189E2A27BC88200005E590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFieldView.swift; sourceTree = "<group>"; };
 		E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,6 +66,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1189E3227BC886A0005E590 /* FirebaseDatabase in Frameworks */,
+				E1189E3427BC886A0005E590 /* FirebaseFirestore in Frameworks */,
+				E1189E2E27BC886A0005E590 /* FirebaseAnalytics in Frameworks */,
+				E1189E3627BC886A0005E590 /* FirebaseStorage in Frameworks */,
+				E1189E3027BC886A0005E590 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +121,7 @@
 				E105FFBF2782E03200C6B73B /* Assets.xcassets */,
 				E105FFC42782E03200C6B73B /* Persistence.swift */,
 				E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */,
+				E1189E2A27BC88200005E590 /* GoogleService-Info.plist */,
 				E105FFC12782E03200C6B73B /* Preview Content */,
 			);
 			path = Cinnamon;
@@ -187,6 +200,13 @@
 			dependencies = (
 			);
 			name = Cinnamon;
+			packageProductDependencies = (
+				E1189E2D27BC886A0005E590 /* FirebaseAnalytics */,
+				E1189E2F27BC886A0005E590 /* FirebaseAuth */,
+				E1189E3127BC886A0005E590 /* FirebaseDatabase */,
+				E1189E3327BC886A0005E590 /* FirebaseFirestore */,
+				E1189E3527BC886A0005E590 /* FirebaseStorage */,
+			);
 			productName = Cinnamon;
 			productReference = E105FFB82782E03000C6B73B /* Cinnamon.app */;
 			productType = "com.apple.product-type.application";
@@ -259,6 +279,9 @@
 				Base,
 			);
 			mainGroup = E105FFAF2782E03000C6B73B;
+			packageReferences = (
+				E1189E2C27BC886A0005E590 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = E105FFB92782E03000C6B73B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -277,6 +300,7 @@
 			files = (
 				E105FFC32782E03200C6B73B /* Preview Assets.xcassets in Resources */,
 				E105FFC02782E03200C6B73B /* Assets.xcassets in Resources */,
+				E1189E2B27BC88200005E590 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +657,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E1189E2C27BC886A0005E590 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 8.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E1189E2D27BC886A0005E590 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1189E2C27BC886A0005E590 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		E1189E2F27BC886A0005E590 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1189E2C27BC886A0005E590 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		E1189E3127BC886A0005E590 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1189E2C27BC886A0005E590 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		E1189E3327BC886A0005E590 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1189E2C27BC886A0005E590 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E1189E3527BC886A0005E590 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1189E2C27BC886A0005E590 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */ = {

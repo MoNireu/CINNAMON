@@ -49,7 +49,7 @@ struct SignInFieldView: View {
             }
             .padding()
         }
-        .frame(maxHeight: 200.0)
+        .frame(maxHeight: 300.0)
         .background(Color.white)
         .cornerRadius(10.0)
         .padding(.leading, 18.0)

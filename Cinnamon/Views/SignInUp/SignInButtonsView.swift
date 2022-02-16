@@ -79,7 +79,7 @@ struct SignInButtonsView: View {
             .padding(.trailing, BUTTON_SIDE_MARGIN)
             
         }
-        .frame(height: 170.0)
+        .frame(height: 300.0)
     }
 }
 
