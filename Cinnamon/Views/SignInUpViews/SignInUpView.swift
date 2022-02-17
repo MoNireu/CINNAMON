@@ -29,7 +29,7 @@ struct SignInUpView: View {
                 .font(.title)
             
             ZStack {
-                SignInButtonsView(viewModel: viewModel,
+                SignInButtonStackView(viewModel: viewModel,
                                   isShown: $viewModel.showSignInField)
                     .opacity(viewModel.showSignInField ? 0 : 1)
                     .animation(Animation

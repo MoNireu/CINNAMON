@@ -23,9 +23,10 @@
 		E1189E3427BC886A0005E590 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3327BC886A0005E590 /* FirebaseFirestore */; };
 		E1189E3627BC886A0005E590 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3527BC886A0005E590 /* FirebaseStorage */; };
 		E1189E3A27BC94970005E590 /* SignInUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1189E3927BC94970005E590 /* SignInUpViewModel.swift */; };
+		E126CE4C27BE5B1C00DB4CD3 /* SignInButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */; };
 		E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */; };
 		E136F54E27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 in Resources */ = {isa = PBXBuildFile; fileRef = E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */; };
-		E1D0492C27BB88C00074A9EC /* SignInButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */; };
+		E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,9 +61,10 @@
 		E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E1189E2A27BC88200005E590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1189E3927BC94970005E590 /* SignInUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpViewModel.swift; sourceTree = "<group>"; };
+		E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonView.swift; sourceTree = "<group>"; };
 		E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFieldView.swift; sourceTree = "<group>"; };
 		E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_MX4ZHMC3NL.p8; sourceTree = "<group>"; };
-		E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonsView.swift; sourceTree = "<group>"; };
+		E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonStackView.swift; sourceTree = "<group>"; };
 		E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cinnamon.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,8 +188,9 @@
 			isa = PBXGroup;
 			children = (
 				E105FFBD2782E03000C6B73B /* SignInUpView.swift */,
-				E1D0492B27BB88C00074A9EC /* SignInButtonsView.swift */,
+				E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */,
 				E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */,
+				E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */,
 			);
 			path = SignInUpViews;
 			sourceTree = "<group>";
@@ -334,10 +337,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E126CE4C27BE5B1C00DB4CD3 /* SignInButtonView.swift in Sources */,
 				E105FFC82782E03200C6B73B /* Cinnamon.xcdatamodeld in Sources */,
 				E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */,
 				E105FFC52782E03200C6B73B /* Persistence.swift in Sources */,
-				E1D0492C27BB88C00074A9EC /* SignInButtonsView.swift in Sources */,
+				E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */,
 				E105FFBE2782E03000C6B73B /* SignInUpView.swift in Sources */,
 				E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */,
 				E1189E3A27BC94970005E590 /* SignInUpViewModel.swift in Sources */,

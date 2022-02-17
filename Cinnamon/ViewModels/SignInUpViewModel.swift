@@ -11,7 +11,7 @@ import FirebaseAuth
 import CryptoKit
 
 
-class SignInUpViewModel: ObservableObject {
+class SignInUpViewModel: NSObject, ObservableObject {
     @Published var id: String = ""
     @Published var password: String = ""
     @Published var showSignInField: Bool = false
@@ -20,11 +20,16 @@ class SignInUpViewModel: ObservableObject {
     
     
     // MARK: - 1st Methods
-    func requestSignInWithApple(_ request: ASAuthorizationAppleIDRequest) {
+    
+    func signInWithApple() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
         nonce = randomNonceString()
         request.nonce = sha256(nonce)
         request.requestedScopes = [.fullName, .email]
-        print("Authorisation requested")
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.performRequests()
     }
     
     
@@ -56,6 +61,8 @@ class SignInUpViewModel: ObservableObject {
         }
     }
     
+    
+    // MARK: - 2nd Methods
     
     // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
     private func randomNonceString(length: Int = 32) -> String {
@@ -103,8 +110,15 @@ class SignInUpViewModel: ObservableObject {
     
     
     
-    // MARK: - 2nd Methods
+    // MARK: - 3rd Methods
     
     
     
+}
+
+
+extension SignInUpViewModel: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        print(authorization)
+    }
 }
