@@ -13,27 +13,35 @@ struct SignInButtonStackView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var viewModel: SignInUpViewModel
-    @Binding var isShown: Bool
+    @Binding var showSignInField: Bool
     
     var body: some View {
         VStack {
             SignInButtonView(
                 title: "Apple로 로그인",
-                image: Image("Logo - SIWA - Left-aligned - White - Medium")) {
+                image: Image("Logo - SIWA - Left-aligned - \(colorScheme == .dark ? "Black" : "White") - Medium"),
+                action: {
                     viewModel.signInWithApple()
-                }
+                })
             
             SignInButtonView(
                 title: "Google로 로그인",
-                image: Image("SignInWithGoogle").resizable().padding()) {
+                image: Image("SignInWithGoogle").resizable().padding(),
+                action: {
                     print("Log -", #fileID, #function, #line, "Google 로그인")
-                }
+                })
             
             SignInButtonView(
                 title: "이메일로 로그인",
-                image: Image(systemName: "envelope.fill").resizable().renderingMode(.original).foregroundColor(.white).padding()) {
+                image: Image(systemName: "envelope.fill")
+                    .resizable()
+                    .renderingMode(.original)
+                    .foregroundColor(.white)
+                    .padding(),
+                action: {
                     print("Log -", #fileID, #function, #line, "이메일로 로그인")
-                }
+                    showSignInField = true
+                })
         }
         .frame(height: 300.0)
     }
@@ -41,6 +49,6 @@ struct SignInButtonStackView: View {
 
 struct SignInButtonsView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInButtonStackView(viewModel: SignInUpViewModel(), isShown: Binding.constant(false))
+        SignInButtonStackView(viewModel: SignInUpViewModel(), showSignInField: Binding.constant(false))
     }
 }

@@ -30,7 +30,7 @@ struct SignInUpView: View {
             
             ZStack {
                 SignInButtonStackView(viewModel: viewModel,
-                                  isShown: $viewModel.showSignInField)
+                                  showSignInField: $viewModel.showSignInField)
                     .opacity(viewModel.showSignInField ? 0 : 1)
                     .animation(Animation
                                 .easeInOut(duration: ANIMATION_DURATION)
