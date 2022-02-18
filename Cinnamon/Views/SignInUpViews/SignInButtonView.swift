@@ -24,11 +24,16 @@ struct SignInButtonView<Icon: View>: View {
     }
     
     var body: some View {
-        ZStack {
+        HStack {
             Button {
                 print("Log -", #fileID, #function, #line, title)
                 action()
             } label: {
+                image
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: BUTTON_HEIGHT, height: BUTTON_HEIGHT)
+                    .padding(.leading, -30.0)
+                
                 Text(title)
                     .frame(width: BUTTON_WIDTH)
             }
@@ -38,11 +43,6 @@ struct SignInButtonView<Icon: View>: View {
             .background(BUTTON_BACKGROUND_COLOR)
             .cornerRadius(10.0)
             .padding(.horizontal, BUTTON_SIDE_MARGIN)
-            
-            image
-                .aspectRatio(contentMode: .fit)
-                .frame(width: BUTTON_WIDTH, height: BUTTON_HEIGHT)
-                .padding(.trailing, BUTTON_WIDTH + 50.0)
             
         }
     }

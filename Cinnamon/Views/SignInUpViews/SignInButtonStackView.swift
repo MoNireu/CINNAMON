@@ -19,7 +19,12 @@ struct SignInButtonStackView: View {
         VStack {
             SignInButtonView(
                 title: "Apple로 로그인",
-                image: Image("Logo - SIWA - Left-aligned - \(colorScheme == .dark ? "Black" : "White") - Medium"),
+                image: Image("Logo - SIWA - Left-aligned - \(colorScheme == .dark ? "Black" : "White") - Medium")
+//                    .opacity(showSignInField ? 0 : 1)
+//                    .animation(.easeInOut(duration: 0.2)
+//                                .delay(showSignInField ? 0 : 0.2),
+//                               value: showSignInField)
+                ,
                 action: {
                     viewModel.signInWithApple()
                 })

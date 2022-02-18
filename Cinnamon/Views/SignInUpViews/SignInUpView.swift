@@ -21,34 +21,36 @@ struct SignInUpView: View {
     
     var body: some View {
         
-        VStack {
-            Spacer()
-            Spacer()
-            
-            Text("CINNAMON")
-                .font(.title)
-            
-            ZStack {
-                SignInButtonStackView(viewModel: viewModel,
-                                  showSignInField: $viewModel.showSignInField)
-                    .opacity(viewModel.showSignInField ? 0 : 1)
-                    .animation(Animation
-                                .easeInOut(duration: ANIMATION_DURATION)
-                                .delay(viewModel.showSignInField ? 0 : ANIMATION_DURATION),
-                               value: viewModel.showSignInField)
+        ZStack {
+            VStack {
+                Spacer()
+                Spacer()
                 
-                SignInFieldView (
-                    id: $viewModel.id,
-                    password: $viewModel.password,
-                    isShown: $viewModel.showSignInField
-                )
-                    .opacity(viewModel.showSignInField ? 1 : 0)
-                    .animation(Animation
-                                .easeInOut(duration: ANIMATION_DURATION)
-                                .delay(viewModel.showSignInField ? ANIMATION_DURATION : 0),
-                               value: viewModel.showSignInField)
+                VStack {
+                    Text("CINNAMON")
+                        .font(.title)
+                    
+                    SignInButtonStackView(viewModel: viewModel,
+                                          showSignInField: $viewModel.showSignInField)
+                }
+                Spacer()
             }
-            Spacer()
+            
+            if viewModel.showSignInField {
+                Group {
+                    Color.black.opacity(0.8)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            viewModel.showSignInField = false
+                        }
+                    
+                    SignInFieldView (
+                        id: $viewModel.id,
+                        password: $viewModel.password,
+                        isShown: $viewModel.showSignInField)
+                }
+                .transition(.opacity.animation(.easeInOut))
+            }
         }
     }
 }
