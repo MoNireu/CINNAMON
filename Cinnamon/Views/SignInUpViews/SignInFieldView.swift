@@ -50,7 +50,7 @@ struct SignInFieldView: View {
             .padding()
         }
         .frame(maxHeight: 300.0)
-        .background(Color.white)
+        .background(Color.clear)
         .cornerRadius(10.0)
         .padding(.leading, 18.0)
         .padding(.trailing, 18.0)

@@ -19,12 +19,7 @@ struct SignInButtonStackView: View {
         VStack {
             SignInButtonView(
                 title: "Apple로 로그인",
-                image: Image("Logo - SIWA - Left-aligned - \(colorScheme == .dark ? "Black" : "White") - Medium")
-//                    .opacity(showSignInField ? 0 : 1)
-//                    .animation(.easeInOut(duration: 0.2)
-//                                .delay(showSignInField ? 0 : 0.2),
-//                               value: showSignInField)
-                ,
+                image: Image("Logo - SIWA - Left-aligned - \(colorScheme == .dark ? "Black" : "White") - Medium"),
                 action: {
                     viewModel.signInWithApple()
                 })
@@ -41,7 +36,7 @@ struct SignInButtonStackView: View {
                 image: Image(systemName: "envelope.fill")
                     .resizable()
                     .renderingMode(.original)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? .black : .white)
                     .padding(),
                 action: {
                     print("Log -", #fileID, #function, #line, "이메일로 로그인")

@@ -12,45 +12,51 @@ import AuthenticationServices
 
 
 struct SignInUpView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject private var viewModel: SignInUpViewModel
+    
     let ANIMATION_DURATION = 0.2
     
     init(viewModel: SignInUpViewModel) {
         self.viewModel = SignInUpViewModel()
     }
     
+    var transitionColor: Color {
+        colorScheme == .dark ? .black : .white
+    }
+    
+    
     var body: some View {
-        
-        ZStack {
+        VStack {
+            Spacer()
+            Spacer()
+            
             VStack {
-                Spacer()
-                Spacer()
+                Text("CINNAMON")
+                    .font(.title)
                 
-                VStack {
-                    Text("CINNAMON")
-                        .font(.title)
-                    
+                ZStack {
                     SignInButtonStackView(viewModel: viewModel,
                                           showSignInField: $viewModel.showSignInField)
-                }
-                Spacer()
-            }
-            
-            if viewModel.showSignInField {
-                Group {
-                    Color.black.opacity(0.8)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            viewModel.showSignInField = false
-                        }
+                    
+                    transitionColor
+                        .frame(height: 300)
+                        .opacity(viewModel.showSignInField ? 1 : 0)
+                        .animation(.easeInOut(duration: ANIMATION_DURATION)
+                                    .delay(viewModel.showSignInField ? 0 : ANIMATION_DURATION),
+                                   value: viewModel.showSignInField)
                     
                     SignInFieldView (
                         id: $viewModel.id,
                         password: $viewModel.password,
                         isShown: $viewModel.showSignInField)
+                        .opacity(viewModel.showSignInField ? 1 : 0)
+                        .animation(.easeInOut(duration: ANIMATION_DURATION)
+                                    .delay(viewModel.showSignInField ? ANIMATION_DURATION: 0),
+                                   value: viewModel.showSignInField)
                 }
-                .transition(.opacity.animation(.easeInOut))
             }
+            Spacer()
         }
     }
 }
