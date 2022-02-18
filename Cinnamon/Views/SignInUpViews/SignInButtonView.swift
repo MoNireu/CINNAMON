@@ -24,7 +24,6 @@ struct SignInButtonView<Icon: View>: View {
     }
     
     var body: some View {
-        HStack {
             Button {
                 print("Log -", #fileID, #function, #line, title)
                 action()
@@ -32,10 +31,10 @@ struct SignInButtonView<Icon: View>: View {
                 image
                     .aspectRatio(contentMode: .fit)
                     .frame(width: BUTTON_HEIGHT, height: BUTTON_HEIGHT)
-                    .padding(.leading, -30.0)
                 
                 Text(title)
-                    .frame(width: BUTTON_WIDTH)
+                    .frame(width: BUTTON_WIDTH, alignment: .center)
+                    .padding(.trailing, BUTTON_WIDTH * 0.1)
             }
             .frame(maxWidth: .infinity, maxHeight: BUTTON_HEIGHT)
             .font(Font.system(size: BUTTON_HEIGHT * 0.43).weight(.medium))
@@ -43,8 +42,6 @@ struct SignInButtonView<Icon: View>: View {
             .background(BUTTON_BACKGROUND_COLOR)
             .cornerRadius(10.0)
             .padding(.horizontal, BUTTON_SIDE_MARGIN)
-            
-        }
     }
 }
 
@@ -52,7 +49,7 @@ struct SignInButtonView_Previews: PreviewProvider {
     
     static var previews: some View {
         SignInButtonView(
-            title: "Apple로 로그인",
+            title: "Google로 로그인",
             image: Image("Logo - SIWA - Left-aligned - White - Medium")) {
                 print("asdf")
             }
