@@ -19,7 +19,7 @@ struct SignInButtonStackView: View {
         VStack {
             SignInButtonView(
                 title: "Apple로 로그인",
-                image: Image("Logo - SIWA - Left-aligned - \(colorScheme == .dark ? "Black" : "White") - Medium"),
+                image: Image("Logo - SIWA - Left-aligned - \(colorScheme == .dark ? "Black" : "White") - Medium").resizable(),
                 action: {
                     viewModel.signInWithApple()
                 })

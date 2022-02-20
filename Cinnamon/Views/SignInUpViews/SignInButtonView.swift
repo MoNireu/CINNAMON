@@ -13,9 +13,10 @@ struct SignInButtonView<Icon: View>: View {
     var image: Icon
     var action: () -> Void
     
-    private let BUTTON_WIDTH = 150.0
-    private let BUTTON_HEIGHT = 50.0
+    private let TEXTFIELD_WIDTH = 155.0
     private let BUTTON_SIDE_MARGIN = 30.0
+    private let BUTTON_HEIGHT = 50.0
+    private var BUTTON_WIDTH: Double { UIScreen.main.bounds.width - BUTTON_SIDE_MARGIN * 2 }
     private var BUTTON_BACKGROUND_COLOR: Color {
         colorScheme == .dark ? Color.white : Color.black
     }
@@ -28,16 +29,18 @@ struct SignInButtonView<Icon: View>: View {
                 print("Log -", #fileID, #function, #line, title)
                 action()
             } label: {
+                Spacer(minLength: (UIScreen.main.bounds.width - 60) * 0.1)
                 image
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: BUTTON_HEIGHT, height: BUTTON_HEIGHT)
+                    .frame(width: BUTTON_HEIGHT, height: BUTTON_HEIGHT, alignment: .center)
                 
                 Text(title)
-                    .frame(width: BUTTON_WIDTH, alignment: .center)
-                    .padding(.trailing, BUTTON_WIDTH * 0.1)
+                    .frame(width: TEXTFIELD_WIDTH, alignment: .leading)
+                    .font(Font.system(size: round(BUTTON_HEIGHT * 0.43)).weight(.medium))
+                
+                Spacer(minLength: (UIScreen.main.bounds.width - 60) * 0.1)
             }
-            .frame(maxWidth: .infinity, maxHeight: BUTTON_HEIGHT)
-            .font(Font.system(size: BUTTON_HEIGHT * 0.43).weight(.medium))
+            .frame(height: BUTTON_HEIGHT)
             .foregroundColor(BUTTON_FORGROUND_COLOR)
             .background(BUTTON_BACKGROUND_COLOR)
             .cornerRadius(10.0)
