@@ -8,6 +8,7 @@
 import SwiftUI
 import AuthenticationServices
 import FirebaseAuth
+import GoogleSignIn
 
 struct SignInButtonStackView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -28,6 +29,7 @@ struct SignInButtonStackView: View {
                 title: "Google로 로그인",
                 image: Image("SignInWithGoogle").resizable().padding(),
                 action: {
+                    viewModel.signInWithGoogle()
                     print("Log -", #fileID, #function, #line, "Google 로그인")
                 })
             

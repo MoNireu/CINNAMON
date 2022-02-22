@@ -7,9 +7,17 @@
 
 import Foundation
 import AuthenticationServices
+import Firebase
 import FirebaseAuth
+import GoogleSignIn
+
 import CryptoKit
 
+
+enum OAuthProviderId {
+    case google
+    case apple
+}
 
 class SignInUpViewModel: NSObject, ObservableObject {
     @Published var id: String = ""
@@ -32,31 +40,25 @@ class SignInUpViewModel: NSObject, ObservableObject {
         authorizationController.performRequests()
     }
     
-    
-    func signInWithFirebase(authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let appleIDToken = appleIDCredential.identityToken else {
-                print("Unable to fetch identity token")
-                return
-            }
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-                return
-            }
-            // Initialize a Firebase credential.
-            let credential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                      idToken: idTokenString,
-                                                      rawNonce: nonce)
-            // Sign in with Firebase.
-            Auth.auth().signIn(with: credential) { (authResult, error) in
-                if let error = error {
-                    // Error. If error.code == .MissingOrInvalidNonce, make sure
-                    // you're sending the SHA256-hashed nonce as a hex string with
-                    // your request to Apple.
-                    print("Log -", #fileID, #function, #line, error.localizedDescription)
-                    return
+    func signInWithGoogle() {
+        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
+            GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
+                if let credential = createGoogleCredential(for: user, with: error) {
+                    signInWithFirebase(credential: credential)
                 }
-                print("Log -", #fileID, #function, #line, "User SignIn Firebase with AppleId")
+            }
+        } else {
+            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+            
+            let configuration = GIDConfiguration(clientID: clientID)
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+            guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
+            
+            
+            GIDSignIn.sharedInstance.signIn(with: configuration, presenting: rootViewController) { [unowned self] user, error in
+                if let credential = createGoogleCredential(for: user, with: error) {
+                    signInWithFirebase(credential: credential)
+                }
             }
         }
     }
@@ -108,6 +110,48 @@ class SignInUpViewModel: NSObject, ObservableObject {
         return hashString
     }
     
+    private func createAppleCredential(authorization: ASAuthorization) -> AuthCredential? {
+        guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential
+        else { return nil }
+        guard let appleIDToken = appleIDCredential.identityToken else {
+            print("Unable to fetch identity token")
+            return nil
+        }
+        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+            print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+            return nil
+        }
+        
+        let credential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                  idToken: idTokenString,
+                                                  rawNonce: nonce)
+        
+        return credential
+    }
+    
+    private func createGoogleCredential(for user: GIDGoogleUser?, with error: Error?) -> AuthCredential? {
+        if let error = error {
+            print(error.localizedDescription)
+            return nil
+        }
+        
+        guard let authentication = user?.authentication, let idToken = authentication.idToken else { return nil }
+        
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
+        
+        return credential
+    }
+    
+    
+    private func signInWithFirebase(credential: AuthCredential) {
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                print("Log -", #fileID, #function, #line, error.localizedDescription)
+                return
+            }
+            print("Log -", #fileID, #function, #line, "User SignIn Success")
+        }
+    }
     
     
     // MARK: - 3rd Methods
@@ -119,6 +163,8 @@ class SignInUpViewModel: NSObject, ObservableObject {
 
 extension SignInUpViewModel: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        print(authorization)
+        if let credential = createAppleCredential(authorization: authorization) {
+            signInWithFirebase(credential: credential)
+        }
     }
 }
