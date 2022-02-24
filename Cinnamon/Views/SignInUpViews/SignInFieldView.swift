@@ -10,7 +10,8 @@ import SwiftUI
 struct SignInFieldView: View {
     @Binding var id: String
     @Binding var password: String
-    @Binding var isShown: Bool
+    @Binding var showSignInField: Bool
+    @State var showSignUp: Bool = false
     
     var body: some View {
         VStack {
@@ -35,7 +36,7 @@ struct SignInFieldView: View {
                 Spacer()
                 Button {
                     print("Log -", #fileID, #function, #line, "로그인 취소")
-                    isShown.toggle()
+                    showSignInField.toggle()
                 } label: {
                     Text("취소")
                 }
@@ -48,6 +49,16 @@ struct SignInFieldView: View {
                 Spacer()
             }
             .padding()
+            
+            Button {
+                print("Log -", #fileID, #function, #line, "회원가입")
+                showSignUp.toggle()
+            } label: {
+                Text("회원가입")
+                    .fullScreenCover(isPresented: $showSignUp) {
+                        SignUpView(viewModel: SignUpViewModel(), showSignUp: $showSignUp)
+                    }
+            }
         }
         .frame(maxHeight: 300.0)
         .background(Color.clear)
@@ -59,6 +70,6 @@ struct SignInFieldView: View {
 
 struct SignInFieldView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInFieldView(id: Binding.constant(""), password: Binding.constant(""), isShown: Binding.constant(false))
+        SignInFieldView(id: Binding.constant(""), password: Binding.constant(""), showSignInField: Binding.constant(false), showSignUp: false)
     }
 }

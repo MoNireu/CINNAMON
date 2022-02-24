@@ -22,6 +22,7 @@ struct SignInButtonStackView: View {
                 title: "Apple로 로그인",
                 image: Image("Logo - SIWA - Left-aligned - \(colorScheme == .dark ? "Black" : "White") - Medium").resizable(),
                 action: {
+                    print("Log -", #fileID, #function, #line, "Apple로 로그인")
                     viewModel.signInWithApple()
                 })
             
@@ -29,8 +30,8 @@ struct SignInButtonStackView: View {
                 title: "Google로 로그인",
                 image: Image("SignInWithGoogle").resizable().padding(),
                 action: {
-                    viewModel.signInWithGoogle()
                     print("Log -", #fileID, #function, #line, "Google 로그인")
+                    viewModel.signInWithGoogle()
                 })
             
             SignInButtonView(

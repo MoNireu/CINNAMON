@@ -49,7 +49,7 @@ struct SignInUpView: View {
                     SignInFieldView (
                         id: $viewModel.id,
                         password: $viewModel.password,
-                        isShown: $viewModel.showSignInField)
+                        showSignInField: $viewModel.showSignInField)
                         .opacity(viewModel.showSignInField ? 1 : 0)
                         .animation(.easeInOut(duration: ANIMATION_DURATION)
                                     .delay(viewModel.showSignInField ? ANIMATION_DURATION: 0),
