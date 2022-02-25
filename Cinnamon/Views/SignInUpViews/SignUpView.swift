@@ -33,7 +33,20 @@ struct SignUpView: View {
     }
     
     var body: some View {
-        ZStack{
+        ZStack {
+            VStack {
+                Button {
+                    showSignUp.toggle()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
+                }
+                .padding()
+                
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
             VStack {
                 Text("회원가입")
                     .font(.system(size: 40.0))
@@ -72,7 +85,7 @@ struct SignUpView: View {
                 .cornerRadius(.infinity)
                 .padding(.top, 20.0)
                 .disabled(viewModel.isButtonDisabled)
-
+                
             }.padding(60.0)
         }
     }
