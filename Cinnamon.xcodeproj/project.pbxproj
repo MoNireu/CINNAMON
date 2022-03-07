@@ -28,6 +28,7 @@
 		E136F54E27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 in Resources */ = {isa = PBXBuildFile; fileRef = E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */; };
 		E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142D0C927D5A46A00579C8F /* AccountSetupView.swift */; };
 		E142D0CD27D5B28900579C8F /* AccountSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142D0CC27D5B28900579C8F /* AccountSetupViewModel.swift */; };
+		E142D0D027D5BCDA00579C8F /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142D0CF27D5BCDA00579C8F /* CheckBoxView.swift */; };
 		E15A1AC227C780C500E6B679 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A1AC127C780C500E6B679 /* SignUpView.swift */; };
 		E15A1AC427C780F700E6B679 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A1AC327C780F700E6B679 /* SignUpViewModel.swift */; };
 		E15D209527C484110088F06B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E15D209427C484110088F06B /* GoogleSignIn */; };
@@ -71,6 +72,7 @@
 		E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_MX4ZHMC3NL.p8; sourceTree = "<group>"; };
 		E142D0C927D5A46A00579C8F /* AccountSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupView.swift; sourceTree = "<group>"; };
 		E142D0CC27D5B28900579C8F /* AccountSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupViewModel.swift; sourceTree = "<group>"; };
+		E142D0CF27D5BCDA00579C8F /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		E15A1AC127C780C500E6B679 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		E15A1AC327C780F700E6B679 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		E15D209627C485490088F06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,6 +185,14 @@
 			path = SignInUpViewModels;
 			sourceTree = "<group>";
 		};
+		E142D0CE27D5BCBE00579C8F /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				E142D0CF27D5BCDA00579C8F /* CheckBoxView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 		E183A61627BB729300A29D8E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +211,7 @@
 		E183A61827BB72C100A29D8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E142D0CE27D5BCBE00579C8F /* CustomViews */,
 				E1D0492A27BB835B0074A9EC /* SignInUpViews */,
 			);
 			path = Views;
@@ -373,6 +384,7 @@
 				E105FFBE2782E03000C6B73B /* SignInUpView.swift in Sources */,
 				E142D0CD27D5B28900579C8F /* AccountSetupViewModel.swift in Sources */,
 				E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */,
+				E142D0D027D5BCDA00579C8F /* CheckBoxView.swift in Sources */,
 				E15A1AC227C780C500E6B679 /* SignUpView.swift in Sources */,
 				E1189E3A27BC94970005E590 /* SignInUpViewModel.swift in Sources */,
 			);

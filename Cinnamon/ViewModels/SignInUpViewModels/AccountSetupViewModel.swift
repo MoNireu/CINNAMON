@@ -11,12 +11,22 @@ import Combine
 
 class AccountSetupViewModel: ObservableObject {
     @Published var myId: String = ""
+    @Published var isCheckBoxChecked = false
     @Published var isCompleteButtonDisabled = true
     private var isIdVerified = false
+    private var isAllFieldVerified: Bool {
+        return isIdVerified && isCheckBoxChecked ? true : false
+    }
     
     func verifyId() {
         print("Log -", #fileID, #function, #line, "아이디: \(myId)")
-        enableCompleteButton()
+        if myId.isEmpty { isIdVerified = false }
+        else { isIdVerified = true }
+        changeCompleteButtonState()
+    }
+    
+    func changeCompleteButtonState() {
+        isAllFieldVerified ? enableCompleteButton() : disableCompleteButton()
     }
     
     func disableCompleteButton() {

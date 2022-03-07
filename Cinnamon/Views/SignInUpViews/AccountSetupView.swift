@@ -10,7 +10,6 @@ import SwiftUI
 struct AccountSetupView: View {
     @ObservedObject private var viewModel: AccountSetupViewModel
     
-    
     init(viewModel: AccountSetupViewModel) {
         self.viewModel = viewModel
     }
@@ -60,8 +59,11 @@ struct AccountSetupView: View {
             Spacer()
             
             HStack {
-                Image(systemName: "square")
-                    .font(.system(.title2))
+                CheckBoxView(isChecked: $viewModel.isCheckBoxChecked)
+                    .onTapGesture {
+                        viewModel.isCheckBoxChecked.toggle()
+                        viewModel.changeCompleteButtonState()
+                    }
                 
                 Text("개인정보 이용 동의")
             }
