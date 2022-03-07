@@ -12,6 +12,17 @@ struct AccountSetupView: View {
     
     var body: some View {
         VStack {
+            Button {
+                print()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 20.0, weight: .bold))
+                    .padding(.horizontal)
+                    .foregroundColor(.gray)
+                
+                Spacer()
+            }
+
             Spacer()
             Spacer()
             
