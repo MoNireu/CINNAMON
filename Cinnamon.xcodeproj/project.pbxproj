@@ -26,6 +26,7 @@
 		E126CE4C27BE5B1C00DB4CD3 /* SignInButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */; };
 		E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */; };
 		E136F54E27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 in Resources */ = {isa = PBXBuildFile; fileRef = E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */; };
+		E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142D0C927D5A46A00579C8F /* AccountSetupView.swift */; };
 		E15A1AC227C780C500E6B679 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A1AC127C780C500E6B679 /* SignUpView.swift */; };
 		E15A1AC427C780F700E6B679 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A1AC327C780F700E6B679 /* SignUpViewModel.swift */; };
 		E15D209527C484110088F06B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E15D209427C484110088F06B /* GoogleSignIn */; };
@@ -67,6 +68,7 @@
 		E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonView.swift; sourceTree = "<group>"; };
 		E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFieldView.swift; sourceTree = "<group>"; };
 		E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_MX4ZHMC3NL.p8; sourceTree = "<group>"; };
+		E142D0C927D5A46A00579C8F /* AccountSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupView.swift; sourceTree = "<group>"; };
 		E15A1AC127C780C500E6B679 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		E15A1AC327C780F700E6B679 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		E15D209627C485490088F06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */,
 				E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */,
 				E15A1AC127C780C500E6B679 /* SignUpView.swift */,
+				E142D0C927D5A46A00579C8F /* AccountSetupView.swift */,
 			);
 			path = SignInUpViews;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				E126CE4C27BE5B1C00DB4CD3 /* SignInButtonView.swift in Sources */,
 				E105FFC82782E03200C6B73B /* Cinnamon.xcdatamodeld in Sources */,
 				E15A1AC427C780F700E6B679 /* SignUpViewModel.swift in Sources */,
+				E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */,
 				E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */,
 				E105FFC52782E03200C6B73B /* Persistence.swift in Sources */,
 				E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */,
