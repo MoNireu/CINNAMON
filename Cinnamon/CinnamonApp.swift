@@ -18,7 +18,8 @@ struct CinnamonApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SignInUpView(viewModel: SignInUpViewModel())
+//            SignInUpView(viewModel: SignInUpViewModel())
+            AccountSetupView(viewModel: AccountSetupViewModel())
         }
     }
 }

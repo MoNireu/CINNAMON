@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct AccountSetupView: View {
-    @State private var myId: String = ""
+    @ObservedObject private var viewModel: AccountSetupViewModel
+    
+    
+    init(viewModel: AccountSetupViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         VStack {
@@ -31,9 +36,18 @@ struct AccountSetupView: View {
                     .padding()
                     .hidden()
                 
-                TextField("아이디 입력", text: $myId)
+                TextField("아이디 입력", text: $viewModel.myId)
+                    .disableAutocorrection(true)
                     .multilineTextAlignment(.center)
-                .font(.system(.title))
+                    .font(.system(.title))
+                    .onTapGesture {
+                        print("Log -", #fileID, #function, #line, "아이디 입력시작.")
+                        viewModel.disableCompleteButton()
+                    }
+                    .onSubmit {
+                        print("Log -", #fileID, #function, #line, "아이디 입력 완료.")
+                        viewModel.verifyId()
+                    }
                 
                 ProgressView()
                     .padding()
@@ -60,7 +74,9 @@ struct AccountSetupView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10.0)
                         .frame(height: 50.0)
+                        .foregroundColor(viewModel.isCompleteButtonDisabled ? .gray : .blue)
                         .padding(.horizontal)
+                        .disabled(viewModel.isCompleteButtonDisabled)
                     Text("완료")
                         .foregroundColor(.white)
                 }
@@ -72,6 +88,6 @@ struct AccountSetupView: View {
 
 struct AccountSetupView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountSetupView().preferredColorScheme(.light)
+        AccountSetupView(viewModel: AccountSetupViewModel()).preferredColorScheme(.light)
     }
 }
