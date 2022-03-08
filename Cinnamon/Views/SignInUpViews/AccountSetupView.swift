@@ -35,18 +35,24 @@ struct AccountSetupView: View {
                     .padding()
                     .hidden()
                 
-                TextField("아이디 입력", text: $viewModel.myId)
-                    .disableAutocorrection(true)
-                    .multilineTextAlignment(.center)
-                    .font(.system(.title))
-                    .onTapGesture {
-                        print("Log -", #fileID, #function, #line, "아이디 입력시작.")
-                        viewModel.disableCompleteButton()
+                ZStack {
+                    Rectangle()
+                        .frame(height: 2.0)
+                        .padding(.top, 50.0)
+                    
+                    TextField("아이디 입력", text: $viewModel.myId)
+                        .disableAutocorrection(true)
+                        .multilineTextAlignment(.center)
+                        .font(.system(.title))
+                        .onTapGesture {
+                            print("Log -", #fileID, #function, #line, "아이디 입력시작.")
+                            viewModel.disableCompleteButton()
+                        }
+                        .onSubmit {
+                            print("Log -", #fileID, #function, #line, "아이디 입력 완료.")
+                            viewModel.verifyId()
                     }
-                    .onSubmit {
-                        print("Log -", #fileID, #function, #line, "아이디 입력 완료.")
-                        viewModel.verifyId()
-                    }
+                }
                 
                 ProgressView()
                     .padding()
