@@ -17,6 +17,7 @@
 		E105FFDC2782E03200C6B73B /* CinnamonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */; };
 		E105FFDE2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */; };
 		E10CF67B27D9CA25006AA340 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10CF67A27D9CA25006AA340 /* View.swift */; };
+		E10CF67F27D9CDCA006AA340 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10CF67E27D9CDCA006AA340 /* MainTabView.swift */; };
 		E1189E2B27BC88200005E590 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1189E2A27BC88200005E590 /* GoogleService-Info.plist */; };
 		E1189E2E27BC886A0005E590 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E2D27BC886A0005E590 /* FirebaseAnalytics */; };
 		E1189E3027BC886A0005E590 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E2F27BC886A0005E590 /* FirebaseAuth */; };
@@ -67,6 +68,7 @@
 		E105FFDB2782E03200C6B73B /* CinnamonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITests.swift; sourceTree = "<group>"; };
 		E105FFDD2782E03200C6B73B /* CinnamonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E10CF67A27D9CA25006AA340 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		E10CF67E27D9CDCA006AA340 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		E1189E2A27BC88200005E590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1189E3927BC94970005E590 /* SignInUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpViewModel.swift; sourceTree = "<group>"; };
 		E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E10CF67D27D9CDA7006AA340 /* ContentViews */ = {
+			isa = PBXGroup;
+			children = (
+				E10CF67E27D9CDCA006AA340 /* MainTabView.swift */,
+			);
+			path = ContentViews;
+			sourceTree = "<group>";
+		};
 		E142D0CB27D5B26000579C8F /* SignInUpViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +231,7 @@
 		E183A61827BB72C100A29D8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E10CF67D27D9CDA7006AA340 /* ContentViews */,
 				E10CF67927D9CA04006AA340 /* Extensions */,
 				E142D0CE27D5BCBE00579C8F /* CustomViews */,
 				E1D0492A27BB835B0074A9EC /* SignInUpViews */,
@@ -396,6 +407,7 @@
 				E142D0CD27D5B28900579C8F /* AccountSetupViewModel.swift in Sources */,
 				E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */,
 				E142D0D027D5BCDA00579C8F /* CheckBoxView.swift in Sources */,
+				E10CF67F27D9CDCA006AA340 /* MainTabView.swift in Sources */,
 				E15A1AC227C780C500E6B679 /* SignUpView.swift in Sources */,
 				E10CF67B27D9CA25006AA340 /* View.swift in Sources */,
 				E1189E3A27BC94970005E590 /* SignInUpViewModel.swift in Sources */,
