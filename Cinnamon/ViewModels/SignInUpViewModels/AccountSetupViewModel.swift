@@ -13,6 +13,7 @@ class AccountSetupViewModel: ObservableObject {
     @Published var myId: String = ""
     @Published var isCheckBoxChecked = false
     @Published var isCompleteButtonDisabled = true
+    @Published var isVerifying = false
     private var isIdVerified = false
     private var isAllFieldVerified: Bool {
         return isIdVerified && isCheckBoxChecked ? true : false

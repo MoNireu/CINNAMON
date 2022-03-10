@@ -46,17 +46,20 @@ struct AccountSetupView: View {
                         .font(.system(.title))
                         .onTapGesture {
                             print("Log -", #fileID, #function, #line, "아이디 입력시작.")
+                            viewModel.isVerifying = true
                             viewModel.disableCompleteButton()
                         }
                         .onSubmit {
                             print("Log -", #fileID, #function, #line, "아이디 입력 완료.")
+                            viewModel.isVerifying = false
                             viewModel.verifyId()
                     }
                 }
                 
+                
                 ProgressView()
+                    .isHidden(!viewModel.isVerifying)
                     .padding()
-                    .hidden()
             }
             
             Text("이미 존재하는 아이디 입니다.")
