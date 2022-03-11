@@ -12,6 +12,6 @@ extension Int {
         let minute = Int(self / 60)
         let second = self % 60
         
-        return "\(minute):\(second)"
+        return "\(String(format: "%02d", minute)):\(String(format: "%02d", second))"
     }
 }

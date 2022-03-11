@@ -12,9 +12,11 @@ enum ExtractType {
     case brew
 }
 
-class ExtractRecipe {
+class ExtractRecipe: Identifiable {
+    var uuid = UUID()
     var title: String
     var description: String?
+    var extractType: ExtractType
     var totalExtractTime: Int
     var date: Date
     var beanAmount: Float
@@ -22,12 +24,14 @@ class ExtractRecipe {
     
     init(title: String,
          description: String?,
+         extractType: ExtractType,
          totalExtractTime: Int,
          beanAmount: Float,
          recipeDetail: [RecipeDetail])
     {
         self.title = title
         self.description = description
+        self.extractType = extractType
         self.totalExtractTime = totalExtractTime
         self.beanAmount = beanAmount
         self.recipeDetail = recipeDetail
