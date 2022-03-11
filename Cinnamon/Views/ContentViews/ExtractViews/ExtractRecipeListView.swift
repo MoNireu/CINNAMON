@@ -17,50 +17,62 @@ struct ExtractRecipeListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Picker("extractType", selection: $viewModel.selectedExtractType) {
-                    Text("에스프레소").tag(ExtractType.espresso)
-                    Text("브루잉").tag(ExtractType.brew)
-                }
-                .pickerStyle(.segmented)
-                .padding()
-                
-                List(viewModel.recipeList) { recipe in
-                    if recipe.extractType == viewModel.selectedExtractType {
-                        NavigationLink {
-                            EmptyView()
-                        } label: {
-                            ExtractRecipeListCell(title: recipe.title,
-                                                  description: recipe.description,
-                                                  time: recipe.totalExtractTime)
-                        }
-                    }
-                }
-                .navigationTitle("추출 레시피")
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        if viewModel.isModifying {
-                            Button {
-                                print("")
-                            } label: {
-                                Image(systemName: "trash")
-                                    .foregroundColor(.red)
-                            }
-                        }
-                        Button {
-                            viewModel.isModifying.toggle()
-                        } label: {
-                            Image(systemName: viewModel.isModifying ? "checkmark.circle.fill" : "checkmark.circle")
-                        }
-                        Button {
-                            print("")
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-                    }
-                }
+                addExtractTypePicker()
+                addRecipeList()
             }
         }
         .listStyle(.plain)
+    }
+    
+    
+    func addExtractTypePicker() -> some View {
+        Picker("extractType", selection: $viewModel.selectedExtractType) {
+            Text("에스프레소").tag(ExtractType.espresso)
+            Text("브루잉").tag(ExtractType.brew)
+        }
+        .pickerStyle(.segmented)
+        .padding()
+    }
+    
+    func addRecipeList() -> some View {
+        List(viewModel.recipeList) { recipe in
+            if recipe.extractType == viewModel.selectedExtractType {
+                NavigationLink {
+                    EmptyView()
+                } label: {
+                    ExtractRecipeListCell(title: recipe.title,
+                                          description: recipe.description,
+                                          time: recipe.totalExtractTime)
+                }
+            }
+        }
+        .navigationTitle("추출 레시피")
+        .toolbar {
+            addToolBarButtons()
+        }
+    }
+    
+    func addToolBarButtons() -> some ToolbarContent {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            if viewModel.isModifying {
+                Button {
+                    print("")
+                } label: {
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
+                }
+            }
+            Button {
+                viewModel.isModifying.toggle()
+            } label: {
+                Image(systemName: viewModel.isModifying ? "checkmark.circle.fill" : "checkmark.circle")
+            }
+            Button {
+                print("")
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
     }
 }
 
