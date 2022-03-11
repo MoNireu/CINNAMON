@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ExtractRecipeListView: View {
     @State private var extractType: ExtractType = .espresso
+    @State private var isModifying: Bool = false
     
     var body: some View {
         NavigationView {
@@ -42,6 +43,28 @@ struct ExtractRecipeListView: View {
                     }
                 }
                 .navigationTitle("추출 레시피")
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        if isModifying {
+                            Button {
+                                print("")
+                            } label: {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                        Button {
+                            isModifying.toggle()
+                        } label: {
+                            Image(systemName: isModifying ? "checkmark.circle.fill" : "checkmark.circle")
+                        }
+                        Button {
+                            print("")
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
             }
         }
         .listStyle(.plain)
