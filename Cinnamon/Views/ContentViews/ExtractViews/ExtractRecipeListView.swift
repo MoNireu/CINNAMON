@@ -32,21 +32,25 @@ struct ExtractRecipeListView: View {
         }
         .pickerStyle(.segmented)
         .padding()
+        .onChange(of: viewModel.selectedExtractType) { newValue in
+            viewModel.setRecipeListByExtractType()
+            viewModel.editingMode = .inactive
+        }
     }
     
+    
     func addRecipeList() -> some View {
-        List(viewModel.recipeList) { recipe in
-            if recipe.extractType == viewModel.selectedExtractType {
-                NavigationLink {
-                    EmptyView()
-                } label: {
-                    ExtractRecipeListCell(title: recipe.title,
-                                          description: recipe.description,
-                                          time: recipe.totalExtractTime)
-                }
+        List(viewModel.recipeList, selection: $viewModel.selectedRecipe) { recipe in
+            NavigationLink {
+                EmptyView()
+            } label: {
+                ExtractRecipeListCell(title: recipe.title,
+                                      description: recipe.description,
+                                      time: recipe.totalExtractTime)
             }
         }
         .navigationTitle("추출 레시피")
+        .environment(\.editMode, $viewModel.editingMode)
         .toolbar {
             addToolBarButtons()
         }
@@ -54,23 +58,20 @@ struct ExtractRecipeListView: View {
     
     func addToolBarButtons() -> some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            if viewModel.isModifying {
-                Button {
-                    print("")
-                } label: {
-                    Image(systemName: "trash")
-                        .foregroundColor(.red)
-                }
-            }
+            // Edit Button
             Button {
-                viewModel.isModifying.toggle()
+                viewModel.editingMode = (viewModel.editingMode == .inactive) ? .active : .inactive
             } label: {
-                Image(systemName: viewModel.isModifying ? "checkmark.circle.fill" : "checkmark.circle")
+                Image(systemName: viewModel.editingMode == .inactive ? "checkmark.circle" : "checkmark.circle.fill")
             }
+            
+            // Add Button
             Button {
-                print("")
+                if viewModel.editingMode == .inactive { print("Log -", #fileID, #function, #line, "Add") }
+                else { print("Log -", #fileID, #function, #line, viewModel.selectedRecipe) }
             } label: {
-                Image(systemName: "plus")
+                Image(systemName: viewModel.editingMode == .inactive ? "plus" : "trash")
+                    .foregroundColor(viewModel.editingMode == .inactive ? .blue : .red)
             }
         }
     }

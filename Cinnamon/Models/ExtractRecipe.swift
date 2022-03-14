@@ -13,7 +13,7 @@ enum ExtractType {
 }
 
 class ExtractRecipe: Identifiable {
-    var uuid = UUID()
+    var id: UUID
     var title: String
     var description: String?
     var extractType: ExtractType
@@ -29,6 +29,7 @@ class ExtractRecipe: Identifiable {
          beanAmount: Float,
          recipeDetail: [RecipeDetail])
     {
+        self.id = UUID()
         self.title = title
         self.description = description
         self.extractType = extractType
