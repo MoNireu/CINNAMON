@@ -34,6 +34,7 @@ struct ExtractRecipeListView: View {
         .padding()
         .onChange(of: viewModel.selectedExtractType) { newValue in
             viewModel.setRecipeListByExtractType()
+            viewModel.selectedRecipe = Set<UUID>()
             viewModel.editingMode = .inactive
         }
     }
