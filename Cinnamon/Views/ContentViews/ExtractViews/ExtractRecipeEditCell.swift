@@ -15,10 +15,31 @@ enum CellPosition{
 
 
 struct ExtractRecipeEditCell: View {
-    var cellPosition: CellPosition = .middle
-    @State var title: String = ""
+    var cellPosition: CellPosition
+    var stepInfo: RecipeDetail?
+    @State var title: String
     @State var waterAmount: Float?
-    @State var time: String = ""
+    @State var time: String
+    @State var isWaterAmountEditing: Bool = false
+    
+    init(cellPosition: CellPosition = .middle, stepInfo: RecipeDetail? = nil) {
+        self.cellPosition = cellPosition
+        
+        if let stepInfo = stepInfo {
+            self.stepInfo = stepInfo
+            self.title = stepInfo.title ?? ""
+            self.waterAmount = stepInfo.waterAmount
+            self.time = stepInfo.extractTime.toMinuteString()
+            print("Log -", #fileID, #function, #line, "Yes")
+        }
+        else {
+            self.stepInfo = nil
+            self.title = ""
+            self.waterAmount = nil
+            self.time = ""
+            print("Log -", #fileID, #function, #line, "No")
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -34,8 +55,20 @@ struct ExtractRecipeEditCell: View {
                         .padding(.leading)
                         .padding(.top)
                     HStack {
+                        Spacer()
                         TextField("0ml", value: $waterAmount, format: .number)
+                            .fixedSize()
+                            .onTapGesture {
+                                isWaterAmountEditing = true
+                            }
+                            .onSubmit {
+                                isWaterAmountEditing = waterAmount != nil ? false : true
+                            }
+                        if !isWaterAmountEditing { Text("ml") }
+                        Spacer()
                         TextField("0초", text: $time)
+                            .fixedSize()
+                        Spacer()
                     }
                     .multilineTextAlignment(.center)
                     .padding()

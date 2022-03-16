@@ -9,6 +9,11 @@ import SwiftUI
 
 struct ExtractRecipeEditView: View {
     @State var beanAmount: Float?
+    @State var recipeSteps: [RecipeDetail] = [
+        RecipeDetail(title: "뜸 들이기", description: nil, waterAmount: 40, extractTime: 60),
+        RecipeDetail(title: "1차 푸어링", description: nil, waterAmount: 80, extractTime: 60),
+        RecipeDetail(title: "2차 푸어링", description: nil, waterAmount: 40, extractTime: 40)
+    ]
     
     var body: some View {
         NavigationView {
@@ -20,13 +25,10 @@ struct ExtractRecipeEditView: View {
                 .font(.system(.title2))
                 .padding()
                 List {
-                    ExtractRecipeEditCell(cellPosition: .first)
-                    ExtractRecipeEditCell()
-                    ExtractRecipeEditCell()
-                    ExtractRecipeEditCell()
-                    ExtractRecipeEditCell()
-                    ExtractRecipeEditCell()
-                    ExtractRecipeEditCell(cellPosition: .last)
+                    ForEach(recipeSteps.indices, id: \.self) { index in
+                        ExtractRecipeEditCell(cellPosition: getCellPositionByIndex(index),
+                                              stepInfo: recipeSteps[index])
+                    }
                     AddNewStepButton()
                 }
             }
@@ -51,6 +53,19 @@ struct ExtractRecipeEditView: View {
             }
         }
     }
+    
+    func getCellPositionByIndex(_ index: Int) -> CellPosition {
+        if index == 0 {
+            return .first
+        }
+        else if index == recipeSteps.count - 1 {
+            return .last
+        }
+        else {
+            return .middle
+        }
+    }
+    
 }
 
 struct ExtractRecipeEditView_Previews: PreviewProvider {
