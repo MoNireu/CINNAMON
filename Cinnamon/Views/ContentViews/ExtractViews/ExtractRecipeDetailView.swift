@@ -7,27 +7,22 @@
 
 import SwiftUI
 
-struct ExtractRecipeEditView: View {
-    @State var beanAmount: Float?
-    @State var recipeSteps: [RecipeDetail] = [
-        RecipeDetail(title: "뜸 들이기", description: nil, waterAmount: 40, extractTime: 60),
-        RecipeDetail(title: "1차 푸어링", description: nil, waterAmount: 80, extractTime: 60),
-        RecipeDetail(title: "2차 푸어링", description: nil, waterAmount: 40, extractTime: 40)
-    ]
+struct ExtractRecipeDetailView: View {
+    @ObservedObject var viewModel: ExtractRecipeDetailViewModel
     
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
                     Text("원두 용량 : ")
-                    TextField("0g", value: $beanAmount, format: .number)
+                    TextField("0g", value: $viewModel.beanAmount, format: .number)
                 }
                 .font(.system(.title2))
                 .padding()
                 List {
-                    ForEach(recipeSteps.indices, id: \.self) { index in
-                        ExtractRecipeEditCell(cellPosition: getCellPositionByIndex(index),
-                                              stepInfo: recipeSteps[index])
+                    ForEach(viewModel.recipeSteps.indices, id: \.self) { index in
+                        ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
+                                                stepInfo: viewModel.recipeSteps[index])
                     }
                     AddNewStepButton()
                 }
@@ -58,7 +53,7 @@ struct ExtractRecipeEditView: View {
         if index == 0 {
             return .first
         }
-        else if index == recipeSteps.count - 1 {
+        else if index == viewModel.recipeSteps.count - 1 {
             return .last
         }
         else {
@@ -68,9 +63,9 @@ struct ExtractRecipeEditView: View {
     
 }
 
-struct ExtractRecipeEditView_Previews: PreviewProvider {
+struct ExtractRecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeEditView()
+        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel())
     }
 }
 

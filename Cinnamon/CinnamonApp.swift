@@ -21,7 +21,7 @@ struct CinnamonApp: App {
 //            SignInUpView(viewModel: SignInUpViewModel())
 //            AccountSetupView(viewModel: AccountSetupViewModel())
 //            ExtractRecipeListView(viewModel: ExtractRecipeListViewModel())
-            ExtractRecipeEditView()
+            ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel())
         }
     }
 }

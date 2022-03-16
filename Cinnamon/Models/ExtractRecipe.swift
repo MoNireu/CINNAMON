@@ -40,7 +40,7 @@ class ExtractRecipe: Identifiable {
     }
 }
 
-class RecipeDetail {
+struct RecipeDetail {
     var title: String?
     var description: String?
     var waterAmount: Float

@@ -29,9 +29,10 @@
 		E1189E3427BC886A0005E590 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3327BC886A0005E590 /* FirebaseFirestore */; };
 		E1189E3627BC886A0005E590 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E1189E3527BC886A0005E590 /* FirebaseStorage */; };
 		E1189E3A27BC94970005E590 /* SignInUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1189E3927BC94970005E590 /* SignInUpViewModel.swift */; };
+		E121C73B27E1C9CE0036436D /* ExtractRecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E121C73A27E1C9CE0036436D /* ExtractRecipeDetailViewModel.swift */; };
 		E126CE4C27BE5B1C00DB4CD3 /* SignInButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */; };
-		E12BED2027E07A740058E65A /* ExtractRecipeEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12BED1F27E07A740058E65A /* ExtractRecipeEditView.swift */; };
-		E12BED2227E089F90058E65A /* ExtractRecipeEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12BED2127E089F90058E65A /* ExtractRecipeEditCell.swift */; };
+		E12BED2027E07A740058E65A /* ExtractRecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12BED1F27E07A740058E65A /* ExtractRecipeDetailView.swift */; };
+		E12BED2227E089F90058E65A /* ExtractRecipeDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12BED2127E089F90058E65A /* ExtractRecipeDetailCell.swift */; };
 		E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */; };
 		E136F54E27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 in Resources */ = {isa = PBXBuildFile; fileRef = E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */; };
 		E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142D0C927D5A46A00579C8F /* AccountSetupView.swift */; };
@@ -82,9 +83,10 @@
 		E10CF68927D9E681006AA340 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		E1189E2A27BC88200005E590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1189E3927BC94970005E590 /* SignInUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpViewModel.swift; sourceTree = "<group>"; };
+		E121C73A27E1C9CE0036436D /* ExtractRecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDetailViewModel.swift; sourceTree = "<group>"; };
 		E126CE4B27BE5B1C00DB4CD3 /* SignInButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonView.swift; sourceTree = "<group>"; };
-		E12BED1F27E07A740058E65A /* ExtractRecipeEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeEditView.swift; sourceTree = "<group>"; };
-		E12BED2127E089F90058E65A /* ExtractRecipeEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeEditCell.swift; sourceTree = "<group>"; };
+		E12BED1F27E07A740058E65A /* ExtractRecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDetailView.swift; sourceTree = "<group>"; };
+		E12BED2127E089F90058E65A /* ExtractRecipeDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDetailCell.swift; sourceTree = "<group>"; };
 		E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFieldView.swift; sourceTree = "<group>"; };
 		E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_MX4ZHMC3NL.p8; sourceTree = "<group>"; };
 		E142D0C927D5A46A00579C8F /* AccountSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupView.swift; sourceTree = "<group>"; };
@@ -217,8 +219,8 @@
 			children = (
 				E10CF68327D9DD6E006AA340 /* ExtractRecipeListView.swift */,
 				E10CF68727D9DF1B006AA340 /* ExtractRecipeListCell.swift */,
-				E12BED1F27E07A740058E65A /* ExtractRecipeEditView.swift */,
-				E12BED2127E089F90058E65A /* ExtractRecipeEditCell.swift */,
+				E12BED1F27E07A740058E65A /* ExtractRecipeDetailView.swift */,
+				E12BED2127E089F90058E65A /* ExtractRecipeDetailCell.swift */,
 			);
 			path = ExtractViews;
 			sourceTree = "<group>";
@@ -252,7 +254,7 @@
 		E183A61727BB729F00A29D8E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				E1C9287427DB095700CD35CA /* ExtractViews */,
+				E1C9287427DB095700CD35CA /* ExtractViewModels */,
 				E142D0CB27D5B26000579C8F /* SignInUpViewModels */,
 			);
 			path = ViewModels;
@@ -268,12 +270,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		E1C9287427DB095700CD35CA /* ExtractViews */ = {
+		E1C9287427DB095700CD35CA /* ExtractViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				E1C9287527DB097B00CD35CA /* ExtractRecipeListViewModel.swift */,
+				E121C73A27E1C9CE0036436D /* ExtractRecipeDetailViewModel.swift */,
 			);
-			path = ExtractViews;
+			path = ExtractViewModels;
 			sourceTree = "<group>";
 		};
 		E1D0492A27BB835B0074A9EC /* SignInUpViews */ = {
@@ -439,16 +442,17 @@
 				E105FFC82782E03200C6B73B /* Cinnamon.xcdatamodeld in Sources */,
 				E1C9287627DB097B00CD35CA /* ExtractRecipeListViewModel.swift in Sources */,
 				E15A1AC427C780F700E6B679 /* SignUpViewModel.swift in Sources */,
-				E12BED2027E07A740058E65A /* ExtractRecipeEditView.swift in Sources */,
+				E12BED2027E07A740058E65A /* ExtractRecipeDetailView.swift in Sources */,
 				E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */,
 				E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */,
-				E12BED2227E089F90058E65A /* ExtractRecipeEditCell.swift in Sources */,
+				E12BED2227E089F90058E65A /* ExtractRecipeDetailCell.swift in Sources */,
 				E105FFC52782E03200C6B73B /* Persistence.swift in Sources */,
 				E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */,
 				E105FFBE2782E03000C6B73B /* SignInUpView.swift in Sources */,
 				E10CF68827D9DF1B006AA340 /* ExtractRecipeListCell.swift in Sources */,
 				E142D0CD27D5B28900579C8F /* AccountSetupViewModel.swift in Sources */,
 				E10CF68427D9DD6E006AA340 /* ExtractRecipeListView.swift in Sources */,
+				E121C73B27E1C9CE0036436D /* ExtractRecipeDetailViewModel.swift in Sources */,
 				E105FFBC2782E03000C6B73B /* CinnamonApp.swift in Sources */,
 				E142D0D027D5BCDA00579C8F /* CheckBoxView.swift in Sources */,
 				E10CF67F27D9CDCA006AA340 /* MainTabView.swift in Sources */,

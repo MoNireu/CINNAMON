@@ -14,7 +14,7 @@ enum CellPosition{
 }
 
 
-struct ExtractRecipeEditCell: View {
+struct ExtractRecipeDetailCell: View {
     var cellPosition: CellPosition
     var stepInfo: RecipeDetail?
     @State var title: String
@@ -92,8 +92,8 @@ struct ExtractRecipeEditCell: View {
     }
 }
 
-struct ExtractRecipeEditCell_Previews: PreviewProvider {
+struct ExtractRecipeDetailCell_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeEditCell()
+        ExtractRecipeDetailCell()
     }
 }
