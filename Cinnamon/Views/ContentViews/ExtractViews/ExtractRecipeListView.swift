@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExtractRecipeListView: View {
+//    @EnvironmentObject var extractRecipeListData: ExtractRecipeListData
     @ObservedObject var viewModel: ExtractRecipeListViewModel
     
     init(viewModel: ExtractRecipeListViewModel) {
@@ -33,7 +34,7 @@ struct ExtractRecipeListView: View {
         .pickerStyle(.segmented)
         .padding()
         .onChange(of: viewModel.selectedExtractType) { newValue in
-            viewModel.setRecipeListByExtractType()
+            viewModel.refreshFilteredRecipeList()
             viewModel.selectedRecipe = Set<UUID>()
             viewModel.editingMode = .inactive
         }
@@ -41,9 +42,9 @@ struct ExtractRecipeListView: View {
     
     
     func addRecipeList() -> some View {
-        List(viewModel.recipeList, selection: $viewModel.selectedRecipe) { recipe in
+        List(viewModel.filteredRecipeList, selection: $viewModel.selectedRecipe) { recipe in
             NavigationLink {
-                EmptyView()
+                ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(recipe: recipe, extractRecipeListData: viewModel.getExtractRecipeListData()))
             } label: {
                 ExtractRecipeListCell(title: recipe.title,
                                       description: recipe.description,
@@ -68,7 +69,7 @@ struct ExtractRecipeListView: View {
             
             // Add Button
             Button {
-                if viewModel.editingMode == .inactive { print("Log -", #fileID, #function, #line, "Add") }
+                if viewModel.editingMode == .inactive { print("Log -", #fileID, #function, #line, viewModel.extractRecipeListData.list[0].title) }
                 else { print("Log -", #fileID, #function, #line, viewModel.selectedRecipe) }
             } label: {
                 Image(systemName: viewModel.editingMode == .inactive ? "plus" : "trash")
@@ -80,6 +81,6 @@ struct ExtractRecipeListView: View {
 
 struct ExtractRecipeListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeListView(viewModel: ExtractRecipeListViewModel())
+        ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(extractRecipeListData: ExtractRecipeStore()))
     }
 }

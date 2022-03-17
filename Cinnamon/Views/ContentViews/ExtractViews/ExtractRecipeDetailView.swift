@@ -20,9 +20,9 @@ struct ExtractRecipeDetailView: View {
                 .font(.system(.title2))
                 .padding()
                 List {
-                    ForEach(viewModel.recipeSteps.indices, id: \.self) { index in
+                    ForEach(viewModel.editedRecipeSteps.indices, id: \.self) { index in
                         ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
-                                                stepInfo: viewModel.recipeSteps[index])
+                                                stepInfo: $viewModel.editedRecipeSteps[index])
                     }
                     AddNewStepButton()
                 }
@@ -31,15 +31,16 @@ struct ExtractRecipeDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        print("Log -", #fileID, #function, #line, "취소 버튼")
-                    } label: {
-                        Text("취소")
-                    }
-                }
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Button {
+//                        print("Log -", #fileID, #function, #line, "취소 버튼")
+//                    } label: {
+//                        Text("취소")
+//                    }
+//                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
+                        viewModel.completeEditing()
                         print("Log -", #fileID, #function, #line, "완료 버튼")
                     } label: {
                         Text("완료")
@@ -53,7 +54,7 @@ struct ExtractRecipeDetailView: View {
         if index == 0 {
             return .first
         }
-        else if index == viewModel.recipeSteps.count - 1 {
+        else if index == viewModel.editedRecipeSteps.count - 1 {
             return .last
         }
         else {
@@ -65,7 +66,13 @@ struct ExtractRecipeDetailView: View {
 
 struct ExtractRecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel())
+        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(recipe: ExtractRecipe(title: "ExtractTitle",
+                                                                                          description: "Description",
+                                                                                          extractType: .espresso,
+                                                                                          totalExtractTime: 60,
+                                                                                          beanAmount: 1.0,
+                                                                                              recipeDetail: []),
+                                                                        extractRecipeListData: ExtractRecipeStore()))
     }
 }
 

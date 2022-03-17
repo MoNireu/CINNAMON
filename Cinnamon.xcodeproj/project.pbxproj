@@ -154,13 +154,13 @@
 		E105FFBA2782E03000C6B73B /* Cinnamon */ = {
 			isa = PBXGroup;
 			children = (
+				E105FFBB2782E03000C6B73B /* CinnamonApp.swift */,
 				E15D209627C485490088F06B /* Info.plist */,
 				E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */,
 				E10CF67927D9CA04006AA340 /* Extensions */,
 				E183A61627BB729300A29D8E /* Models */,
 				E183A61827BB72C100A29D8E /* Views */,
 				E183A61727BB729F00A29D8E /* ViewModels */,
-				E105FFBB2782E03000C6B73B /* CinnamonApp.swift */,
 				E105FFBF2782E03200C6B73B /* Assets.xcassets */,
 				E105FFC42782E03200C6B73B /* Persistence.swift */,
 				E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */,

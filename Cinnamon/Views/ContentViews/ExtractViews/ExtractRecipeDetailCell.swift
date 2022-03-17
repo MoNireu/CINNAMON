@@ -16,29 +16,19 @@ enum CellPosition{
 
 struct ExtractRecipeDetailCell: View {
     var cellPosition: CellPosition
-    var stepInfo: RecipeDetail?
-    @State var title: String
-    @State var waterAmount: Float?
-    @State var time: String
-    @State var isWaterAmountEditing: Bool = false
+    @Binding var stepInfo: RecipeStep
+    @State private var title: String
+    @State private var waterAmount: Float?
+    @State private var time: String
+    @State private var isWaterAmountEditing: Bool = false
     
-    init(cellPosition: CellPosition = .middle, stepInfo: RecipeDetail? = nil) {
+    init(cellPosition: CellPosition = .middle, stepInfo: Binding<RecipeStep>) {
         self.cellPosition = cellPosition
-        
-        if let stepInfo = stepInfo {
-            self.stepInfo = stepInfo
-            self.title = stepInfo.title ?? ""
-            self.waterAmount = stepInfo.waterAmount
-            self.time = stepInfo.extractTime.toMinuteString()
-            print("Log -", #fileID, #function, #line, "Yes")
-        }
-        else {
-            self.stepInfo = nil
-            self.title = ""
-            self.waterAmount = nil
-            self.time = ""
-            print("Log -", #fileID, #function, #line, "No")
-        }
+        self._stepInfo = stepInfo
+        self.title = stepInfo.wrappedValue.title!
+        self.waterAmount = stepInfo.wrappedValue.waterAmount
+        self.time = stepInfo.wrappedValue.extractTime.toMinuteString()
+        print("Log -", #fileID, #function, #line, "Yes")
     }
     
     var body: some View {
@@ -94,6 +84,7 @@ struct ExtractRecipeDetailCell: View {
 
 struct ExtractRecipeDetailCell_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeDetailCell()
+        ExtractRecipeDetailCell(cellPosition: .first,
+                                stepInfo: .constant(RecipeStep(title: "title", description: "", waterAmount: 1.0, extractTime: 10)))
     }
 }
