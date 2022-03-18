@@ -33,10 +33,11 @@ struct ExtractRecipeListView: View {
         }
         .pickerStyle(.segmented)
         .padding()
-        .onChange(of: viewModel.selectedExtractType) { newValue in
-            viewModel.refreshFilteredRecipeList()
-            viewModel.selectedRecipe = Set<UUID>()
-            viewModel.editingMode = .inactive
+        .disabled(viewModel.editingMode == .inactive ? false : true)
+        .onChange(of: viewModel.editingMode) { newValue in
+            if newValue == .inactive {
+                viewModel.selectedRecipe = Set<UUID>()
+            }
         }
     }
     

@@ -14,7 +14,6 @@ class ExtractRecipeListViewModel: ObservableObject {
     @Published var selectedExtractType: ExtractType = .espresso
     @Published var editingMode: EditMode = .inactive
     @Published var selectedRecipe = Set<UUID>()
-    
     @Published var filteredRecipeList: [ExtractRecipe] = []
     
     init(extractRecipeListData: ExtractRecipeStore) {
