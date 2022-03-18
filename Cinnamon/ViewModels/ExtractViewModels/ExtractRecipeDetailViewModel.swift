@@ -10,30 +10,25 @@ import Combine
 import SwiftUI
 
 class ExtractRecipeDetailViewModel: ObservableObject {
-    let extractRecipeListData: ExtractRecipeStore
+    @Published var extractRecipeStore: ExtractRecipeStore
     @Published var recipe: ExtractRecipe
-    @Published var title: String
-    @Published var description: String?
-    @Published var beanAmount: Float?
-    @Published var editedRecipeSteps: [RecipeStep] = [
-        RecipeStep(title: "뜸 들이기", description: nil, waterAmount: 40, extractTime: 60),
-        RecipeStep(title: "1차 푸어링", description: nil, waterAmount: 80, extractTime: 60),
-        RecipeStep(title: "2차 푸어링", description: nil, waterAmount: 40, extractTime: 40)
-    ]
-    //    var recipeSteps: [RecipeStep]
+    var index: Int {
+        extractRecipeStore.list.firstIndex(where: {$0.id == recipe.id})!
+    }
+//    @Published var recipeSteps: [RecipeStep] = [
+//        RecipeStep(title: "뜸 들이기", description: nil, waterAmount: 40, extractTime: 60),
+//        RecipeStep(title: "1차 푸어링", description: nil, waterAmount: 80, extractTime: 60),
+//        RecipeStep(title: "2차 푸어링", description: nil, waterAmount: 40, extractTime: 40)
+//    ]
     
-    init(recipe: ExtractRecipe, extractRecipeListData: ExtractRecipeStore) {
-        self.extractRecipeListData = extractRecipeListData
+    init(extractRecipeStore: ExtractRecipeStore, recipe: ExtractRecipe) {
+        self.extractRecipeStore = extractRecipeStore
         self.recipe = recipe
-        self.title = recipe.title
-        self.description = recipe.description
-        self.beanAmount = recipe.beanAmount
-        self.editedRecipeSteps = recipe.recipeSteps
     }
     
     func completeEditing() {
-        recipe.title = "test"
-        
-        extractRecipeListData.update(recipe)
+        recipe.title = "Test"
+        extractRecipeStore.update(recipe)
+        extractRecipeStore.objectWillChange.send()
     }
 }

@@ -10,23 +10,15 @@ import SwiftUI
 import Combine
 
 class ExtractRecipeListViewModel: ObservableObject {
-    var extractRecipeListData: ExtractRecipeStore
+    @Published var extractRecipeStore: ExtractRecipeStore
     @Published var selectedExtractType: ExtractType = .espresso
     @Published var editingMode: EditMode = .inactive
     @Published var selectedRecipe = Set<UUID>()
-    @Published var filteredRecipeList: [ExtractRecipe] = []
+    var filteredRecipeList: [ExtractRecipe] {
+        extractRecipeStore.getRecipeListByExtractType(self.selectedExtractType)
+    }
     
     init(extractRecipeListData: ExtractRecipeStore) {
-        self.extractRecipeListData = extractRecipeListData
-        refreshFilteredRecipeList()
+        self.extractRecipeStore = extractRecipeListData
     }
-    
-    func refreshFilteredRecipeList() {
-        filteredRecipeList = extractRecipeListData.getRecipeListByExtractType(self.selectedExtractType)
-    }
-    
-    func getExtractRecipeListData() -> ExtractRecipeStore {
-        return extractRecipeListData
-    }
-    
 }

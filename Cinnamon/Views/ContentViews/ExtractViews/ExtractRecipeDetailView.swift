@@ -15,14 +15,14 @@ struct ExtractRecipeDetailView: View {
             VStack {
                 HStack {
                     Text("원두 용량 : ")
-                    TextField("0g", value: $viewModel.beanAmount, format: .number)
+                    TextField("0g", value: $viewModel.recipe.beanAmount, format: .number)
                 }
                 .font(.system(.title2))
                 .padding()
                 List {
-                    ForEach(viewModel.editedRecipeSteps.indices, id: \.self) { index in
-                        ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
-                                                stepInfo: $viewModel.editedRecipeSteps[index])
+                    ForEach($viewModel.recipe.recipeSteps) { $step in
+                        ExtractRecipeDetailCell(cellPosition: getCellPositionByStep(step),
+                                                stepInfo: $step)
                     }
                     AddNewStepButton()
                 }
@@ -50,11 +50,14 @@ struct ExtractRecipeDetailView: View {
         }
     }
     
-    func getCellPositionByIndex(_ index: Int) -> CellPosition {
+    func getCellPositionByStep(_ step: RecipeStep) -> CellPosition {
+        var index: Int {
+            viewModel.recipe.recipeSteps.firstIndex(where: {$0.id == step.id})!
+        }
         if index == 0 {
             return .first
         }
-        else if index == viewModel.editedRecipeSteps.count - 1 {
+        else if index == viewModel.recipe.recipeSteps.count - 1 {
             return .last
         }
         else {
@@ -66,13 +69,7 @@ struct ExtractRecipeDetailView: View {
 
 struct ExtractRecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(recipe: ExtractRecipe(title: "ExtractTitle",
-                                                                                          description: "Description",
-                                                                                          extractType: .espresso,
-                                                                                          totalExtractTime: 60,
-                                                                                          beanAmount: 1.0,
-                                                                                              recipeDetail: []),
-                                                                        extractRecipeListData: ExtractRecipeStore()))
+        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(extractRecipeStore: ExtractRecipeStore(), recipe: ExtractRecipeStore().list[0]))
     }
 }
 

@@ -17,17 +17,17 @@ enum CellPosition{
 struct ExtractRecipeDetailCell: View {
     var cellPosition: CellPosition
     @Binding var stepInfo: RecipeStep
-    @State private var title: String
-    @State private var waterAmount: Float?
-    @State private var time: String
+//    @State private var title: String
+//    @State private var waterAmount: Float?
+//    @State private var time: String
     @State private var isWaterAmountEditing: Bool = false
     
     init(cellPosition: CellPosition = .middle, stepInfo: Binding<RecipeStep>) {
         self.cellPosition = cellPosition
         self._stepInfo = stepInfo
-        self.title = stepInfo.wrappedValue.title!
-        self.waterAmount = stepInfo.wrappedValue.waterAmount
-        self.time = stepInfo.wrappedValue.extractTime.toMinuteString()
+//        self.title = stepInfo.wrappedValue.title!
+//        self.waterAmount = stepInfo.wrappedValue.waterAmount
+//        self.time = stepInfo.wrappedValue.extractTime.toMinuteString()
         print("Log -", #fileID, #function, #line, "Yes")
     }
     
@@ -41,22 +41,22 @@ struct ExtractRecipeDetailCell: View {
                     .foregroundColor(.white)
                     .shadow(radius: 5.0)
                 VStack {
-                    TextField("단계별 제목", text: $title)
+                    TextField("단계별 제목", text: $stepInfo.title)
                         .padding(.leading)
                         .padding(.top)
                     HStack {
                         Spacer()
-                        TextField("0ml", value: $waterAmount, format: .number)
+                        TextField("0ml", value: $stepInfo.waterAmount, format: .number)
                             .fixedSize()
                             .onTapGesture {
                                 isWaterAmountEditing = true
                             }
                             .onSubmit {
-                                isWaterAmountEditing = waterAmount != nil ? false : true
+                                isWaterAmountEditing = stepInfo.waterAmount != nil ? false : true
                             }
                         if !isWaterAmountEditing { Text("ml") }
                         Spacer()
-                        TextField("0초", text: $time)
+                        TextField("0초", text: TimeStringUtil.timeToString(time: $stepInfo.extractTime))
                             .fixedSize()
                         Spacer()
                     }
