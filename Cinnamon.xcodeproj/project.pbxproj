@@ -41,7 +41,8 @@
 		E15A1AC227C780C500E6B679 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A1AC127C780C500E6B679 /* SignUpView.swift */; };
 		E15A1AC427C780F700E6B679 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A1AC327C780F700E6B679 /* SignUpViewModel.swift */; };
 		E15D209527C484110088F06B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E15D209427C484110088F06B /* GoogleSignIn */; };
-		E160A54027E4CA4200762847 /* TimeStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E160A53F27E4CA4200762847 /* TimeStringUtil.swift */; };
+		E160A54027E4CA4200762847 /* TimeConvertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E160A53F27E4CA4200762847 /* TimeConvertUtil.swift */; };
+		E160A54227E5D3B200762847 /* MinuteSecondPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E160A54127E5D3B200762847 /* MinuteSecondPicker.swift */; };
 		E1C9287627DB097B00CD35CA /* ExtractRecipeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9287527DB097B00CD35CA /* ExtractRecipeListViewModel.swift */; };
 		E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */; };
 /* End PBXBuildFile section */
@@ -96,7 +97,8 @@
 		E15A1AC127C780C500E6B679 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		E15A1AC327C780F700E6B679 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		E15D209627C485490088F06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E160A53F27E4CA4200762847 /* TimeStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStringUtil.swift; sourceTree = "<group>"; };
+		E160A53F27E4CA4200762847 /* TimeConvertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConvertUtil.swift; sourceTree = "<group>"; };
+		E160A54127E5D3B200762847 /* MinuteSecondPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinuteSecondPicker.swift; sourceTree = "<group>"; };
 		E1C9287527DB097B00CD35CA /* ExtractRecipeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeListViewModel.swift; sourceTree = "<group>"; };
 		E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonStackView.swift; sourceTree = "<group>"; };
 		E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cinnamon.entitlements; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				E142D0CF27D5BCDA00579C8F /* CheckBoxView.swift */,
+				E160A54127E5D3B200762847 /* MinuteSecondPicker.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -249,7 +252,7 @@
 		E160A53E27E4CA2000762847 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E160A53F27E4CA4200762847 /* TimeStringUtil.swift */,
+				E160A53F27E4CA4200762847 /* TimeConvertUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -457,8 +460,9 @@
 				E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */,
 				E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */,
 				E12BED2227E089F90058E65A /* ExtractRecipeDetailCell.swift in Sources */,
+				E160A54227E5D3B200762847 /* MinuteSecondPicker.swift in Sources */,
 				E105FFC52782E03200C6B73B /* Persistence.swift in Sources */,
-				E160A54027E4CA4200762847 /* TimeStringUtil.swift in Sources */,
+				E160A54027E4CA4200762847 /* TimeConvertUtil.swift in Sources */,
 				E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */,
 				E105FFBE2782E03000C6B73B /* SignInUpView.swift in Sources */,
 				E10CF68827D9DF1B006AA340 /* ExtractRecipeListCell.swift in Sources */,

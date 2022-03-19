@@ -21,6 +21,7 @@ struct ExtractRecipeDetailCell: View {
 //    @State private var waterAmount: Float?
 //    @State private var time: String
     @State private var isWaterAmountEditing: Bool = false
+    @State private var isPickerShowing: Bool = false
     
     init(cellPosition: CellPosition = .middle, stepInfo: Binding<RecipeStep>) {
         self.cellPosition = cellPosition
@@ -56,8 +57,14 @@ struct ExtractRecipeDetailCell: View {
                             }
                         if !isWaterAmountEditing { Text("ml") }
                         Spacer()
-                        TextField("0초", text: TimeStringUtil.timeToString(time: $stepInfo.extractTime))
-                            .fixedSize()
+                        Text("\(TimeConvertUtil.timeIntToString(time: stepInfo.extractTime))")
+                            .sheet(isPresented: $isPickerShowing) {
+                                MinuteSecondPicker(timeInt: $stepInfo.extractTime, isShowing: $isPickerShowing)
+                                    .frame(height: 250)
+                            }
+                            .onTapGesture {
+                                isPickerShowing.toggle()
+                            }
                         Spacer()
                     }
                     .multilineTextAlignment(.center)
@@ -88,3 +95,5 @@ struct ExtractRecipeDetailCell_Previews: PreviewProvider {
                                 stepInfo: .constant(RecipeStep(title: "title", description: "", waterAmount: 1.0, extractTime: 10)))
     }
 }
+
+

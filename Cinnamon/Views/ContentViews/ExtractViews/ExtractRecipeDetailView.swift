@@ -11,23 +11,21 @@ struct ExtractRecipeDetailView: View {
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
     
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack {
-                    Text("원두 용량 : ")
-                    TextField("0g", value: $viewModel.recipe.beanAmount, format: .number)
-                }
-                .font(.system(.title2))
-                .padding()
-                List {
-                    ForEach($viewModel.recipe.recipeSteps) { $step in
-                        ExtractRecipeDetailCell(cellPosition: getCellPositionByStep(step),
-                                                stepInfo: $step)
-                    }
-                    AddNewStepButton()
-                }
+        VStack {
+            HStack {
+                Text("원두 용량 : ")
+                TextField("0g", value: $viewModel.recipe.beanAmount, format: .number)
             }
-            .navigationTitle("레시피 작성")
+            .font(.system(.title2))
+            .padding()
+            List {
+                ForEach($viewModel.recipe.recipeSteps) { $step in
+                    ExtractRecipeDetailCell(cellPosition: getCellPositionByStep(step),
+                                            stepInfo: $step)
+                }
+                AddNewStepButton()
+            }
+            .navigationTitle(viewModel.recipe.title)
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
             .toolbar {
