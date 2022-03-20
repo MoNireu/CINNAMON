@@ -59,6 +59,8 @@ struct MinuteSecondPicker: View {
                     .clipped()
                 }
             }
+            .frame(height: 200)
+            .padding(.bottom, 30)
         }
         .background(Color.clear)
     }

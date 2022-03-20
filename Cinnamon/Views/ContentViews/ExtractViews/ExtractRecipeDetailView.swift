@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ExtractRecipeDetailView: View {
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
+    @State private var isPickerShowing: Bool = false
+    @State private var selectedStepIndex: Int = 0
     
     var body: some View {
         VStack {
@@ -20,8 +22,12 @@ struct ExtractRecipeDetailView: View {
             .padding()
             List {
                 ForEach($viewModel.recipe.recipeSteps) { $step in
-                    ExtractRecipeDetailCell(cellPosition: getCellPositionByStep(step),
-                                            stepInfo: $step)
+                    let index = getStepIndex(step)
+                    ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
+                                            stepInfo: $step,
+                                            stepIndex: index,
+                                            selectedStepIndex: $selectedStepIndex,
+                                            isPickerShowing: $isPickerShowing)
                 }
                 AddNewStepButton()
             }
@@ -46,12 +52,19 @@ struct ExtractRecipeDetailView: View {
                 }
             }
         }
+        .popup(isPresented: $isPickerShowing) {
+            BottomPopupView(isPresented: $isPickerShowing) {
+                MinuteSecondPicker(timeInt: $viewModel.recipe.recipeSteps[selectedStepIndex].extractTime, isShowing: $isPickerShowing)
+//                    .frame(height: 300)
+            }
+        }
     }
     
-    func getCellPositionByStep(_ step: RecipeStep) -> CellPosition {
-        var index: Int {
-            viewModel.recipe.recipeSteps.firstIndex(where: {$0.id == step.id})!
-        }
+    private func getStepIndex(_ step: RecipeStep) -> Int {
+        viewModel.recipe.recipeSteps.firstIndex(where: {$0.id == step.id})!
+    }
+    
+    private func getCellPositionByIndex(_ index: Int) -> CellPosition {
         if index == 0 {
             return .first
         }
@@ -62,7 +75,6 @@ struct ExtractRecipeDetailView: View {
             return .middle
         }
     }
-    
 }
 
 struct ExtractRecipeDetailView_Previews: PreviewProvider {

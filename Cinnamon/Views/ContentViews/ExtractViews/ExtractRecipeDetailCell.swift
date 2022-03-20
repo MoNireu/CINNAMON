@@ -17,19 +17,28 @@ enum CellPosition{
 struct ExtractRecipeDetailCell: View {
     var cellPosition: CellPosition
     @Binding var stepInfo: RecipeStep
+    var stepIndex: Int
+    @Binding var selectedStepIndex: Int
+    @Binding var isPickerShowing: Bool
 //    @State private var title: String
 //    @State private var waterAmount: Float?
 //    @State private var time: String
     @State private var isWaterAmountEditing: Bool = false
-    @State private var isPickerShowing: Bool = false
     
-    init(cellPosition: CellPosition = .middle, stepInfo: Binding<RecipeStep>) {
+    
+    init(cellPosition: CellPosition = .middle,
+         stepInfo: Binding<RecipeStep>,
+         stepIndex: Int,
+         selectedStepIndex: Binding<Int>,
+         isPickerShowing: Binding<Bool>) {
         self.cellPosition = cellPosition
         self._stepInfo = stepInfo
+        self.stepIndex = stepIndex
+        self._selectedStepIndex = selectedStepIndex
+        self._isPickerShowing = isPickerShowing
 //        self.title = stepInfo.wrappedValue.title!
 //        self.waterAmount = stepInfo.wrappedValue.waterAmount
 //        self.time = stepInfo.wrappedValue.extractTime.toMinuteString()
-        print("Log -", #fileID, #function, #line, "Yes")
     }
     
     var body: some View {
@@ -58,11 +67,8 @@ struct ExtractRecipeDetailCell: View {
                         if !isWaterAmountEditing { Text("ml") }
                         Spacer()
                         Text("\(TimeConvertUtil.timeIntToString(time: stepInfo.extractTime))")
-                            .sheet(isPresented: $isPickerShowing) {
-                                MinuteSecondPicker(timeInt: $stepInfo.extractTime, isShowing: $isPickerShowing)
-                                    .frame(height: 250)
-                            }
                             .onTapGesture {
+                                selectedStepIndex = stepIndex
                                 isPickerShowing.toggle()
                             }
                         Spacer()
@@ -92,7 +98,10 @@ struct ExtractRecipeDetailCell: View {
 struct ExtractRecipeDetailCell_Previews: PreviewProvider {
     static var previews: some View {
         ExtractRecipeDetailCell(cellPosition: .first,
-                                stepInfo: .constant(RecipeStep(title: "title", description: "", waterAmount: 1.0, extractTime: 10)))
+                                stepInfo: .constant(RecipeStep(title: "title", description: "", waterAmount: 1.0, extractTime: 10)),
+                                stepIndex: 0,
+                                selectedStepIndex: .constant(0),
+                                isPickerShowing: .constant(false))
     }
 }
 
