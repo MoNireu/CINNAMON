@@ -28,17 +28,25 @@ struct BottomPopupView<Content: View>: View {
     var body: some View {
         VStack {
             Spacer()
-                .onTapGesture {
-                    isPresented.toggle()
-                }
             content()
                 .background(Color.white)
                 .cornerRadius(radius: 16, corners: [.topLeft, .topRight])
                 .shadow(radius: 10)
         }
+        .transition(.move(edge: .bottom))
+        .animation(.easeInOut, value: isPresented)
         .ignoresSafeArea(edges: .bottom)
+        .background {
+            Color.clear
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    isPresented.toggle()
+                }
+        }
     }
 }
+
+
 
 extension View {
     

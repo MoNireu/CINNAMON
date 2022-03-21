@@ -35,13 +35,13 @@ struct ExtractRecipeDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
             .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button {
-//                        print("Log -", #fileID, #function, #line, "취소 버튼")
-//                    } label: {
-//                        Text("취소")
-//                    }
-//                }
+                //                ToolbarItem(placement: .navigationBarLeading) {
+                //                    Button {
+                //                        print("Log -", #fileID, #function, #line, "취소 버튼")
+                //                    } label: {
+                //                        Text("취소")
+                //                    }
+                //                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         viewModel.completeEditing()
@@ -55,7 +55,6 @@ struct ExtractRecipeDetailView: View {
         .popup(isPresented: $isPickerShowing) {
             BottomPopupView(isPresented: $isPickerShowing) {
                 MinuteSecondPicker(timeInt: $viewModel.recipe.recipeSteps[selectedStepIndex].extractTime, isShowing: $isPickerShowing)
-//                    .frame(height: 300)
             }
         }
     }
