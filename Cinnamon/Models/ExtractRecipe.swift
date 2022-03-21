@@ -23,7 +23,7 @@ class ExtractRecipeStore: ObservableObject {
                           totalExtractTime: 60,
                           beanAmount: 20.0,
                           recipeDetail: [
-                            RecipeStep(title: "뜸 들이기", description: "", waterAmount: 40, extractTime: 60),
+                            RecipeStep(title: "뜸 들이기", description: "약 60초 동안 뜸을 들여줍니다.", waterAmount: 40, extractTime: 60),
                             RecipeStep(title: "1차 푸어링", description: "", waterAmount: 80, extractTime: 60),
                             RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
                         ]),

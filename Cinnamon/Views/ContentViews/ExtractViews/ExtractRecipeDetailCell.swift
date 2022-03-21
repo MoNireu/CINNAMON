@@ -24,6 +24,7 @@ struct ExtractRecipeDetailCell: View {
 //    @State private var waterAmount: Float?
 //    @State private var time: String
     @State private var isWaterAmountEditing: Bool = false
+    @State private var isDescriptionShowing: Bool = false
     
     
     init(cellPosition: CellPosition = .middle,
@@ -45,11 +46,12 @@ struct ExtractRecipeDetailCell: View {
         ZStack {
             Rectangle()
                 .frame(width: 5.0)
-                .padding(getEdgeByCellPosition())
-            Group {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.white)
-                    .shadow(radius: 5.0)
+                .padding(getEdgeByCellPosition(), 50)
+                .ignoresSafeArea()
+//            Group {
+//                RoundedRectangle(cornerRadius: 10)
+//                    .foregroundColor(.white)
+//                    .shadow(radius: 5.0)
                 VStack {
                     TextField("단계별 제목", text: $stepInfo.title)
                         .padding(.leading)
@@ -75,12 +77,38 @@ struct ExtractRecipeDetailCell: View {
                     }
                     .multilineTextAlignment(.center)
                     .padding()
+                    
+                    if isDescriptionShowing {
+                        Text(stepInfo.description)
+                            .opacity(isDescriptionShowing ? 1 : 0)
+                            .padding()
+                    }
+                    
+                    if !stepInfo.description.isEmpty {
+                        Button {
+                            withAnimation {
+                                isDescriptionShowing.toggle()
+                            }
+                            print("Log -", #fileID, #function, #line)
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Image(systemName: "note.text")
+                                    .tint(isDescriptionShowing ? .gray : .blue)
+                                    .padding(.horizontal)
+                                    .padding(.bottom)
+                            }
+                        }
+                    }
                 }
-            }
-            .padding()
+                .background {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(.white)
+                        .shadow(radius: 5.0)
+                }
+                .padding()
+            
         }
-        .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets())
     }
     
     private func getEdgeByCellPosition() -> Edge.Set {
@@ -98,7 +126,7 @@ struct ExtractRecipeDetailCell: View {
 struct ExtractRecipeDetailCell_Previews: PreviewProvider {
     static var previews: some View {
         ExtractRecipeDetailCell(cellPosition: .first,
-                                stepInfo: .constant(RecipeStep(title: "title", description: "", waterAmount: 1.0, extractTime: 10)),
+                                stepInfo: .constant(RecipeStep(title: "title", description: "Description", waterAmount: 1.0, extractTime: 10)),
                                 stepIndex: 0,
                                 selectedStepIndex: .constant(0),
                                 isPickerShowing: .constant(false))

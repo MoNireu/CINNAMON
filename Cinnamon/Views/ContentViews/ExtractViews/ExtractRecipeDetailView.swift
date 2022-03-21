@@ -21,7 +21,8 @@ struct ExtractRecipeDetailView: View {
             }
             .font(.system(.title2))
             .padding()
-            List {
+            
+            ScrollView {
                 ForEach($viewModel.recipe.recipeSteps) { $step in
                     let index = getStepIndex(step)
                     ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
@@ -29,6 +30,9 @@ struct ExtractRecipeDetailView: View {
                                             stepIndex: index,
                                             selectedStepIndex: $selectedStepIndex,
                                             isPickerShowing: $isPickerShowing)
+                    .padding(.vertical, -4)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 3.5, leading: 0, bottom: 3.5, trailing: 0))
                 }
                 AddNewStepButton()
             }
@@ -36,13 +40,6 @@ struct ExtractRecipeDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
             .toolbar {
-                //                ToolbarItem(placement: .navigationBarLeading) {
-                //                    Button {
-                //                        print("Log -", #fileID, #function, #line, "취소 버튼")
-                //                    } label: {
-                //                        Text("취소")
-                //                    }
-                //                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         viewModel.completeEditing()
@@ -89,20 +86,21 @@ struct AddNewStepButton: View {
         Button {
             print("레시피 단계 추가")
         } label: {
-            ZStack {
+            HStack {
+                Spacer()
+                Image(systemName: "plus")
+                    .font(.system(.title))
+                    .padding()
+                Spacer()
+            }
+            .background {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(.white)
                     .shadow(radius: 5.0)
-                
-                HStack {
-                    Spacer()
-                    Image(systemName: "plus")
-                        .font(.system(.title))
-                        .padding()
-                    Spacer()
-                }
             }
+            .padding()
         }
         .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets())
     }
 }
