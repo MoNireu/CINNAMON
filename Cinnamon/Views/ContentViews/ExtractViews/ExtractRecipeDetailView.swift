@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExtractRecipeDetailView: View {
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
     @State private var isPickerShowing: Bool = false
     @State private var selectedStepIndex: Int = 0
@@ -45,6 +46,7 @@ struct ExtractRecipeDetailView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         viewModel.completeEditing()
+                        dismiss()
                         print("Log -", #fileID, #function, #line, "완료 버튼")
                     } label: {
                         Text("완료")
