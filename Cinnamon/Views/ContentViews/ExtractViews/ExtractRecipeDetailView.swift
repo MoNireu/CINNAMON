@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct ExtractRecipeDetailView: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
     @State private var isPickerShowing: Bool = false
     @State private var selectedStepIndex: Int = 0
-    @State private var isEditing: Bool = false
-    
     
     var body: some View {
         VStack {
@@ -32,30 +30,44 @@ struct ExtractRecipeDetailView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
-                        isEditing.toggle()
-                        print("Log -", #fileID, #function, #line, "편집 버튼")
+                        if viewModel.isEditing { viewModel.completeEditing() }
+                        else { viewModel.startEditing() }
                     } label: {
-                        Text("편집")
-                    }
-                    Button {
-                        viewModel.completeEditing()
-                        dismiss()
-                        print("Log -", #fileID, #function, #line, "완료 버튼")
-                    } label: {
-                        Text("완료")
+                        Text(viewModel.isEditing ? "완료" : "편집")
                     }
                 }
             }
         }
         .popup(isPresented: $isPickerShowing) {
             BottomPopupView(isPresented: $isPickerShowing) {
-                MinuteSecondPicker(timeInt: $viewModel.recipe.recipeSteps[selectedStepIndex].extractTime, isShowing: $isPickerShowing)
+                MinuteSecondPicker(timeInt: $viewModel.recipe.steps[selectedStepIndex].extractTime, isShowing: $isPickerShowing)
             }
         }
     }
     
+    @ViewBuilder var AddNewStepButton: some View {
+        HStack {
+            Spacer()
+            Image(systemName: "plus")
+                .font(.system(.title))
+                .padding()
+            Spacer()
+        }
+        .background {
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(.white)
+                .shadow(radius: 5.0)
+        }
+        .padding()
+        .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets())
+        .onTapGesture {
+            viewModel.addNewStep()
+        }
+    }
+    
     private func getReusableViewByEditMode() -> some View {
-        if isEditing {
+        if viewModel.isEditing {
             return AnyView(getListView())
         }
         else {
@@ -67,8 +79,9 @@ struct ExtractRecipeDetailView: View {
     private func getListView() -> some View {
         List {
             getEachCell()
-            AddNewStepButton()
+            AddNewStepButton
         }
+        .environment(\.editMode, viewModel.isEditing ? .constant(.active) : .constant(.inactive))
     }
     
     private func getScrollView() -> some View {
@@ -77,8 +90,10 @@ struct ExtractRecipeDetailView: View {
         }
     }
     
+    
+    
     private func getEachCell() -> some View {
-        ForEach($viewModel.recipe.recipeSteps) { $step in
+        ForEach($viewModel.recipe.steps) { $step in
             let index = getStepIndex(step)
             ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
                                     stepInfo: $step,
@@ -89,17 +104,18 @@ struct ExtractRecipeDetailView: View {
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 3.5, leading: 0, bottom: 3.5, trailing: 0))
         }
+        .onMove(perform: viewModel.moveSteps)
     }
     
     private func getStepIndex(_ step: RecipeStep) -> Int {
-        viewModel.recipe.recipeSteps.firstIndex(where: {$0.id == step.id})!
+        viewModel.recipe.steps.firstIndex(where: {$0.id == step.id})!
     }
     
     private func getCellPositionByIndex(_ index: Int) -> CellPosition {
         if index == 0 {
             return .first
         }
-        else if index == viewModel.recipe.recipeSteps.count - 1 {
+        else if index == viewModel.recipe.steps.count - 1 {
             return .last
         }
         else {
@@ -112,29 +128,5 @@ struct ExtractRecipeDetailView: View {
 struct ExtractRecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(extractRecipeStore: ExtractRecipeStore(), recipe: ExtractRecipeStore().list[0]))
-    }
-}
-
-struct AddNewStepButton: View {
-    var body: some View {
-        Button {
-            print("레시피 단계 추가")
-        } label: {
-            HStack {
-                Spacer()
-                Image(systemName: "plus")
-                    .font(.system(.title))
-                    .padding()
-                Spacer()
-            }
-            .background {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.white)
-                    .shadow(radius: 5.0)
-            }
-            .padding()
-        }
-        .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets())
     }
 }

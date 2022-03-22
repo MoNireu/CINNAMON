@@ -22,7 +22,7 @@ class ExtractRecipeStore: ObservableObject {
                           extractType: .espresso,
                           totalExtractTime: 60,
                           beanAmount: 20.0,
-                          recipeDetail: [
+                          steps: [
                             RecipeStep(title: "뜸 들이기", description: "약 60초 동안 뜸을 들여줍니다.", waterAmount: 40, extractTime: 60),
                             RecipeStep(title: "1차 푸어링", description: "", waterAmount: 80, extractTime: 60),
                             RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
@@ -32,7 +32,7 @@ class ExtractRecipeStore: ObservableObject {
                           extractType: .espresso,
                           totalExtractTime: 90,
                           beanAmount: 20.0,
-                          recipeDetail: [
+                          steps: [
                             RecipeStep(title: "뜸 들이기", description: "", waterAmount: 40, extractTime: 60),
                             RecipeStep(title: "1차 푸어링", description: "", waterAmount: 80, extractTime: 60),
                             RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
@@ -42,7 +42,7 @@ class ExtractRecipeStore: ObservableObject {
                           extractType: .brew,
                           totalExtractTime: 60,
                           beanAmount: 20.0,
-                          recipeDetail: [
+                          steps: [
                             RecipeStep(title: "뜸 들이기", description: "", waterAmount: 40, extractTime: 60),
                             RecipeStep(title: "1차 푸어링", description: "", waterAmount: 80, extractTime: 60),
                             RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
@@ -52,7 +52,7 @@ class ExtractRecipeStore: ObservableObject {
                           extractType: .brew,
                           totalExtractTime: 90,
                           beanAmount: 20.0,
-                          recipeDetail: [
+                          steps: [
                             RecipeStep(title: "뜸 들이기", description: "", waterAmount: 40, extractTime: 60),
                             RecipeStep(title: "1차 푸어링", description: "", waterAmount: 80, extractTime: 60),
                             RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
@@ -73,7 +73,7 @@ class ExtractRecipeStore: ObservableObject {
     }
 }
 
-class ExtractRecipe: Identifiable {
+class ExtractRecipe: ObservableObject, Identifiable {
     var id: UUID
     var title: String
     var description: String?
@@ -81,14 +81,14 @@ class ExtractRecipe: Identifiable {
     var totalExtractTime: Int
     var date: Date
     var beanAmount: Float
-    var recipeSteps: [RecipeStep]
+    var steps: [RecipeStep]
     
     init(title: String,
          description: String?,
          extractType: ExtractType,
          totalExtractTime: Int,
          beanAmount: Float,
-         recipeDetail: [RecipeStep])
+         steps: [RecipeStep])
     {
         self.id = UUID()
         self.title = title
@@ -96,8 +96,12 @@ class ExtractRecipe: Identifiable {
         self.extractType = extractType
         self.totalExtractTime = totalExtractTime
         self.beanAmount = beanAmount
-        self.recipeSteps = recipeDetail
+        self.steps = steps
         date = Date()
+    }
+    
+    func addNewStep() {
+        steps.append(RecipeStep(title: "", description: "", waterAmount: nil, extractTime: 0))
     }
 }
 
