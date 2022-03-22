@@ -12,6 +12,8 @@ struct ExtractRecipeDetailView: View {
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
     @State private var isPickerShowing: Bool = false
     @State private var selectedStepIndex: Int = 0
+    @State private var isEditing: Bool = false
+    
     
     var body: some View {
         VStack {
@@ -22,25 +24,19 @@ struct ExtractRecipeDetailView: View {
             .font(.system(.title2))
             .padding()
             
-            ScrollView {
-                ForEach($viewModel.recipe.recipeSteps) { $step in
-                    let index = getStepIndex(step)
-                    ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
-                                            stepInfo: $step,
-                                            stepIndex: index,
-                                            selectedStepIndex: $selectedStepIndex,
-                                            isPickerShowing: $isPickerShowing)
-                    .padding(.vertical, -4)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 3.5, leading: 0, bottom: 3.5, trailing: 0))
-                }
-                AddNewStepButton()
-            }
+            
+            getReusableViewByEditMode()
             .navigationTitle(viewModel.recipe.title)
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        isEditing.toggle()
+                        print("Log -", #fileID, #function, #line, "편집 버튼")
+                    } label: {
+                        Text("편집")
+                    }
                     Button {
                         viewModel.completeEditing()
                         dismiss()
@@ -55,6 +51,43 @@ struct ExtractRecipeDetailView: View {
             BottomPopupView(isPresented: $isPickerShowing) {
                 MinuteSecondPicker(timeInt: $viewModel.recipe.recipeSteps[selectedStepIndex].extractTime, isShowing: $isPickerShowing)
             }
+        }
+    }
+    
+    private func getReusableViewByEditMode() -> some View {
+        if isEditing {
+            return AnyView(getListView())
+        }
+        else {
+            return AnyView(getScrollView())
+        }
+    }
+    
+    
+    private func getListView() -> some View {
+        List {
+            getEachCell()
+            AddNewStepButton()
+        }
+    }
+    
+    private func getScrollView() -> some View {
+        ScrollView {
+            getEachCell()
+        }
+    }
+    
+    private func getEachCell() -> some View {
+        ForEach($viewModel.recipe.recipeSteps) { $step in
+            let index = getStepIndex(step)
+            ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
+                                    stepInfo: $step,
+                                    stepIndex: index,
+                                    selectedStepIndex: $selectedStepIndex,
+                                    isPickerShowing: $isPickerShowing)
+            .padding(.vertical, -4)
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets(top: 3.5, leading: 0, bottom: 3.5, trailing: 0))
         }
     }
     
@@ -73,6 +106,7 @@ struct ExtractRecipeDetailView: View {
             return .middle
         }
     }
+    
 }
 
 struct ExtractRecipeDetailView_Previews: PreviewProvider {

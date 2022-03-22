@@ -20,9 +20,6 @@ struct ExtractRecipeDetailCell: View {
     var stepIndex: Int
     @Binding var selectedStepIndex: Int
     @Binding var isPickerShowing: Bool
-//    @State private var title: String
-//    @State private var waterAmount: Float?
-//    @State private var time: String
     @State private var isWaterAmountEditing: Bool = false
     @State private var isDescriptionShowing: Bool = false
     
@@ -37,9 +34,6 @@ struct ExtractRecipeDetailCell: View {
         self.stepIndex = stepIndex
         self._selectedStepIndex = selectedStepIndex
         self._isPickerShowing = isPickerShowing
-//        self.title = stepInfo.wrappedValue.title!
-//        self.waterAmount = stepInfo.wrappedValue.waterAmount
-//        self.time = stepInfo.wrappedValue.extractTime.toMinuteString()
     }
     
     var body: some View {
@@ -48,11 +42,8 @@ struct ExtractRecipeDetailCell: View {
                 .frame(width: 5.0)
                 .padding(getEdgeByCellPosition(), 50)
                 .ignoresSafeArea()
-//            Group {
-//                RoundedRectangle(cornerRadius: 10)
-//                    .foregroundColor(.white)
-//                    .shadow(radius: 5.0)
-                VStack {
+
+            VStack {
                     TextField("단계별 제목", text: $stepInfo.title)
                         .padding(.leading)
                         .padding(.top)
