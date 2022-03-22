@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExtractRecipeListView: View {
-//    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
+    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     @ObservedObject var viewModel: ExtractRecipeListViewModel
     
     init(viewModel: ExtractRecipeListViewModel) {

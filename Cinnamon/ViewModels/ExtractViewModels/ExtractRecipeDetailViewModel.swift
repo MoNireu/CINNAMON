@@ -28,7 +28,7 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     
     func addNewStep() {
         recipe.addNewStep()
-        refreshView()
+        self.objectWillChange.send()
     }
     
     func startEditing() {
@@ -36,18 +36,15 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     }
     
     func completeEditing() {
+        recipe.title = "Test"
         extractRecipeStore.update(recipe)
         isEditing = false
-        refreshView()
+        extractRecipeStore.objectWillChange.send()
     }
     
     func moveSteps(from source: IndexSet, to destination: Int) {
         recipe.steps.move(fromOffsets: source, toOffset: destination)
         dumpStore()
-        refreshView()
-    }
-    
-    private func refreshView() {
         self.objectWillChange.send()
     }
     

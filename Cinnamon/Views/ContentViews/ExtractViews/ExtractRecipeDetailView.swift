@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExtractRecipeDetailView: View {
-//    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
+    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
     @State private var isPickerShowing: Bool = false
     @State private var selectedStepIndex: Int = 0
@@ -99,7 +99,8 @@ struct ExtractRecipeDetailView: View {
                                     stepInfo: $step,
                                     stepIndex: index,
                                     selectedStepIndex: $selectedStepIndex,
-                                    isPickerShowing: $isPickerShowing)
+                                    isPickerShowing: $isPickerShowing,
+                                    isParentEditing: viewModel.isEditing)
             .padding(.vertical, -4)
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 3.5, leading: 0, bottom: 3.5, trailing: 0))
@@ -127,6 +128,6 @@ struct ExtractRecipeDetailView: View {
 
 struct ExtractRecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(extractRecipeStore: ExtractRecipeStore(), recipe: ExtractRecipeStore().list[0]))  
+        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(extractRecipeStore: ExtractRecipeStore(), recipe: ExtractRecipeStore().list[0]))
     }
 }

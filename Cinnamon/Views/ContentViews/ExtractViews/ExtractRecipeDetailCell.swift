@@ -15,25 +15,36 @@ enum CellPosition{
 
 
 struct ExtractRecipeDetailCell: View {
+    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     var cellPosition: CellPosition
     @Binding var stepInfo: RecipeStep
     var stepIndex: Int
     @Binding var selectedStepIndex: Int
     @Binding var isPickerShowing: Bool
+    var isParentEditing: Bool
+    
     @State private var isWaterAmountEditing: Bool = false
-    @State private var isDescriptionShowing: Bool = false
+    @State private var isDescriptionShowing: Bool
+    @State private var isDescriptionPlaceHolderVisible: Bool
+    @FocusState private var isDescriptionFocused: Bool
+    
+    let DESCRIPTION_PLACE_HOLDER = "(선택) 설명을 입력해주세요."
     
     
     init(cellPosition: CellPosition = .middle,
          stepInfo: Binding<RecipeStep>,
          stepIndex: Int,
          selectedStepIndex: Binding<Int>,
-         isPickerShowing: Binding<Bool>) {
+         isPickerShowing: Binding<Bool>,
+         isParentEditing: Bool) {
         self.cellPosition = cellPosition
         self._stepInfo = stepInfo
         self.stepIndex = stepIndex
         self._selectedStepIndex = selectedStepIndex
         self._isPickerShowing = isPickerShowing
+        self.isParentEditing = isParentEditing
+        self._isDescriptionShowing = .init(initialValue: isParentEditing)
+        self._isDescriptionPlaceHolderVisible = .init(initialValue: stepInfo.wrappedValue.description.isEmpty ? true : false)
     }
     
     var body: some View {
@@ -70,25 +81,11 @@ struct ExtractRecipeDetailCell: View {
                     .padding()
                     
                     if isDescriptionShowing {
-                        Text(stepInfo.description)
-                            .opacity(isDescriptionShowing ? 1 : 0)
-                            .padding()
+                        DesCriptionView
                     }
                     
-                    if !stepInfo.description.isEmpty {
-                        HStack {
-                            Spacer()
-                            Image(systemName: "note.text")
-                                .tint(isDescriptionShowing ? .gray : .blue)
-                                .padding(.horizontal)
-                                .padding(.bottom)
-                        }
-                        .onTapGesture {
-                            withAnimation {
-                                isDescriptionShowing.toggle()
-                            }
-                            print("Log -", #fileID, #function, #line)
-                        }
+                    if !isParentEditing && !stepInfo.description.isEmpty {
+                        ShowDescriptionButton
                     }
                 }
                 .background {
@@ -98,6 +95,64 @@ struct ExtractRecipeDetailCell: View {
                 }
                 .padding()
             
+        }
+    }
+    
+    @ViewBuilder var ShowDescriptionButton: some View {
+        HStack {
+            Spacer()
+            Image(systemName: "note.text")
+                .tint(isDescriptionShowing ? .gray : .blue)
+                .padding(.horizontal)
+                .padding(.bottom)
+        }
+        .onTapGesture {
+            withAnimation {
+                isDescriptionShowing.toggle()
+            }
+            print("Log -", #fileID, #function, #line)
+        }
+    }
+    
+    @ViewBuilder var DesCriptionView: some View {
+        if isParentEditing {
+            ZStack {
+                TextEditor(text: $stepInfo.description)
+                    .disableAutocorrection(true)
+                    .submitLabel(.done)
+                    .padding()
+                    .focused($isDescriptionFocused)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Button("완료") {
+                                isDescriptionFocused = false
+                            }
+                        }
+                    }
+                    .onChange(of: isDescriptionFocused) { focused in
+                        if focused {
+                            isDescriptionPlaceHolderVisible = false
+                        }
+                        else {
+                            isDescriptionPlaceHolderVisible = stepInfo.description.isEmpty ? true : false
+                        }
+                    }
+                    .onChange(of: stepInfo.description) { text in
+                        if text.last == "\n" {
+                            stepInfo.description.popLast()
+                            isDescriptionFocused = false
+                        }
+                    }
+                    
+                
+                Text(DESCRIPTION_PLACE_HOLDER)
+                    .foregroundColor(.gray)
+                    .isHidden(!isDescriptionPlaceHolderVisible)
+                    .allowsHitTesting(false)
+            }
+        }
+        else {
+            Text(stepInfo.description)
         }
     }
     
@@ -119,7 +174,8 @@ struct ExtractRecipeDetailCell_Previews: PreviewProvider {
                                 stepInfo: .constant(RecipeStep(title: "title", description: "Description", waterAmount: 1.0, extractTime: 10)),
                                 stepIndex: 0,
                                 selectedStepIndex: .constant(0),
-                                isPickerShowing: .constant(false))
+                                isPickerShowing: .constant(false),
+                                isParentEditing: true)
     }
 }
 

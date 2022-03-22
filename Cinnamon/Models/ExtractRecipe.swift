@@ -216,7 +216,7 @@ class ExtractRecipeStore: ObservableObject {
 struct ExtractRecipe: Identifiable {
     var id: UUID
     var title: String
-    var description: String?
+    var description: String
     var extractType: ExtractType
     var totalExtractTime: Int
     var date: Date
@@ -224,7 +224,7 @@ struct ExtractRecipe: Identifiable {
     var steps: [RecipeStep]
     
     init(title: String,
-         description: String?,
+         description: String,
          extractType: ExtractType,
          totalExtractTime: Int,
          beanAmount: Float,
