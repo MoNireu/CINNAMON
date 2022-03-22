@@ -127,6 +127,6 @@ struct ExtractRecipeDetailView: View {
 
 struct ExtractRecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(extractRecipeStore: ExtractRecipeStore(), recipe: ExtractRecipeStore().list[0]))
+        ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(extractRecipeStore: ExtractRecipeStore(), recipe: ExtractRecipeStore().list[0]))  
     }
 }

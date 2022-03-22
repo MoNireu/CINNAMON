@@ -76,19 +76,18 @@ struct ExtractRecipeDetailCell: View {
                     }
                     
                     if !stepInfo.description.isEmpty {
-                        Button {
+                        HStack {
+                            Spacer()
+                            Image(systemName: "note.text")
+                                .tint(isDescriptionShowing ? .gray : .blue)
+                                .padding(.horizontal)
+                                .padding(.bottom)
+                        }
+                        .onTapGesture {
                             withAnimation {
                                 isDescriptionShowing.toggle()
                             }
                             print("Log -", #fileID, #function, #line)
-                        } label: {
-                            HStack {
-                                Spacer()
-                                Image(systemName: "note.text")
-                                    .tint(isDescriptionShowing ? .gray : .blue)
-                                    .padding(.horizontal)
-                                    .padding(.bottom)
-                            }
                         }
                     }
                 }
