@@ -15,85 +15,89 @@ enum CellPosition{
 
 
 struct ExtractRecipeDetailCell: View {
-    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
-    var cellPosition: CellPosition
-    @Binding var stepInfo: RecipeStep
-    var stepIndex: Int
-    @Binding var selectedStepIndex: Int
-    @Binding var isPickerShowing: Bool
-    var isParentEditing: Bool
-    
-    @State private var isWaterAmountEditing: Bool = false
-    @State private var isDescriptionShowing: Bool
-    @State private var isDescriptionPlaceHolderVisible: Bool
-    @FocusState private var isDescriptionFocused: Bool
+    @EnvironmentObject var extractRecipeStore: ExtractRecipe
+    @ObservedObject var viewModel: ExtractRecipeDetailCellViewModel
+    @FocusState var isDescriptionFocused: Bool
+    //    var cellPosition: CellPosition
+    //    @Binding var stepInfo: RecipeStep
+    //    var stepIndex: Int
+    //    @Binding var selectedStepIndex: Int
+    //    @Binding var isPickerShowing: Bool
+    //    var isParentEditing: Bool
+    //
+    //    @State private var isWaterAmountEditing: Bool = false
+    //    @State private var isDescriptionShowing: Bool
+    //    @State private var isDescriptionPlaceHolderVisible: Bool
+    //    @FocusState private var isDescriptionFocused: Bool
+    //
+    //    let DESCRIPTION_PLACE_HOLDER = "(선택) 설명을 입력해주세요."
+    //
+    //
+    //    init(cellPosition: CellPosition = .middle,
+    //         stepInfo: Binding<RecipeStep>,
+    //         stepIndex: Int,
+    //         selectedStepIndex: Binding<Int>,
+    //         isPickerShowing: Binding<Bool>,
+    //         isParentEditing: Bool) {
+    //        self.cellPosition = cellPosition
+    //        self._stepInfo = stepInfo
+    //        self.stepIndex = stepIndex
+    //        self._selectedStepIndex = selectedStepIndex
+    //        self._isPickerShowing = isPickerShowing
+    //        self.isParentEditing = isParentEditing
+    //        self._isDescriptionShowing = .init(initialValue: isParentEditing)
+    //        self._isDescriptionPlaceHolderVisible = .init(initialValue: stepInfo.wrappedValue.description.isEmpty ? true : false)
+    //    }
     
     let DESCRIPTION_PLACE_HOLDER = "(선택) 설명을 입력해주세요."
-    
-    
-    init(cellPosition: CellPosition = .middle,
-         stepInfo: Binding<RecipeStep>,
-         stepIndex: Int,
-         selectedStepIndex: Binding<Int>,
-         isPickerShowing: Binding<Bool>,
-         isParentEditing: Bool) {
-        self.cellPosition = cellPosition
-        self._stepInfo = stepInfo
-        self.stepIndex = stepIndex
-        self._selectedStepIndex = selectedStepIndex
-        self._isPickerShowing = isPickerShowing
-        self.isParentEditing = isParentEditing
-        self._isDescriptionShowing = .init(initialValue: isParentEditing)
-        self._isDescriptionPlaceHolderVisible = .init(initialValue: stepInfo.wrappedValue.description.isEmpty ? true : false)
-    }
     
     var body: some View {
         ZStack {
             Rectangle()
                 .frame(width: 5.0)
-                .padding(getEdgeByCellPosition(), 50)
+                .padding(viewModel.getEdgeByCellIndex(), 50)
                 .ignoresSafeArea()
-
+            
             VStack {
-                    TextField("단계별 제목", text: $stepInfo.title)
-                        .padding(.leading)
-                        .padding(.top)
-                    HStack {
-                        Spacer()
-                        TextField("0ml", value: $stepInfo.waterAmount, format: .number)
-                            .fixedSize()
-                            .onTapGesture {
-                                isWaterAmountEditing = true
-                            }
-                            .onSubmit {
-                                isWaterAmountEditing = stepInfo.waterAmount != nil ? false : true
-                            }
-                        if !isWaterAmountEditing { Text("ml") }
-                        Spacer()
-                        Text("\(TimeConvertUtil.timeIntToString(time: stepInfo.extractTime))")
-                            .onTapGesture {
-                                selectedStepIndex = stepIndex
-                                isPickerShowing.toggle()
-                            }
-                        Spacer()
-                    }
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    
-                    if isDescriptionShowing {
-                        DesCriptionView
-                    }
-                    
-                    if !isParentEditing && !stepInfo.description.isEmpty {
-                        ShowDescriptionButton
-                    }
+                TextField("단계별 제목", text: $viewModel.stepInfo.title)
+                    .padding(.leading)
+                    .padding(.top)
+                HStack {
+                    Spacer()
+                    TextField("0ml", value: $viewModel.stepInfo.waterAmount, format: .number)
+                        .fixedSize()
+                        .onTapGesture {
+                            viewModel.isWaterAmountEditing = true
+                        }
+                        .onSubmit {
+                            viewModel.isWaterAmountEditing = viewModel.stepInfo.waterAmount != nil ? false : true
+                        }
+                    if !viewModel.isWaterAmountEditing { Text("ml") }
+                    Spacer()
+                    Text("\(TimeConvertUtil.timeIntToString(time: viewModel.stepInfo.extractTime))")
+                        .onTapGesture {
+                            viewModel.selectedStepIndex = viewModel.stepIndex
+                            viewModel.isPickerShowing.toggle()
+                        }
+                    Spacer()
                 }
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(.white)
-                        .shadow(radius: 5.0)
-                }
+                .multilineTextAlignment(.center)
                 .padding()
+                
+                if viewModel.isDescriptionShowing {
+                    DesCriptionView
+                }
+                
+                if !viewModel.isParentEditing && !viewModel.stepInfo.description.isEmpty {
+                    ShowDescriptionButton
+                }
+            }
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(.white)
+                    .shadow(radius: 5.0)
+            }
+            .padding()
             
         }
     }
@@ -102,22 +106,23 @@ struct ExtractRecipeDetailCell: View {
         HStack {
             Spacer()
             Image(systemName: "note.text")
-                .tint(isDescriptionShowing ? .gray : .blue)
+                .tint(viewModel.isDescriptionShowing ? .gray : .blue)
                 .padding(.horizontal)
                 .padding(.bottom)
         }
         .onTapGesture {
             withAnimation {
-                isDescriptionShowing.toggle()
+                viewModel.isDescriptionShowing.toggle()
             }
             print("Log -", #fileID, #function, #line)
         }
     }
     
     @ViewBuilder var DesCriptionView: some View {
-        if isParentEditing {
+        if viewModel.isParentEditing {
             ZStack {
-                TextEditor(text: $stepInfo.description)
+                
+                TextEditor(text: $viewModel.stepInfo.description)
                     .disableAutocorrection(true)
                     .submitLabel(.done)
                     .padding()
@@ -131,51 +136,47 @@ struct ExtractRecipeDetailCell: View {
                     }
                     .onChange(of: isDescriptionFocused) { focused in
                         if focused {
-                            isDescriptionPlaceHolderVisible = false
+                            viewModel.isDescriptionPlaceHolderVisible = false
                         }
                         else {
-                            isDescriptionPlaceHolderVisible = stepInfo.description.isEmpty ? true : false
+                            viewModel.recipe.steps[viewModel.stepIndex] = viewModel.stepInfo
+                            viewModel.isDescriptionPlaceHolderVisible = viewModel.stepInfo.description.isEmpty ? true : false
                         }
                     }
-                    .onChange(of: stepInfo.description) { text in
+                    .onChange(of: viewModel.stepInfo.description) { text in
                         if text.last == "\n" {
-                            stepInfo.description.popLast()
+                            viewModel.stepInfo.description.popLast()
                             isDescriptionFocused = false
                         }
                     }
-                    
+                
                 
                 Text(DESCRIPTION_PLACE_HOLDER)
                     .foregroundColor(.gray)
-                    .isHidden(!isDescriptionPlaceHolderVisible)
+                    .isHidden(!viewModel.isDescriptionPlaceHolderVisible)
                     .allowsHitTesting(false)
             }
         }
         else {
-            Text(stepInfo.description)
-        }
-    }
-    
-    private func getEdgeByCellPosition() -> Edge.Set {
-        switch cellPosition {
-        case .first:
-            return .top
-        case .middle:
-            return .horizontal
-        case .last:
-            return .bottom
+            Text(viewModel.stepInfo.description)
         }
     }
 }
 
 struct ExtractRecipeDetailCell_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeDetailCell(cellPosition: .first,
-                                stepInfo: .constant(RecipeStep(title: "title", description: "Description", waterAmount: 1.0, extractTime: 10)),
-                                stepIndex: 0,
-                                selectedStepIndex: .constant(0),
-                                isPickerShowing: .constant(false),
-                                isParentEditing: true)
+        let store = ExtractRecipeStore()
+        let recipe = store.list[0]
+        
+        ExtractRecipeDetailCell(
+            viewModel: ExtractRecipeDetailCellViewModel(
+                recipe: recipe,
+                stepInfo: recipe.steps[0],
+                stepIndex: 0,
+                selectedStepIndex: 0,
+                isPickerShowing: false,
+                isParentEditing: false)
+        )
     }
 }
 

@@ -10,8 +10,8 @@ import SwiftUI
 struct ExtractRecipeDetailView: View {
     @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
-    @State private var isPickerShowing: Bool = false
-    @State private var selectedStepIndex: Int = 0
+//    @State private var isPickerShowing: Bool = false
+//    @State private var selectedStepIndex: Int = 0
     
     var body: some View {
         VStack {
@@ -38,9 +38,9 @@ struct ExtractRecipeDetailView: View {
                 }
             }
         }
-        .popup(isPresented: $isPickerShowing) {
-            BottomPopupView(isPresented: $isPickerShowing) {
-                MinuteSecondPicker(timeInt: $viewModel.recipe.steps[selectedStepIndex].extractTime, isShowing: $isPickerShowing)
+        .popup(isPresented: $viewModel.isPickerShowing) {
+            BottomPopupView(isPresented: $viewModel.isPickerShowing) {
+                MinuteSecondPicker(timeInt: $viewModel.recipe.steps[viewModel.selectedStepIndex].extractTime, isShowing: $viewModel.isPickerShowing)
             }
         }
     }
@@ -94,22 +94,27 @@ struct ExtractRecipeDetailView: View {
     
     private func getEachCell() -> some View {
         ForEach($viewModel.recipe.steps) { $step in
-            let index = getStepIndex(step)
-            ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
-                                    stepInfo: $step,
-                                    stepIndex: index,
-                                    selectedStepIndex: $selectedStepIndex,
-                                    isPickerShowing: $isPickerShowing,
-                                    isParentEditing: viewModel.isEditing)
+            let index = viewModel.recipe.getStepIndex(step: step)
+            ExtractRecipeDetailCell(
+                viewModel: ExtractRecipeDetailCellViewModel(
+                    recipe: viewModel.recipe,
+                    stepInfo: viewModel.recipe.steps[index],
+                    stepIndex: index,
+                    selectedStepIndex: viewModel.selectedStepIndex,
+                    isPickerShowing: viewModel.isPickerShowing,
+                    isParentEditing: viewModel.isEditing))
+            .environmentObject(viewModel.recipe)
+//            ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
+//                                    stepInfo: $step,
+//                                    stepIndex: index,
+//                                    selectedStepIndex: $viewModel.selectedStepIndex,
+//                                    isPickerShowing: $viewModel.isPickerShowing,
+//                                    isParentEditing: viewModel.isEditing)
             .padding(.vertical, -4)
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 3.5, leading: 0, bottom: 3.5, trailing: 0))
         }
         .onMove(perform: viewModel.moveSteps)
-    }
-    
-    private func getStepIndex(_ step: RecipeStep) -> Int {
-        viewModel.recipe.steps.firstIndex(where: {$0.id == step.id})!
     }
     
     private func getCellPositionByIndex(_ index: Int) -> CellPosition {

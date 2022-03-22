@@ -13,6 +13,8 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     @Published var extractRecipeStore: ExtractRecipeStore
     @Published var recipe: ExtractRecipe
     @Published var isEditing: Bool = false
+    @Published var isPickerShowing: Bool = false
+    @Published var selectedStepIndex: Int = 0
     var index: Int {
         extractRecipeStore.list.firstIndex(where: {$0.id == recipe.id})!
     }
@@ -44,11 +46,6 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     
     func moveSteps(from source: IndexSet, to destination: Int) {
         recipe.steps.move(fromOffsets: source, toOffset: destination)
-        dumpStore()
         self.objectWillChange.send()
-    }
-    
-    private func dumpStore() {
-        print(extractRecipeStore.list[index].steps)
     }
 }
