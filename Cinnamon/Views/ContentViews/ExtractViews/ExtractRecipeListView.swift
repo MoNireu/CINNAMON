@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExtractRecipeListView: View {
-    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
+//    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     @ObservedObject var viewModel: ExtractRecipeListViewModel
     
     init(viewModel: ExtractRecipeListViewModel) {
@@ -46,7 +46,9 @@ struct ExtractRecipeListView: View {
         List(selection: $viewModel.selectedRecipe) {
             ForEach(viewModel.filteredRecipeList) { recipe in
                 NavigationLink {
-                    ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel(extractRecipeStore: viewModel.extractRecipeStore, recipe: recipe))
+                    ExtractRecipeDetailView(viewModel:
+                                                ExtractRecipeDetailViewModel(extractRecipeStore: viewModel.extractRecipeStore,
+                                                                             recipe: recipe))
                 } label: {
                     ExtractRecipeListCell(title: recipe.title,
                                           description: recipe.description,

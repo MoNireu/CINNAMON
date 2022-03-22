@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExtractRecipeDetailView: View {
-    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
+//    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
     @State private var isPickerShowing: Bool = false
     @State private var selectedStepIndex: Int = 0

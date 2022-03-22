@@ -73,7 +73,7 @@ class ExtractRecipeStore: ObservableObject {
     }
 }
 
-class ExtractRecipe: ObservableObject, Identifiable {
+struct ExtractRecipe: Identifiable {
     var id: UUID
     var title: String
     var description: String?
@@ -100,7 +100,7 @@ class ExtractRecipe: ObservableObject, Identifiable {
         date = Date()
     }
     
-    func addNewStep() {
+    mutating func addNewStep() {
         steps.append(RecipeStep(title: "", description: "", waterAmount: nil, extractTime: 0))
     }
 }

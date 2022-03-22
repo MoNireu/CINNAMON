@@ -43,10 +43,15 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     
     func moveSteps(from source: IndexSet, to destination: Int) {
         recipe.steps.move(fromOffsets: source, toOffset: destination)
+        dumpStore()
         refreshView()
     }
     
     private func refreshView() {
         self.objectWillChange.send()
+    }
+    
+    private func dumpStore() {
+        print(extractRecipeStore.list[index].steps)
     }
 }
