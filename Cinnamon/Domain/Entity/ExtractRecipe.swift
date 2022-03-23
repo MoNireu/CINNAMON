@@ -12,8 +12,8 @@ enum ExtractType {
     case brew
 }
 
-class ExtractRecipe: ObservableObject, Identifiable {
-    var id: UUID
+struct ExtractRecipe: Identifiable {
+    var id: UUID = UUID()
     var title: String
     var description: String
     var extractType: ExtractType
@@ -21,45 +21,12 @@ class ExtractRecipe: ObservableObject, Identifiable {
     var date: Date
     var beanAmount: Float
     var steps: [RecipeStep]
-    
-    init(title: String,
-         description: String,
-         extractType: ExtractType,
-         totalExtractTime: Int,
-         beanAmount: Float,
-         steps: [RecipeStep])
-    {
-        self.id = UUID()
-        self.title = title
-        self.description = description
-        self.extractType = extractType
-        self.totalExtractTime = totalExtractTime
-        self.beanAmount = beanAmount
-        self.steps = steps
-        date = Date()
-    }
-    
-    func addNewStep() {
-        steps.append(RecipeStep(title: "", description: "", waterAmount: nil, extractTime: 0))
-    }
-    
-    func getStepIndex(step: RecipeStep) -> Int {
-        return self.steps.firstIndex(where: {$0.id == step.id})!
-    }
 }
 
 struct RecipeStep: Identifiable {
-    var id: UUID
+    var id: UUID = UUID()
     var title: String
     var description: String
     var waterAmount: Float?
     var extractTime: Int
-    
-    init(title: String, description: String, waterAmount: Float?, extractTime: Int) {
-        self.id = UUID()
-        self.title = title
-        self.description = description
-        self.waterAmount = waterAmount
-        self.extractTime = extractTime
-    }
 }
