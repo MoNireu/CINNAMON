@@ -162,18 +162,14 @@
 		E105FFBA2782E03000C6B73B /* Cinnamon */ = {
 			isa = PBXGroup;
 			children = (
-				E105FFBB2782E03000C6B73B /* CinnamonApp.swift */,
+				E17B8F3527EAF7CC0010B7CF /* Common */,
+				E17B8F2D27EAF4220010B7CF /* Application */,
+				E17B8F2A27EAF3860010B7CF /* Presentation */,
+				E17B8F2B27EAF3A80010B7CF /* Domain */,
+				E17B8F2C27EAF3AF0010B7CF /* Data */,
 				E15D209627C485490088F06B /* Info.plist */,
-				E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */,
-				E160A53E27E4CA2000762847 /* Utils */,
-				E142D0CE27D5BCBE00579C8F /* CustomViews */,
-				E10CF67927D9CA04006AA340 /* Extensions */,
-				E183A61627BB729300A29D8E /* Models */,
-				E183A61827BB72C100A29D8E /* Views */,
-				E183A61727BB729F00A29D8E /* ViewModels */,
 				E105FFBF2782E03200C6B73B /* Assets.xcassets */,
 				E105FFC42782E03200C6B73B /* Persistence.swift */,
-				E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */,
 				E1189E2A27BC88200005E590 /* GoogleService-Info.plist */,
 				E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */,
 				E105FFC12782E03200C6B73B /* Preview Content */,
@@ -215,16 +211,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		E10CF67D27D9CDA7006AA340 /* ContentViews */ = {
+		E10CF67D27D9CDA7006AA340 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				E10CF68227D9DD4D006AA340 /* ExtractViews */,
 				E10CF67E27D9CDCA006AA340 /* MainTabView.swift */,
 			);
-			path = ContentViews;
+			path = Main;
 			sourceTree = "<group>";
 		};
-		E10CF68227D9DD4D006AA340 /* ExtractViews */ = {
+		E10CF68227D9DD4D006AA340 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E10CF68327D9DD6E006AA340 /* ExtractRecipeListView.swift */,
@@ -232,17 +227,17 @@
 				E12BED1F27E07A740058E65A /* ExtractRecipeDetailView.swift */,
 				E12BED2127E089F90058E65A /* ExtractRecipeDetailCell.swift */,
 			);
-			path = ExtractViews;
+			path = View;
 			sourceTree = "<group>";
 		};
-		E142D0CB27D5B26000579C8F /* SignInUpViewModels */ = {
+		E142D0CB27D5B26000579C8F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				E15A1AC327C780F700E6B679 /* SignUpViewModel.swift */,
 				E1189E3927BC94970005E590 /* SignInUpViewModel.swift */,
 				E142D0CC27D5B28900579C8F /* AccountSetupViewModel.swift */,
 			);
-			path = SignInUpViewModels;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E142D0CE27D5BCBE00579C8F /* CustomViews */ = {
@@ -263,43 +258,96 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		E183A61627BB729300A29D8E /* Models */ = {
+		E17B8F2A27EAF3860010B7CF /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				E142D0CE27D5BCBE00579C8F /* CustomViews */,
+				E10CF67D27D9CDA7006AA340 /* Main */,
+				E17B8F2F27EAF4D80010B7CF /* SignInUp */,
+				E17B8F2E27EAF4BC0010B7CF /* ExtractRecipe */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		E17B8F2B27EAF3A80010B7CF /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				E17B8F3427EAF70B0010B7CF /* UseCase */,
+				E183A61627BB729300A29D8E /* Entity */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		E17B8F2C27EAF3AF0010B7CF /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E17B8F2D27EAF4220010B7CF /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E105FFBB2782E03000C6B73B /* CinnamonApp.swift */,
+				E105FFC62782E03200C6B73B /* Cinnamon.xcdatamodeld */,
+				E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E17B8F2E27EAF4BC0010B7CF /* ExtractRecipe */ = {
+			isa = PBXGroup;
+			children = (
+				E10CF68227D9DD4D006AA340 /* View */,
+				E1C9287427DB095700CD35CA /* ViewModel */,
+			);
+			path = ExtractRecipe;
+			sourceTree = "<group>";
+		};
+		E17B8F2F27EAF4D80010B7CF /* SignInUp */ = {
+			isa = PBXGroup;
+			children = (
+				E1D0492A27BB835B0074A9EC /* View */,
+				E142D0CB27D5B26000579C8F /* ViewModel */,
+			);
+			path = SignInUp;
+			sourceTree = "<group>";
+		};
+		E17B8F3427EAF70B0010B7CF /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		E17B8F3527EAF7CC0010B7CF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E10CF67927D9CA04006AA340 /* Extensions */,
+				E160A53E27E4CA2000762847 /* Utils */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E183A61627BB729300A29D8E /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				E10CF68027D9D300006AA340 /* ExtractRecipe.swift */,
 			);
-			path = Models;
+			path = Entity;
 			sourceTree = "<group>";
 		};
-		E183A61727BB729F00A29D8E /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				E1C9287427DB095700CD35CA /* ExtractViewModels */,
-				E142D0CB27D5B26000579C8F /* SignInUpViewModels */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		E183A61827BB72C100A29D8E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E10CF67D27D9CDA7006AA340 /* ContentViews */,
-				E1D0492A27BB835B0074A9EC /* SignInUpViews */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		E1C9287427DB095700CD35CA /* ExtractViewModels */ = {
+		E1C9287427DB095700CD35CA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				E1C9287527DB097B00CD35CA /* ExtractRecipeListViewModel.swift */,
 				E121C73A27E1C9CE0036436D /* ExtractRecipeDetailViewModel.swift */,
 				E17B8F2827E9965C0010B7CF /* ExtractRecipeDetailCellViewModel.swift */,
 			);
-			path = ExtractViewModels;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		E1D0492A27BB835B0074A9EC /* SignInUpViews */ = {
+		E1D0492A27BB835B0074A9EC /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E105FFBD2782E03000C6B73B /* SignInUpView.swift */,
@@ -309,7 +357,7 @@
 				E15A1AC127C780C500E6B679 /* SignUpView.swift */,
 				E142D0C927D5A46A00579C8F /* AccountSetupView.swift */,
 			);
-			path = SignInUpViews;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
