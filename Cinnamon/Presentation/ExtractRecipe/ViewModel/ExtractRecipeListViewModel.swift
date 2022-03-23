@@ -14,7 +14,8 @@ class ExtractRecipeListViewModel: ObservableObject {
     @Published private var usecase: ExtractRecipeListUseCase
     @Published var recipes: [ExtractRecipe] = []
     @Published var selectedExtractType: ExtractType = .espresso
-    @Published var editingMode: EditMode = .inactive
+//    @Published var editingMode: EditMode = .inactive
+    @Published var isEditing: Bool = false
     @Published var selectedRecipe = Set<UUID>()
     
     init(usecase: ExtractRecipeListUseCase) {
@@ -38,6 +39,7 @@ class ExtractRecipeListViewModel: ObservableObject {
     private func addSubscriptions() {
         reloadOnRecipesChange()
         reloadRecipesOnPickerChange()
+        resetSelectedRecipesOnEditFinish()
     }
     
     
@@ -51,5 +53,14 @@ class ExtractRecipeListViewModel: ObservableObject {
             self!.usecase.requestGetFromRepositoryCache(extractMethod: extractType)
         }
         .store(in: &cancelBag)
+    }
+    
+    private func resetSelectedRecipesOnEditFinish() {
+        $isEditing
+            .map({!$0})
+            .sink { [weak self] editingFinished in
+                if editingFinished { self!.selectedRecipe = Set<UUID>() }
+            }
+            .store(in: &cancelBag)
     }
 }

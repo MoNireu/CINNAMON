@@ -17,32 +17,29 @@ struct ExtractRecipeListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                addExtractTypePicker()
-                addRecipeList()
+                ExtractTypePicker
+                RecipeListView
             }
         }
         .listStyle(.plain)
         .onAppear(perform: viewModel.onAppear)
     }
+}
+
+extension ExtractRecipeListView {
     
-    
-    func addExtractTypePicker() -> some View {
+    @ViewBuilder var ExtractTypePicker: some View {
         Picker("extractType", selection: $viewModel.selectedExtractType) {
             Text("에스프레소").tag(ExtractType.espresso)
             Text("브루잉").tag(ExtractType.brew)
         }
         .pickerStyle(.segmented)
         .padding()
-        .disabled(viewModel.editingMode == .inactive ? false : true)
-        .onChange(of: viewModel.editingMode) { newValue in
-            if newValue == .inactive {
-                viewModel.selectedRecipe = Set<UUID>()
-            }
-        }
+        .disabled(viewModel.isEditing ? true : false)
     }
     
     
-    func addRecipeList() -> some View {
+    @ViewBuilder var RecipeListView: some View {
         List(selection: $viewModel.selectedRecipe) {
             ForEach(viewModel.recipes) { recipe in
                 NavigationLink {
@@ -58,28 +55,28 @@ struct ExtractRecipeListView: View {
             }
         }
         .navigationTitle("추출 레시피")
-        .environment(\.editMode, $viewModel.editingMode)
+        .environment(\.editMode, viewModel.isEditing ? .constant(.active) : .constant(.inactive))
         .toolbar {
-            addToolBarButtons()
+            ToolBarButtons
         }
     }
     
-    func addToolBarButtons() -> some ToolbarContent {
+    @ToolbarContentBuilder var ToolBarButtons: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
             // Edit Button
             Button {
-                viewModel.editingMode = (viewModel.editingMode == .inactive) ? .active : .inactive
+                viewModel.isEditing.toggle()
             } label: {
-                Image(systemName: viewModel.editingMode == .inactive ? "checkmark.circle" : "checkmark.circle.fill")
+                Image(systemName: viewModel.isEditing ? "checkmark.circle.fill" : "checkmark.circle" )
             }
             
             // Add Button
             Button {
-                if viewModel.editingMode == .inactive { print("Log -", #fileID, #function, #line) }
-                else { print("Log -", #fileID, #function, #line, viewModel.selectedRecipe) }
+                if viewModel.isEditing { print("Log -", #fileID, #function, #line, viewModel.selectedRecipe) }
+                else { print("Log -", #fileID, #function, #line) }
             } label: {
-                Image(systemName: viewModel.editingMode == .inactive ? "plus" : "trash")
-                    .foregroundColor(viewModel.editingMode == .inactive ? .blue : .red)
+                Image(systemName: viewModel.isEditing ? "trash" : "plus")
+                    .foregroundColor(viewModel.isEditing ? .red : .blue)
             }
         }
     }
