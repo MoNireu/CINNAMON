@@ -13,13 +13,18 @@ class ExtractRecipeListUseCase: ObservableObject {
     @Published private var repository: ExtractRecipeRepository = ExtractRecipeRepository.shared
     private var extractType: ExtractType = .espresso
     
-    var getExtractRecipeList = PassthroughSubject<[ExtractRecipe], Never>()
+    var getExtractRecipeList: AnyPublisher<[ExtractRecipe], Never> {
+        repository.getListSubject
+            .map { [weak self] recipeList in
+                return self!.filterRecipeListByExtractType(recipeList)
+            }
+            .eraseToAnyPublisher()
+    }
     
     
     // MARK: - Init
     init() {
         print("Log -", #fileID, #function, #line)
-        publishSelectedExtractMethodRecipeList()
     }
     
     func requestFetchFromRepository() {
@@ -44,14 +49,6 @@ class ExtractRecipeListUseCase: ObservableObject {
     func requestGetFromRepositoryCache() {
         print("Log -", #fileID, #function, #line)
         repository.get()
-    }
-    
-    private func publishSelectedExtractMethodRecipeList() {
-        repository.getListSubject
-            .sink { [weak self] recipeList in
-                self!.getExtractRecipeList.send(self!.filterRecipeListByExtractType(recipeList))
-            }
-            .store(in: &cancelBag)
     }
     
     private func filterRecipeListByExtractType(_ list: [ExtractRecipe]) -> [ExtractRecipe] {

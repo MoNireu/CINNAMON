@@ -14,7 +14,6 @@ class ExtractRecipeListViewModel: ObservableObject {
     @Published private var usecase: ExtractRecipeListUseCase
     @Published var recipes: [ExtractRecipe] = []
     @Published var selectedExtractType: ExtractType = .espresso
-//    @Published var editingMode: EditMode = .inactive
     @Published var isEditing: Bool = false
     @Published var selectedRecipe = Set<UUID>()
     
@@ -50,7 +49,7 @@ class ExtractRecipeListViewModel: ObservableObject {
     
     private func reloadRecipesOnPickerChange() {
         $selectedExtractType.sink { [weak self] extractType in
-            self!.usecase.changeExtractTypeAndRelod(extractType)
+            self?.usecase.changeExtractTypeAndRelod(extractType)
         }
         .store(in: &cancelBag)
     }
@@ -59,7 +58,7 @@ class ExtractRecipeListViewModel: ObservableObject {
         $isEditing
             .map({!$0})
             .sink { [weak self] editingFinished in
-                if editingFinished { self!.selectedRecipe = Set<UUID>() }
+                if editingFinished { self?.selectedRecipe = Set<UUID>() }
             }
             .store(in: &cancelBag)
     }

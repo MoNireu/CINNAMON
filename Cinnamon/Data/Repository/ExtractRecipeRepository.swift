@@ -15,7 +15,6 @@ class ExtractRecipeRepository: ObservableObject {
     private var cache: [ExtractRecipe]
     
     var getListSubject = PassthroughSubject<[ExtractRecipe], Never>()
-//    var fetchCompleteSubject = PassthroughSubject<Void, Error>()
     
     private init() {
         cache = []
