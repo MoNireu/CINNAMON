@@ -6,19 +6,23 @@
 //
 
 import Foundation
+import Combine
 
 
 class ExtractRecipeRepository: ObservableObject {
     
     static let shared: ExtractRecipeRepository = ExtractRecipeRepository()
-    
     private var cache: [ExtractRecipe]
+    
+    var getSubject = PassthroughSubject<[ExtractRecipe], Never>()
     
     private init() {
         cache = []
+        print("Log -", #fileID, #function, #line)
     }
     
     func fetch() {
+        print("Log -", #fileID, #function, #line)
         cache = [
             ExtractRecipe(title: "에스프레소 레시피 1",
                           description: "1분 에스프레소 레시피",
@@ -61,13 +65,19 @@ class ExtractRecipeRepository: ObservableObject {
                             RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
                           ])
         ]
+        get()
     }
     
+    func get() {
+        print("Log -", #fileID, #function, #line)
+        getSubject.send(cache)
+    }
     
     func update(_ newRecipe: ExtractRecipe) {
         if let index = cache.firstIndex(where: {$0.id == newRecipe.id}) {
             print("Log -", #fileID, #function, #line, "Recipe found!")
             cache[index] = newRecipe
+            self.objectWillChange.send()
         }
     }
     

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ExtractRecipeListView: View {
-    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     @ObservedObject var viewModel: ExtractRecipeListViewModel
     
     init(viewModel: ExtractRecipeListViewModel) {
@@ -23,6 +22,7 @@ struct ExtractRecipeListView: View {
             }
         }
         .listStyle(.plain)
+        .onAppear(perform: viewModel.onAppear)
     }
     
     
@@ -44,11 +44,12 @@ struct ExtractRecipeListView: View {
     
     func addRecipeList() -> some View {
         List(selection: $viewModel.selectedRecipe) {
-            ForEach(viewModel.filteredRecipeList) { recipe in
+            ForEach(viewModel.recipes) { recipe in
                 NavigationLink {
-                    ExtractRecipeDetailView(viewModel:
-                                                ExtractRecipeDetailViewModel(extractRecipeStore: viewModel.extractRecipeStore,
-                                                                             recipe: recipe))
+                    EmptyView()
+//                    ExtractRecipeDetailView(viewModel:
+//                                                ExtractRecipeDetailViewModel(extractRecipeStore: viewModel.extractRecipeStore,
+//                                                                             recipe: recipe))
                 } label: {
                     ExtractRecipeListCell(title: recipe.title,
                                           description: recipe.description,
@@ -74,7 +75,7 @@ struct ExtractRecipeListView: View {
             
             // Add Button
             Button {
-                if viewModel.editingMode == .inactive { print("Log -", #fileID, #function, #line, viewModel.extractRecipeStore.list[0].title) }
+                if viewModel.editingMode == .inactive { print("Log -", #fileID, #function, #line) }
                 else { print("Log -", #fileID, #function, #line, viewModel.selectedRecipe) }
             } label: {
                 Image(systemName: viewModel.editingMode == .inactive ? "plus" : "trash")
@@ -86,6 +87,6 @@ struct ExtractRecipeListView: View {
 
 struct ExtractRecipeListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(extractRecipeListData: ExtractRecipeStore()))
+        ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
     }
 }

@@ -18,7 +18,7 @@ struct ExtractRecipe: Identifiable {
     var description: String
     var extractType: ExtractType
     var totalExtractTime: Int
-    var date: Date
+    var date: Date?
     var beanAmount: Float
     var steps: [RecipeStep]
 }

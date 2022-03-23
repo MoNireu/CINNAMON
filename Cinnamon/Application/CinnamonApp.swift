@@ -20,8 +20,7 @@ struct CinnamonApp: App {
         WindowGroup {
 //            SignInUpView(viewModel: SignInUpViewModel())
 //            AccountSetupView(viewModel: AccountSetupViewModel())
-            let store = ExtractRecipeStore()
-            ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(extractRecipeListData: store)).environmentObject(store)
+            ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
 //            ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel())
         }
     }

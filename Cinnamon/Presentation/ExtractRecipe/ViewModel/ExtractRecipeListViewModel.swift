@@ -10,15 +10,46 @@ import SwiftUI
 import Combine
 
 class ExtractRecipeListViewModel: ObservableObject {
-    @Published var extractRecipeStore: ExtractRecipeStore
+    private var cancelBag = Set<AnyCancellable>()
+    @Published private var usecase: ExtractRecipeListUseCase
+    @Published var recipes: [ExtractRecipe] = []
     @Published var selectedExtractType: ExtractType = .espresso
     @Published var editingMode: EditMode = .inactive
     @Published var selectedRecipe = Set<UUID>()
-    var filteredRecipeList: [ExtractRecipe] {
-        extractRecipeStore.getRecipeListByExtractType(self.selectedExtractType)
+    
+    init(usecase: ExtractRecipeListUseCase) {
+        print("Log -", #fileID, #function, #line)
+        self.usecase = usecase
+        
+        addSubscriptions()
     }
     
-    init(extractRecipeListData: ExtractRecipeStore) {
-        self.extractRecipeStore = extractRecipeListData
+    deinit {
+        print("Log -", #fileID, #function, #line)
+    }
+    
+    func onAppear() {
+        print("Log -", #fileID, #function, #line)
+        usecase.requestFetchFromRepository()
+    }
+    
+    
+    // MARK: - Private Functions
+    private func addSubscriptions() {
+        reloadOnRecipesChange()
+        reloadRecipesOnPickerChange()
+    }
+    
+    
+    private func reloadOnRecipesChange() {
+        usecase.getExtractRecipeList
+            .assign(to: &$recipes)
+    }
+    
+    private func reloadRecipesOnPickerChange() {
+        $selectedExtractType.sink { [weak self] extractType in
+            self!.usecase.requestGetFromRepositoryCache(extractMethod: extractType)
+        }
+        .store(in: &cancelBag)
     }
 }
