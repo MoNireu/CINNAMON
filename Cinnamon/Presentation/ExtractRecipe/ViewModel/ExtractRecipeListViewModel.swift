@@ -50,7 +50,7 @@ class ExtractRecipeListViewModel: ObservableObject {
     
     private func reloadRecipesOnPickerChange() {
         $selectedExtractType.sink { [weak self] extractType in
-            self!.usecase.requestGetFromRepositoryCache(extractMethod: extractType)
+            self!.usecase.changeExtractTypeAndRelod(extractType)
         }
         .store(in: &cancelBag)
     }
