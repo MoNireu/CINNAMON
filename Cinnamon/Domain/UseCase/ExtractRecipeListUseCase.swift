@@ -9,14 +9,15 @@ import Foundation
 import Combine
 
 class ExtractRecipeListUseCase: ObservableObject {
-    private var cancelBag = Set<AnyCancellable>()
     @Published private var repository: ExtractRecipeRepository = ExtractRecipeRepository.shared
+    private var cancelBag = Set<AnyCancellable>()
     private var extractType: ExtractType = .espresso
     
     var getExtractRecipeList: AnyPublisher<[ExtractRecipe], Never> {
         repository.getListSubject
             .map { [weak self] recipeList in
-                return self!.filterRecipeListByExtractType(recipeList)
+                guard let self = self else { return [] }
+                return self.filterRecipeListByExtractType(recipeList)
             }
             .eraseToAnyPublisher()
     }

@@ -17,14 +17,14 @@ class ExtractRecipeRepository: ObservableObject {
     var getListSubject = PassthroughSubject<[ExtractRecipe], Never>()
     
     private init() {
-        cache = []
         print("Log -", #fileID, #function, #line)
+        cache = []
     }
     
     func fetch() -> Future<Bool, Never> {
         return Future() { [weak self] promise in
             print("Log -", #fileID, #function, #line)
-            self!.cache = [
+            self?.cache = [
                 ExtractRecipe(title: "에스프레소 레시피 1",
                               description: "1분 에스프레소 레시피",
                               extractType: .espresso,
@@ -66,7 +66,6 @@ class ExtractRecipeRepository: ObservableObject {
                                 RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
                               ])
             ]
-            
             promise(.success(true))
         }
     }
@@ -76,15 +75,27 @@ class ExtractRecipeRepository: ObservableObject {
         getListSubject.send(cache)
     }
     
-    func update(_ newRecipe: ExtractRecipe) {
-        if let index = cache.firstIndex(where: {$0.id == newRecipe.id}) {
-            print("Log -", #fileID, #function, #line, "Recipe found!")
+    func add(newRecipe: ExtractRecipe) {
+        cache.append(newRecipe)
+        get()
+    }
+    
+    func add(newStep: RecipeStep, to recipe: ExtractRecipe) {
+        
+    }
+    
+    func update(newRecipe: ExtractRecipe) {
+        if let index = getRecipeIndex(recipe: newRecipe) {
             cache[index] = newRecipe
-            self.objectWillChange.send()
+            print("Log -", #fileID, #function, #line, "Recipe Updated!")
+            self.get()
+        }
+        else {
+            print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
         }
     }
     
-    func getRecipeListByExtractType(_ extractType: ExtractType) -> [ExtractRecipe] {
-        return self.cache.filter({$0.extractType == extractType})
+    private func getRecipeIndex(recipe: ExtractRecipe) -> Int? {
+        return cache.firstIndex(where: {$0.id == recipe.id})
     }
 }

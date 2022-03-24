@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ExtractRecipeListView: View {
-    @ObservedObject var viewModel: ExtractRecipeListViewModel
+    @StateObject var viewModel: ExtractRecipeListViewModel
     
     init(viewModel: ExtractRecipeListViewModel) {
-        self.viewModel = viewModel
+        self._viewModel = .init(wrappedValue: viewModel)
     }
     
     var body: some View {
@@ -43,10 +43,7 @@ extension ExtractRecipeListView {
         List(selection: $viewModel.selectedRecipe) {
             ForEach(viewModel.recipes) { recipe in
                 NavigationLink {
-                    EmptyView()
-//                    ExtractRecipeDetailView(viewModel:
-//                                                ExtractRecipeDetailViewModel(extractRecipeStore: viewModel.extractRecipeStore,
-//                                                                             recipe: recipe))
+                    ExtractRecipeDetailView(recipe: recipe)
                 } label: {
                     ExtractRecipeListCell(title: recipe.title,
                                           description: recipe.description,

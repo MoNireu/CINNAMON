@@ -15,7 +15,6 @@
 //
 //
 //struct ExtractRecipeDetailCell: View {
-//    @EnvironmentObject var extractRecipeStore: ExtractRecipe
 //    @ObservedObject var viewModel: ExtractRecipeDetailCellViewModel
 //    @FocusState var isDescriptionFocused: Bool
 //    //    var cellPosition: CellPosition
@@ -165,18 +164,8 @@
 //
 //struct ExtractRecipeDetailCell_Previews: PreviewProvider {
 //    static var previews: some View {
-//        let store = ExtractRecipeStore()
-//        let recipe = store.list[0]
 //
-//        ExtractRecipeDetailCell(
-//            viewModel: ExtractRecipeDetailCellViewModel(
-//                recipe: recipe,
-//                stepInfo: recipe.steps[0],
-//                stepIndex: 0,
-//                selectedStepIndex: 0,
-//                isPickerShowing: false,
-//                isParentEditing: false)
-//        )
+//        ExtractRecipeDetailCell(viewModel: ExtractRecipeDetailCellViewModel())
 //    }
 //}
 //

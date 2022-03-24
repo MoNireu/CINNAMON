@@ -25,8 +25,8 @@ struct ExtractRecipe: Identifiable {
 
 struct RecipeStep: Identifiable {
     var id: UUID = UUID()
-    var title: String
-    var description: String
+    var title: String = ""
+    var description: String = ""
     var waterAmount: Float?
-    var extractTime: Int
+    var extractTime: Int = 0
 }

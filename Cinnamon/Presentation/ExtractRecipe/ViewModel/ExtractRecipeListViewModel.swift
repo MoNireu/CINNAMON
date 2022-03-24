@@ -11,7 +11,7 @@ import Combine
 
 class ExtractRecipeListViewModel: ObservableObject {
     private var cancelBag = Set<AnyCancellable>()
-    @Published private var usecase: ExtractRecipeListUseCase
+    private var usecase: ExtractRecipeListUseCase
     @Published var recipes: [ExtractRecipe] = []
     @Published var selectedExtractType: ExtractType = .espresso
     @Published var isEditing: Bool = false

@@ -47,6 +47,7 @@
 		E17B8F2927E9965C0010B7CF /* ExtractRecipeDetailCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B8F2827E9965C0010B7CF /* ExtractRecipeDetailCellViewModel.swift */; };
 		E17B8F3827EAF9260010B7CF /* ExtractRecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B8F3727EAF9260010B7CF /* ExtractRecipeRepository.swift */; };
 		E17B8F3A27EAFD340010B7CF /* ExtractRecipeListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B8F3927EAFD340010B7CF /* ExtractRecipeListUseCase.swift */; };
+		E1A0303A27EC2D25000BD8CE /* ExtractRecipeDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0303927EC2D25000BD8CE /* ExtractRecipeDetailUseCase.swift */; };
 		E1C9287627DB097B00CD35CA /* ExtractRecipeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9287527DB097B00CD35CA /* ExtractRecipeListViewModel.swift */; };
 		E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */; };
 /* End PBXBuildFile section */
@@ -107,6 +108,7 @@
 		E17B8F2827E9965C0010B7CF /* ExtractRecipeDetailCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDetailCellViewModel.swift; sourceTree = "<group>"; };
 		E17B8F3727EAF9260010B7CF /* ExtractRecipeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeRepository.swift; sourceTree = "<group>"; };
 		E17B8F3927EAFD340010B7CF /* ExtractRecipeListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeListUseCase.swift; sourceTree = "<group>"; };
+		E1A0303927EC2D25000BD8CE /* ExtractRecipeDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDetailUseCase.swift; sourceTree = "<group>"; };
 		E1C9287527DB097B00CD35CA /* ExtractRecipeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeListViewModel.swift; sourceTree = "<group>"; };
 		E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonStackView.swift; sourceTree = "<group>"; };
 		E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cinnamon.entitlements; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				E17B8F3927EAFD340010B7CF /* ExtractRecipeListUseCase.swift */,
+				E1A0303927EC2D25000BD8CE /* ExtractRecipeDetailUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				E12BED2027E07A740058E65A /* ExtractRecipeDetailView.swift in Sources */,
 				E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */,
 				E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */,
+				E1A0303A27EC2D25000BD8CE /* ExtractRecipeDetailUseCase.swift in Sources */,
 				E12BED2227E089F90058E65A /* ExtractRecipeDetailCell.swift in Sources */,
 				E160A54227E5D3B200762847 /* MinuteSecondPicker.swift in Sources */,
 				E105FFC52782E03200C6B73B /* Persistence.swift in Sources */,
