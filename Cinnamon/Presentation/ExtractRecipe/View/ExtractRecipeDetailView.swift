@@ -37,28 +37,23 @@ struct ExtractRecipeDetailView: View {
                             Text(viewModel.isEditing ? "완료" : "편집")
                         }
                     }
+                    ToolbarItem(placement: .keyboard) {
+                        HStack {
+                            Spacer()
+                            Button("완료") {
+                                viewModel.sendStopFocus()
+                            }
+                        }
+                    }
                 }
         }
         .popup(isPresented: $viewModel.isPickerShowing) {
             BottomPopupView(isPresented: $viewModel.isPickerShowing) {
-                MinuteSecondPicker(timeInt: $viewModel.recipe.steps[viewModel.selectedStepIndex].extractTime, isShowing: $viewModel.isPickerShowing)
+                MinuteSecondPicker(timeInt: $viewModel.recipe.steps[viewModel.selectedStepIndex].extractTime,
+                                   isShowing: $viewModel.isPickerShowing)
             }
         }
-        .onAppear(perform: viewModel.onAppear)
     }
-    
-//    private func getCellPositionByIndex(_ index: Int) -> CellPosition {
-//        if index == 0 {
-//            return .first
-//        }
-//        else if index == viewModel.recipe.steps.count - 1 {
-//            return .last
-//        }
-//        else {
-//            return .middle
-//        }
-//    }
-    
 }
 
 extension ExtractRecipeDetailView {
@@ -88,25 +83,8 @@ extension ExtractRecipeDetailView {
     
     @ViewBuilder var RecipeStepCell: some View {
         ForEach($viewModel.recipe.steps) { $step in
-            EmptyView()
-//            let index = viewModel.recipe.getStepIndex(step: step)
-//            ExtractRecipeDetailCell(
-//                viewModel: ExtractRecipeDetailCellViewModel(
-//                    recipe: viewModel.recipe,
-//                    stepInfo: viewModel.recipe.steps[index],
-//                    stepIndex: index,
-//                    selectedStepIndex: viewModel.selectedStepIndex,
-//                    isPickerShowing: viewModel.isPickerShowing,
-//                    isParentEditing: viewModel.isEditing))
-//            .environmentObject(viewModel.recipe)
-            
-            //            ExtractRecipeDetailCell(cellPosition: getCellPositionByIndex(index),
-            //                                    stepInfo: $step,
-            //                                    stepIndex: index,
-            //                                    selectedStepIndex: $viewModel.selectedStepIndex,
-            //                                    isPickerShowing: $viewModel.isPickerShowing,
-            //                                    isParentEditing: viewModel.isEditing)
-            
+            ExtractRecipeDetailCell(step: $step,
+                                    viewModel: self.viewModel)
             .padding(.vertical, -4)
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 3.5, leading: 0, bottom: 3.5, trailing: 0))
