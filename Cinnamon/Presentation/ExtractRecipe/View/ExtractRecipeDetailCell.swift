@@ -14,7 +14,10 @@ enum CellPosition{
 }
 
 enum FocusedField {
-    case waterAmount, description
+    case title
+    case waterAmount
+    case extractTime
+    case description
 }
 
 
@@ -22,7 +25,6 @@ struct ExtractRecipeDetailCell: View {
     @Binding var step: RecipeStep
     @ObservedObject var viewModel: ExtractRecipeDetailViewModel
     
-    @FocusState var isDescriptionFocused: Bool
     @FocusState var focusedField: FocusedField?
     @State var isDescriptionShowing: Bool = true
     @State var isDescriptionPlaceHolderVisible: Bool = false
@@ -92,6 +94,7 @@ extension ExtractRecipeDetailCell {
         TextField("단계별 제목", text: $step.title)
             .padding(.leading)
             .padding(.top)
+            .focused($focusedField, equals: .title)
     }
     
     @ViewBuilder var WaterAmountView: some View {
@@ -112,6 +115,11 @@ extension ExtractRecipeDetailCell {
         Text("\(TimeConvertUtil.timeIntToString(time: step.extractTime))")
             .onTapGesture {
                 viewModel.showTimePicker(step: step)
+                // 레시피 수정 완료 활성/비활성화를 위해서 작성.
+                focusedField = .extractTime
+            }
+            .onReceive(viewModel.$isPickerShowing) { pickerShowing in
+                if !pickerShowing { focusedField = nil }
             }
     }
 
@@ -146,12 +154,6 @@ extension ExtractRecipeDetailCell {
                         }
                         else {
                             isDescriptionPlaceHolderVisible = isDescriptionEmpty()
-                        }
-                    }
-                    .onChange(of: step.description) { text in
-                        if text.last == "\n" {
-                            step.description.removeLast()
-                            isDescriptionFocused = false
                         }
                     }
 
