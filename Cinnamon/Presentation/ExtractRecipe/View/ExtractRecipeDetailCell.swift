@@ -39,21 +39,24 @@ struct ExtractRecipeDetailCell: View {
             BackgroundVerticalLine
             
             VStack {
-                StepTitleView
-                
-                HStack {
-                    Spacer()
-                    WaterAmountView
-                    Spacer()
-                    ExtractTimeView
-                    Spacer()
+                Group {
+                    StepTitleView
+                    
+                    HStack {
+                        Spacer()
+                        WaterAmountView
+                        Spacer()
+                        ExtractTimeView
+                        Spacer()
+                    }
+                    .padding()
+                    .disabled(!viewModel.isEditing)
+                    
+                    if isDescriptionShowing {
+                        DescriptionView
+                    }
                 }
-                .multilineTextAlignment(.center)
-                .padding()
-
-                if isDescriptionShowing {
-                    DescriptionView
-                }
+                .disabled(!viewModel.isEditing)
 
                 if !viewModel.isEditing && !step.description.isEmpty {
                     ShowDescriptionButton
@@ -100,8 +103,8 @@ extension ExtractRecipeDetailCell {
         Text("ml")
             .fixedSize()
             .foregroundColor(step.waterAmount == nil ? .gray : .primary)
-            .onChange(of: step.waterAmount) { newValue in
-                print("Log -", #fileID, #function, #line, newValue)
+            .onTapGesture {
+                focusedField = .waterAmount
             }
     }
     
