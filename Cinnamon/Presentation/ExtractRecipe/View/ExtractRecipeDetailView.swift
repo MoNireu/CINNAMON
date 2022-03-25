@@ -73,7 +73,8 @@ extension ExtractRecipeDetailView {
             RecipeStepCell
             AddNewStepButton
         }
-        .environment(\.editMode, viewModel.isRecipeEditing ? .constant(.active) : .constant(.inactive))
+        .environment(\.editMode, viewModel.isRecipeEditing ?
+            .constant(.active) : .constant(.inactive))
     }
     
     @ViewBuilder var ScrollView: some View {
@@ -90,7 +91,8 @@ extension ExtractRecipeDetailView {
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 3.5, leading: 0, bottom: 3.5, trailing: 0))
         }
-        .onMove(perform: viewModel.moveSteps)
+        .onMove(perform: viewModel.moveStep)
+        .onDelete(perform: viewModel.deleteStep)
     }
     
     

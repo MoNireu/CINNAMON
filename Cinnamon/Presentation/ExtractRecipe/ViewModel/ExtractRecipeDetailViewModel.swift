@@ -50,9 +50,13 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     }
     
     // MARK: - Cell Functions
-    func moveSteps(from source: IndexSet, to destination: Int) {
+    func moveStep(from source: IndexSet, to destination: Int) {
         recipe.steps.move(fromOffsets: source, toOffset: destination)
         self.objectWillChange.send()
+    }
+    
+    func deleteStep(at index: IndexSet) {
+        recipe.steps.remove(at: index.first!)
     }
     
     func showTimePicker(step: RecipeStep) {
