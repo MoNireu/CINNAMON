@@ -16,7 +16,6 @@ enum CellPosition{
 enum FocusedField {
     case title
     case waterAmount
-    case extractTime
     case description
 }
 
@@ -52,15 +51,15 @@ struct ExtractRecipeDetailCell: View {
                         Spacer()
                     }
                     .padding()
-                    .disabled(!viewModel.isEditing)
+                    .disabled(!viewModel.isRecipeEditing)
                     
                     if isDescriptionShowing {
                         DescriptionView
                     }
                 }
-                .disabled(!viewModel.isEditing)
+                .disabled(!viewModel.isRecipeEditing)
 
-                if !viewModel.isEditing && !step.description.isEmpty {
+                if !viewModel.isRecipeEditing && !step.description.isEmpty {
                     ShowDescriptionButton
                 }
             }
@@ -73,11 +72,18 @@ struct ExtractRecipeDetailCell: View {
 
         }
         .onAppear {
-            isDescriptionShowing = viewModel.isEditing
+            isDescriptionShowing = viewModel.isRecipeEditing
             isDescriptionPlaceHolderVisible = isDescriptionEmpty()
         }
+        // keyboard toolbar "확인" 버튼이 눌리면 편집중인 Step의 모든 Focus 해제.
         .onReceive(viewModel.$stopFocus) { _ in
             focusedField = nil
+        }
+        // 편집중인 step이 있다면 상단 Recipe편집 완료버튼을 비활성화.
+        .onChange(of: focusedField) { focused in
+            if focused != nil {
+                viewModel.isStepEditing = true
+            }
         }
     }
 }
@@ -115,14 +121,13 @@ extension ExtractRecipeDetailCell {
         Text("\(TimeConvertUtil.timeIntToString(time: step.extractTime))")
             .onTapGesture {
                 viewModel.showTimePicker(step: step)
-                // 레시피 수정 완료 활성/비활성화를 위해서 작성.
-                focusedField = .extractTime
             }
-            .onReceive(viewModel.$isPickerShowing) { pickerShowing in
-                if !pickerShowing { focusedField = nil }
+            .onReceive(viewModel.$isPickerShowing) { isPickerShowing in
+                // 레시피 수정 완료 활성/비활성화를 위해서 작성.
+                viewModel.isStepEditing = isPickerShowing ? true : false
             }
     }
-
+    
 
     @ViewBuilder var ShowDescriptionButton: some View {
         HStack {
@@ -141,7 +146,7 @@ extension ExtractRecipeDetailCell {
     }
 
     @ViewBuilder var DescriptionView: some View {
-        if viewModel.isEditing {
+        if viewModel.isRecipeEditing {
             ZStack {
                 TextEditor(text: $step.description)
                     .disableAutocorrection(true)

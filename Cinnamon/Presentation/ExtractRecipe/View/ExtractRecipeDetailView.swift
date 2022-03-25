@@ -31,11 +31,12 @@ struct ExtractRecipeDetailView: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         Button {
-                            if viewModel.isEditing { viewModel.completeEditing() }
+                            if viewModel.isRecipeEditing { viewModel.completeEditing() }
                             else { viewModel.startEditing() }
                         } label: {
-                            Text(viewModel.isEditing ? "완료" : "편집")
+                            Text(viewModel.isRecipeEditing ? "완료" : "편집")
                         }
+                        .disabled(viewModel.isStepEditing)
                     }
                     ToolbarItem(placement: .keyboard) {
                         HStack {
@@ -59,7 +60,7 @@ struct ExtractRecipeDetailView: View {
 extension ExtractRecipeDetailView {
     
     @ViewBuilder var ReusableView: some View {
-        if viewModel.isEditing {
+        if viewModel.isRecipeEditing {
             AnyView(ListView)
         }
         else {
@@ -72,7 +73,7 @@ extension ExtractRecipeDetailView {
             RecipeStepCell
             AddNewStepButton
         }
-        .environment(\.editMode, viewModel.isEditing ? .constant(.active) : .constant(.inactive))
+        .environment(\.editMode, viewModel.isRecipeEditing ? .constant(.active) : .constant(.inactive))
     }
     
     @ViewBuilder var ScrollView: some View {

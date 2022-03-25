@@ -13,9 +13,10 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     private var cancelBag = Set<AnyCancellable>()
     private var usecase: ExtractRecipeDetailUseCase
     @Published var recipe: ExtractRecipe
-    @Published var isEditing: Bool = false
+    @Published var isRecipeEditing: Bool = false
     @Published var isPickerShowing: Bool = false
     @Published var selectedStepIndex: Int = 0
+    @Published var isStepEditing: Bool = false
     @Published var stopFocus: Bool = false
 
     
@@ -39,13 +40,13 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     }
     
     func startEditing() {
-        isEditing = true
+        isRecipeEditing = true
     }
     
     func completeEditing() {
         recipe.title = "Test"
         usecase.updateRecipe(recipe)
-        isEditing = false
+        isRecipeEditing = false
     }
     
     // MARK: - Cell Functions
@@ -69,5 +70,6 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     
     func sendStopFocus() {
         self.stopFocus = true
+        self.isStepEditing = false
     }
 }
