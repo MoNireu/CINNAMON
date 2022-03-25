@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ExtractRecipeListView: View {
-    @EnvironmentObject var extractRecipeStore: ExtractRecipeStore
     @ObservedObject var viewModel: ExtractRecipeListViewModel
     
     init(viewModel: ExtractRecipeListViewModel) {
@@ -33,22 +32,13 @@ struct ExtractRecipeListView: View {
         }
         .pickerStyle(.segmented)
         .padding()
-        .disabled(viewModel.editingMode == .inactive ? false : true)
-        .onChange(of: viewModel.editingMode) { newValue in
-            if newValue == .inactive {
-                viewModel.selectedRecipe = Set<UUID>()
-            }
-        }
     }
     
-    
     func addRecipeList() -> some View {
-        List(selection: $viewModel.selectedRecipe) {
-            ForEach(viewModel.filteredRecipeList) { recipe in
+        List(viewModel.recipeList) { recipe in
+            if recipe.extractType == viewModel.selectedExtractType {
                 NavigationLink {
-                    ExtractRecipeDetailView(viewModel:
-                                                ExtractRecipeDetailViewModel(extractRecipeStore: viewModel.extractRecipeStore,
-                                                                             recipe: recipe))
+                    EmptyView()
                 } label: {
                     ExtractRecipeListCell(title: recipe.title,
                                           description: recipe.description,
@@ -57,7 +47,6 @@ struct ExtractRecipeListView: View {
             }
         }
         .navigationTitle("추출 레시피")
-        .environment(\.editMode, $viewModel.editingMode)
         .toolbar {
             addToolBarButtons()
         }
@@ -65,20 +54,23 @@ struct ExtractRecipeListView: View {
     
     func addToolBarButtons() -> some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            // Edit Button
-            Button {
-                viewModel.editingMode = (viewModel.editingMode == .inactive) ? .active : .inactive
-            } label: {
-                Image(systemName: viewModel.editingMode == .inactive ? "checkmark.circle" : "checkmark.circle.fill")
+            if viewModel.isModifying {
+                Button {
+                    print("")
+                } label: {
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
+                }
             }
-            
-            // Add Button
             Button {
-                if viewModel.editingMode == .inactive { print("Log -", #fileID, #function, #line, viewModel.extractRecipeStore.list[0].title) }
-                else { print("Log -", #fileID, #function, #line, viewModel.selectedRecipe) }
+                viewModel.isModifying.toggle()
             } label: {
-                Image(systemName: viewModel.editingMode == .inactive ? "plus" : "trash")
-                    .foregroundColor(viewModel.editingMode == .inactive ? .blue : .red)
+                Image(systemName: viewModel.isModifying ? "checkmark.circle.fill" : "checkmark.circle")
+            }
+            Button {
+                print("")
+            } label: {
+                Image(systemName: "plus")
             }
         }
     }
@@ -86,6 +78,6 @@ struct ExtractRecipeListView: View {
 
 struct ExtractRecipeListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(extractRecipeListData: ExtractRecipeStore()))
+        ExtractRecipeListView(viewModel: ExtractRecipeListViewModel())
     }
 }
