@@ -39,24 +39,13 @@ struct ExtractRecipeDetailCell: View {
             BackgroundVerticalLine
             
             VStack {
-                TextField("단계별 제목", text: $step.title)
-                    .padding(.leading)
-                    .padding(.top)
+                StepTitleView
+                
                 HStack {
                     Spacer()
-                    
-                    TextField("0ml", value: $step.waterAmount, format: .number)
-                        .focused($focusedField, equals: .waterAmount)
-                        .fixedSize()
-                        .keyboardType(.decimalPad)
-                    
+                    WaterAmountView
                     Spacer()
-                    
-                    Text("\(TimeConvertUtil.timeIntToString(time: step.extractTime))")
-                        .onTapGesture {
-                            viewModel.showTimePicker(step: step)
-                        }
-                    
+                    ExtractTimeView
                     Spacer()
                 }
                 .multilineTextAlignment(.center)
@@ -95,6 +84,34 @@ extension ExtractRecipeDetailCell {
             .padding(getEdgeByCellIndex(), 50)
             .ignoresSafeArea()
     }
+    
+    @ViewBuilder var StepTitleView: some View {
+        TextField("단계별 제목", text: $step.title)
+            .padding(.leading)
+            .padding(.top)
+    }
+    
+    @ViewBuilder var WaterAmountView: some View {
+        TextField("물용량", value: $step.waterAmount, format: .number)
+            .focused($focusedField, equals: .waterAmount)
+            .multilineTextAlignment(.trailing)
+            .fixedSize()
+            .keyboardType(.decimalPad)
+        Text("ml")
+            .fixedSize()
+            .foregroundColor(step.waterAmount == nil ? .gray : .primary)
+            .onChange(of: step.waterAmount) { newValue in
+                print("Log -", #fileID, #function, #line, newValue)
+            }
+    }
+    
+    @ViewBuilder var ExtractTimeView: some View {
+        Text("\(TimeConvertUtil.timeIntToString(time: step.extractTime))")
+            .onTapGesture {
+                viewModel.showTimePicker(step: step)
+            }
+    }
+
 
     @ViewBuilder var ShowDescriptionButton: some View {
         HStack {
