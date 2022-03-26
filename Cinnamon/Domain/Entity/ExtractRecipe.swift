@@ -15,12 +15,12 @@ enum ExtractType {
 struct ExtractRecipe: Identifiable {
     var id: UUID = UUID()
     var title: String
-    var description: String
+    var description: String = ""
     var extractType: ExtractType
-    var totalExtractTime: Int
-    var date: Date?
     var beanAmount: Float
-    var steps: [RecipeStep]
+    var totalExtractTime: Int = 0
+    var steps: [RecipeStep] = []
+    var date: Date = Date.now
 }
 
 struct RecipeStep: Identifiable {
