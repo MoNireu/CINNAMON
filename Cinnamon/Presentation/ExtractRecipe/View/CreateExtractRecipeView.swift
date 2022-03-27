@@ -19,8 +19,7 @@ enum CreateRecipeAlert {
 }
 
 struct CreateExtractRecipeView: View {
-    //    @ObservedObject var viewModel: ExtractRecipeListViewModel
-    @Binding var isShowing: Bool
+    @ObservedObject var viewModel: ExtractRecipeListViewModel
     @State var title: String = ""
     @State var description: String = ""
     @State var beanAmount: Float?
@@ -32,11 +31,13 @@ struct CreateExtractRecipeView: View {
         VStack {
             HStack {
                 Button("취소") {
-                    isShowing = false
+                    viewModel.isCreateRecipeShowing = false
                 }
                 Spacer()
                 Button("생성") {
-                    // TODO: 생성 로직
+                    viewModel.createRecipe(title: title,
+                                           description: description,
+                                           beanAmount: beanAmount!)
                 }
                 .disabled(!isAllFieldValid())
             }
@@ -53,22 +54,19 @@ struct CreateExtractRecipeView: View {
                 .font(.system(.subheadline))
                 .padding()
                 .keyboardType(.decimalPad)
-                .onChange(of: focusedField) { field in
-                    // On Edit
-                    if field == .beanAmount {
-                        beanAmount = nil
-                        beanAmountText = ""
+                .onTapGesture {
+                    beanAmount = nil
+                    beanAmountText = ""
+                }
+                .onSubmit {
+                    guard !beanAmountText.isEmpty else {return}
+                    if beanAmountText.doesMatch(pattern: "^[0-9.]*$") {
+                        beanAmount = Float(beanAmountText)
+                        beanAmountText += "g"
                     }
-                    // On Submit
-                    else if field == nil {
-                        if beanAmountText.doesMatch(pattern: "^[0-9.]*$") {
-                            beanAmount = Float(beanAmountText)
-                            beanAmountText += "g"
-                        }
-                        else {
-                            beanAmountText = ""
-                            isAlertShowing = true
-                        }
+                    else {
+                        beanAmountText = ""
+                        isAlertShowing = true
                     }
                 }
                 .alert(isPresented: $isAlertShowing) {
@@ -78,7 +76,7 @@ struct CreateExtractRecipeView: View {
                 }
             
             TextField("(선택항목)설명", text: $description)
-                .focused($focusedField, equals: .beanAmount)
+                .focused($focusedField, equals: .description)
                 .font(.system(.subheadline))
                 .padding()
         }
@@ -100,7 +98,7 @@ struct CreateExtractRecipeView: View {
 
 struct CreateExtractRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateExtractRecipeView(isShowing: .constant(true))
+        CreateExtractRecipeView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
         //        CreateExtractRecipeView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
     }
 }

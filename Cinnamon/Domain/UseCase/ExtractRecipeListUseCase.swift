@@ -55,4 +55,8 @@ class ExtractRecipeListUseCase: ObservableObject {
     private func filterRecipeListByExtractType(_ list: [ExtractRecipe]) -> [ExtractRecipe] {
         return list.filter({$0.extractType == self.extractType})
     }
+    
+    func addNewRecipe(_ recipe: ExtractRecipe) {
+        repository.add(newRecipe: recipe)
+    }
 }

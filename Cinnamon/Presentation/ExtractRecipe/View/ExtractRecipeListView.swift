@@ -23,6 +23,9 @@ struct ExtractRecipeListView: View {
         }
         .listStyle(.plain)
         .onAppear(perform: viewModel.onAppear)
+        .sheet(isPresented: $viewModel.isCreateRecipeShowing) {
+            CreateExtractRecipeView(viewModel: viewModel)
+        }
     }
 }
 
@@ -69,8 +72,13 @@ extension ExtractRecipeListView {
             
             // Add Button
             Button {
-                if viewModel.isEditing { print("Log -", #fileID, #function, #line, viewModel.selectedRecipe) }
-                else { print("Log -", #fileID, #function, #line) }
+                if viewModel.isEditing {
+                    //TODO: 선택된 항목 삭제하기.
+                    print("Log -", #fileID, #function, #line)
+                }
+                else {
+                    viewModel.isCreateRecipeShowing = true
+                }
             } label: {
                 Image(systemName: viewModel.isEditing ? "trash" : "plus")
                     .foregroundColor(viewModel.isEditing ? .red : .blue)

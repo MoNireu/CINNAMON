@@ -20,9 +20,9 @@ struct CinnamonApp: App {
         WindowGroup {
 //            SignInUpView(viewModel: SignInUpViewModel())
 //            AccountSetupView(viewModel: AccountSetupViewModel())
-//            ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
+            ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
 //            ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel())
-            CreateExtractRecipeView(isShowing: .constant(true))
+//            CreateExtractRecipeView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
         }
     }
 }
