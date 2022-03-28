@@ -23,11 +23,13 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     init(recipe: ExtractRecipe) {
         print("Log -", #fileID, #function, #line)
         self.recipe = recipe
-        if recipe.steps.isEmpty {
-            self.isRecipeEditing = true
-        }
         self.usecase = ExtractRecipeDetailUseCase(recipeId: recipe.id)
         self.reloadOnRecipesChange()
+        
+        if recipe.steps.isEmpty {
+            self.addNewStep()
+            self.isRecipeEditing = true
+        }
     }
     deinit {
         print("Log -", #fileID, #function, #line)
