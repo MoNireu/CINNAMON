@@ -22,7 +22,7 @@ enum FocusedField {
 
 struct ExtractRecipeDetailCell: View {
     @Binding var step: RecipeStep
-    @ObservedObject var viewModel: ExtractRecipeDetailViewModel
+    @StateObject var viewModel: ExtractRecipeDetailViewModel
     
     @FocusState var focusedField: FocusedField?
     @State var isDescriptionShowing: Bool = true
@@ -30,7 +30,7 @@ struct ExtractRecipeDetailCell: View {
     
     init(step: Binding<RecipeStep>, viewModel: ExtractRecipeDetailViewModel) {
         self._step = step
-        self._viewModel = .init(initialValue: viewModel)
+        self._viewModel = .init(wrappedValue: viewModel)
     }
 
     let DESCRIPTION_PLACE_HOLDER = "(선택) 설명을 입력해주세요."
@@ -80,9 +80,17 @@ struct ExtractRecipeDetailCell: View {
             focusedField = nil
         }
         // 편집중인 step이 있다면 상단 Recipe편집 완료버튼을 비활성화.
-        .onChange(of: focusedField) { focused in
-            if focused != nil {
-                viewModel.isStepEditing = true
+        .onChange(of: focusedField) { field in
+            if field == .description {
+                isDescriptionPlaceHolderVisible = false
+            }
+            else {
+                isDescriptionPlaceHolderVisible = isDescriptionEmpty()
+            }
+            
+            if field != nil {
+//                viewModel.isStepEditing = true
+                viewModel.checkStepValid(self.step)
             }
         }
     }
@@ -119,12 +127,15 @@ extension ExtractRecipeDetailCell {
     
     @ViewBuilder var ExtractTimeView: some View {
         Text("\(TimeConvertUtil.timeIntToString(time: step.extractTime))")
+            .foregroundColor(step.extractTime == 0 ? .gray : .primary)
             .onTapGesture {
                 viewModel.showTimePicker(step: step)
             }
             .onReceive(viewModel.$isPickerShowing) { isPickerShowing in
+                guard viewModel.getSelectedStep().id == self.step.id else { return }
                 // 레시피 수정 완료 활성/비활성화를 위해서 작성.
-                viewModel.isStepEditing = isPickerShowing ? true : false
+                if isPickerShowing { viewModel.isStepEditing = true }
+                else { viewModel.checkStepValid(self.step) }
             }
     }
     
@@ -153,14 +164,6 @@ extension ExtractRecipeDetailCell {
                     .submitLabel(.done)
                     .padding()
                     .focused($focusedField, equals: .description)
-                    .onChange(of: focusedField) { field in
-                        if field == .description {
-                            isDescriptionPlaceHolderVisible = false
-                        }
-                        else {
-                            isDescriptionPlaceHolderVisible = isDescriptionEmpty()
-                        }
-                    }
 
 
                 Text(DESCRIPTION_PLACE_HOLDER)

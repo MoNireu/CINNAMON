@@ -50,7 +50,7 @@ struct ExtractRecipeDetailView: View {
         }
         .popup(isPresented: $viewModel.isPickerShowing) {
             BottomPopupView(isPresented: $viewModel.isPickerShowing) {
-                MinuteSecondPicker(timeInt: $viewModel.recipe.steps[viewModel.selectedStepIndex].extractTime,
+                MinuteSecondPicker(timeInt: viewModel.getSelectedStep().extractTime,
                                    isShowing: $viewModel.isPickerShowing)
             }
         }

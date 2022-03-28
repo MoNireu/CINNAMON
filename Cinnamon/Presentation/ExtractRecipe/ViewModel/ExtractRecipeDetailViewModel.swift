@@ -15,6 +15,8 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     @Published var recipe: ExtractRecipe
     @Published var isRecipeEditing: Bool = false
     @Published var isPickerShowing: Bool = false
+    
+    // ExtractRecipeDetailCell
     @Published var selectedStepIndex: Int = 0
     @Published var isStepEditing: Bool = false
     @Published var stopFocus: Bool = false
@@ -54,6 +56,19 @@ class ExtractRecipeDetailViewModel: ObservableObject {
         isRecipeEditing = false
     }
     
+    func checkStepValid(_ step: RecipeStep) {
+        print("Log -", #fileID, #function, #line)
+        if !step.title.isEmpty,
+           step.waterAmount != nil,
+           step.waterAmount != 0,
+           step.extractTime != 0 {
+            isStepEditing = false
+        }
+        else {
+            isStepEditing = true
+        }
+    }
+    
     // MARK: - Cell Functions
     func moveStep(from source: IndexSet, to destination: Int) {
         recipe.steps.move(fromOffsets: source, toOffset: destination)
@@ -71,6 +86,15 @@ class ExtractRecipeDetailViewModel: ObservableObject {
         }
         selectedStepIndex = stepIndex
         isPickerShowing = true
+    }
+    
+    func getSelectedStep() -> Binding<RecipeStep> {
+        return .init { [weak self] in
+            self!.recipe.steps[self!.selectedStepIndex]
+        } set: { [weak self] recipe in
+            guard let self = self else { return }
+            self.recipe.steps[self.selectedStepIndex] = recipe
+        }
     }
     
     func getStepIndex(step: RecipeStep) -> Int? {
