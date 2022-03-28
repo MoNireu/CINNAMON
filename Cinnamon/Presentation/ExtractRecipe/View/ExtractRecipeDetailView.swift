@@ -11,7 +11,7 @@ struct ExtractRecipeDetailView: View {
     @StateObject var viewModel: ExtractRecipeDetailViewModel
     
     init(recipe: ExtractRecipe) {
-        self._viewModel = .init(wrappedValue: ExtractRecipeDetailViewModel(recipe: recipe))
+        self._viewModel = .init(wrappedValue:ExtractRecipeDetailViewModel(recipe: recipe))
     }
     
     var body: some View {

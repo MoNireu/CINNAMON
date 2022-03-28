@@ -19,6 +19,7 @@ struct ExtractRecipeListView: View {
             VStack {
                 ExtractTypePicker
                 RecipeListView
+                NewRecipeEditView
             }
         }
         .listStyle(.plain)
@@ -83,6 +84,23 @@ extension ExtractRecipeListView {
                 Image(systemName: viewModel.isEditing ? "trash" : "plus")
                     .foregroundColor(viewModel.isEditing ? .red : .blue)
             }
+        }
+    }
+    
+    @ViewBuilder var NewRecipeEditView: some View {
+        if viewModel.recipeCreated() {
+            let recipe = viewModel.createdRecipe!
+            NavigationLink(isActive: .constant(true)) {
+                ExtractRecipeDetailView(recipe: recipe)
+                    .onDisappear {
+                        viewModel.createdRecipe = nil
+                    }
+            } label: {
+                ExtractRecipeListCell(title: recipe.title,
+                                      description: recipe.description,
+                                      time: recipe.totalExtractTime)
+            }
+            .hidden()
         }
     }
 }

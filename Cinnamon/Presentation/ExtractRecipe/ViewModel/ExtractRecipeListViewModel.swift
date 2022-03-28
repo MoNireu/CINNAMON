@@ -16,7 +16,10 @@ class ExtractRecipeListViewModel: ObservableObject {
     @Published var selectedExtractType: ExtractType = .espresso
     @Published var isEditing: Bool = false
     @Published var selectedRecipe = Set<UUID>()
+    
+    // CreateExtractRecipe
     @Published var isCreateRecipeShowing: Bool = false
+    @Published var createdRecipe: ExtractRecipe? = nil
     
     init(usecase: ExtractRecipeListUseCase) {
         print("Log -", #fileID, #function, #line)
@@ -36,7 +39,14 @@ class ExtractRecipeListViewModel: ObservableObject {
     
     func createRecipe(title: String, description: String, beanAmount: Float) {
         let newRecipe = ExtractRecipe(title: title, description: description, extractType: selectedExtractType, beanAmount: beanAmount)
+        createdRecipe = newRecipe
         usecase.addNewRecipe(newRecipe)
+        isCreateRecipeShowing = false
+    }
+    
+    func recipeCreated() -> Bool {
+        if createdRecipe != nil { return true }
+        else { return false }
     }
     
     

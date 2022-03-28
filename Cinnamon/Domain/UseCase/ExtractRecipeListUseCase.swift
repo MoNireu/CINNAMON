@@ -58,5 +58,6 @@ class ExtractRecipeListUseCase: ObservableObject {
     
     func addNewRecipe(_ recipe: ExtractRecipe) {
         repository.add(newRecipe: recipe)
+        //TODO: Save Recipe
     }
 }
