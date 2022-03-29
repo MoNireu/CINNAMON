@@ -51,10 +51,19 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     }
     
     func completeEditing() {
-        recipe.title = "Test"
+        setTotalExtractTime()
         usecase.updateRecipe(recipe)
         isRecipeEditing = false
     }
+    
+    private func setTotalExtractTime() {
+            var totalExtractTime = 0
+            for steps in recipe.steps {
+                totalExtractTime += steps.extractTime
+            }
+            recipe.totalExtractTime = totalExtractTime
+    }
+        
     
     func checkStepValid(_ step: RecipeStep) {
         print("Log -", #fileID, #function, #line)
