@@ -13,18 +13,17 @@ enum CellPosition{
     case last
 }
 
-enum FocusedField {
+enum ExtractRecipeDetailCellFocusedField {
     case title
     case waterAmount
     case description
 }
 
-
 struct ExtractRecipeDetailCell: View {
     @Binding var step: RecipeStep
     @StateObject var viewModel: ExtractRecipeDetailViewModel
     
-    @FocusState var focusedField: FocusedField?
+    @FocusState var focusedField: ExtractRecipeDetailCellFocusedField?
     @State var isDescriptionShowing: Bool = true
     @State var isDescriptionPlaceHolderVisible: Bool = false
     
@@ -89,7 +88,6 @@ struct ExtractRecipeDetailCell: View {
             }
             
             if field != nil {
-//                viewModel.isStepEditing = true
                 viewModel.checkStepValid(self.step)
             }
         }

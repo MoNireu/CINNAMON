@@ -45,7 +45,7 @@ struct CreateExtractRecipeView: View {
             
             
             TextField("제목", text: $title)
-                .focused($focusedField, equals: .beanAmount)
+                .focused($focusedField, equals: .title)
                 .font(.system(.title))
                 .padding()
             
@@ -58,16 +58,8 @@ struct CreateExtractRecipeView: View {
                     beanAmount = nil
                     beanAmountText = ""
                 }
-                .onSubmit {
-                    guard !beanAmountText.isEmpty else {return}
-                    if beanAmountText.doesMatch(pattern: "^[0-9.]*$") {
-                        beanAmount = Float(beanAmountText)
-                        beanAmountText += "g"
-                    }
-                    else {
-                        beanAmountText = ""
-                        isAlertShowing = true
-                    }
+                .onChange(of: focusedField) { field in
+                    
                 }
                 .alert(isPresented: $isAlertShowing) {
                     Alert(title: Text("입력 값 오류"),
@@ -90,15 +82,34 @@ struct CreateExtractRecipeView: View {
             }
         }
     }
-    
+}
+
+extension CreateExtractRecipeView {
     func isAllFieldValid() -> Bool {
         return !title.isEmpty && beanAmount != nil
+    }
+    
+    func formatBeanAmountText(field: CreateRecipeFocusedField) {
+        guard field != .beanAmount else {return}
+        guard !beanAmountText.isEmpty else {return}
+        if beanAmountText.doesMatch(pattern: "^[0-9.]*$") {
+            beanAmount = Float(beanAmountText)
+            beanAmountText += "g"
+        }
+        else if beanAmountText.last! == "g" {
+            var gramRemovedBeanAmountText = beanAmountText
+            gramRemovedBeanAmountText.removeLast()
+            beanAmount = Float(gramRemovedBeanAmountText)
+        }
+        else {
+            beanAmountText = ""
+            isAlertShowing = true
+        }
     }
 }
 
 struct CreateExtractRecipeView_Previews: PreviewProvider {
     static var previews: some View {
         CreateExtractRecipeView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
-        //        CreateExtractRecipeView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
     }
 }
