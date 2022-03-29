@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum ExtractType {
-    case espresso
-    case brew
+enum ExtractType: String {
+    case espresso = "에스프레소"
+    case brew = "브루잉"
 }
 
 struct ExtractRecipe: Identifiable {

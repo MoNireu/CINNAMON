@@ -34,6 +34,8 @@ struct CreateExtractRecipeView: View {
                     viewModel.isCreateRecipeShowing = false
                 }
                 Spacer()
+                Text("\(viewModel.selectedExtractType.rawValue) 레시피 생성")
+                Spacer()
                 Button("생성") {
                     viewModel.createRecipe(title: title,
                                            description: description,
@@ -41,13 +43,19 @@ struct CreateExtractRecipeView: View {
                 }
                 .disabled(!isAllFieldValid())
             }
-            .padding(.horizontal)
+            .padding()
             
             
             TextField("제목", text: $title)
                 .focused($focusedField, equals: .title)
                 .disableAutocorrection(true)
                 .font(.system(.title))
+                .padding()
+            
+            TextField("부제목 (선택)", text: $description)
+                .focused($focusedField, equals: .description)
+                .disableAutocorrection(true)
+                .font(.system(.subheadline))
                 .padding()
             
             TextField("원두용량(g)", text: $beanAmountText)
@@ -69,11 +77,7 @@ struct CreateExtractRecipeView: View {
                           dismissButton: .default(Text("확인")))
                 }
             
-            TextField("(선택항목)설명", text: $description)
-                .focused($focusedField, equals: .description)
-                .disableAutocorrection(true)
-                .font(.system(.subheadline))
-                .padding()
+            Spacer()
         }
         .toolbar {
             ToolbarItem(placement: .keyboard) {
