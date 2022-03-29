@@ -59,7 +59,7 @@ struct CreateExtractRecipeView: View {
                     beanAmountText = ""
                 }
                 .onChange(of: focusedField) { field in
-                    
+                    formatBeanAmountText(field: field)
                 }
                 .alert(isPresented: $isAlertShowing) {
                     Alert(title: Text("입력 값 오류"),
@@ -89,7 +89,7 @@ extension CreateExtractRecipeView {
         return !title.isEmpty && beanAmount != nil
     }
     
-    func formatBeanAmountText(field: CreateRecipeFocusedField) {
+    func formatBeanAmountText(field: CreateRecipeFocusedField?) {
         guard field != .beanAmount else {return}
         guard !beanAmountText.isEmpty else {return}
         if beanAmountText.doesMatch(pattern: "^[0-9.]*$") {
