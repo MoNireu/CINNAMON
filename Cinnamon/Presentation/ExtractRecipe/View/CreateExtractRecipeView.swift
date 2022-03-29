@@ -28,64 +28,66 @@ struct CreateExtractRecipeView: View {
     @FocusState var focusedField: CreateRecipeFocusedField?
 
     var body: some View {
-        VStack {
-            HStack {
-                Button("취소") {
-                    viewModel.isCreateRecipeShowing = false
-                }
+        NavigationView {
+            VStack {
+                TextField("제목", text: $title)
+                    .focused($focusedField, equals: .title)
+                    .disableAutocorrection(true)
+                    .font(.system(.title))
+                    .padding()
+                
+                TextField("부제목 (선택)", text: $description)
+                    .focused($focusedField, equals: .description)
+                    .disableAutocorrection(true)
+                    .font(.system(.subheadline))
+                    .padding()
+                
+                TextField("원두용량(g)", text: $beanAmountText)
+                    .focused($focusedField, equals: .beanAmount)
+                    .disableAutocorrection(true)
+                    .font(.system(.subheadline))
+                    .padding()
+                    .keyboardType(.decimalPad)
+                    .onTapGesture {
+                        beanAmount = nil
+                        beanAmountText = ""
+                    }
+                    .onChange(of: focusedField) { field in
+                        formatBeanAmountText(field: field)
+                    }
+                    .alert(isPresented: $isAlertShowing) {
+                        Alert(title: Text("입력 값 오류"),
+                              message: Text("숫자와 소수점만 입력해주세요."),
+                              dismissButton: .default(Text("확인")))
+                    }
+                
                 Spacer()
-                Text("\(viewModel.selectedExtractType.rawValue) 레시피 생성")
-                Spacer()
-                Button("생성") {
-                    viewModel.createRecipe(title: title,
-                                           description: description,
-                                           beanAmount: beanAmount!)
-                }
-                .disabled(!isAllFieldValid())
             }
-            .padding()
-            
-            
-            TextField("제목", text: $title)
-                .focused($focusedField, equals: .title)
-                .disableAutocorrection(true)
-                .font(.system(.title))
-                .padding()
-            
-            TextField("부제목 (선택)", text: $description)
-                .focused($focusedField, equals: .description)
-                .disableAutocorrection(true)
-                .font(.system(.subheadline))
-                .padding()
-            
-            TextField("원두용량(g)", text: $beanAmountText)
-                .focused($focusedField, equals: .beanAmount)
-                .disableAutocorrection(true)
-                .font(.system(.subheadline))
-                .padding()
-                .keyboardType(.decimalPad)
-                .onTapGesture {
-                    beanAmount = nil
-                    beanAmountText = ""
-                }
-                .onChange(of: focusedField) { field in
-                    formatBeanAmountText(field: field)
-                }
-                .alert(isPresented: $isAlertShowing) {
-                    Alert(title: Text("입력 값 오류"),
-                          message: Text("숫자와 소수점만 입력해주세요."),
-                          dismissButton: .default(Text("확인")))
-                }
-            
-            Spacer()
-        }
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                HStack {
+            .navigationTitle(Text("\(viewModel.selectedExtractType.rawValue) 레시피 생성"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
                     Button("완료") {
                         focusedField = nil
                     }
                 }
+                
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("취소") {
+                        viewModel.isCreateRecipeShowing = false
+                    }
+                }
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("생성") {
+                        viewModel.createRecipe(title: title,
+                                               description: description,
+                                               beanAmount: beanAmount!)
+                    }
+                    .disabled(!isAllFieldValid())
+                }
+                
             }
         }
     }
