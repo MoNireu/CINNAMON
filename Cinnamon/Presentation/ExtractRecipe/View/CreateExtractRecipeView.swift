@@ -46,11 +46,13 @@ struct CreateExtractRecipeView: View {
             
             TextField("제목", text: $title)
                 .focused($focusedField, equals: .title)
+                .disableAutocorrection(true)
                 .font(.system(.title))
                 .padding()
             
             TextField("원두용량(g)", text: $beanAmountText)
                 .focused($focusedField, equals: .beanAmount)
+                .disableAutocorrection(true)
                 .font(.system(.subheadline))
                 .padding()
                 .keyboardType(.decimalPad)
@@ -69,6 +71,7 @@ struct CreateExtractRecipeView: View {
             
             TextField("(선택항목)설명", text: $description)
                 .focused($focusedField, equals: .description)
+                .disableAutocorrection(true)
                 .font(.system(.subheadline))
                 .padding()
         }

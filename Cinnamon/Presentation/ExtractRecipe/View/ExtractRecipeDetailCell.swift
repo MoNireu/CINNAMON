@@ -104,6 +104,7 @@ extension ExtractRecipeDetailCell {
     
     @ViewBuilder var StepTitleView: some View {
         TextField("단계별 제목", text: $step.title)
+            .disableAutocorrection(true)
             .padding(.leading)
             .padding(.top)
             .focused($focusedField, equals: .title)
@@ -112,6 +113,7 @@ extension ExtractRecipeDetailCell {
     @ViewBuilder var WaterAmountView: some View {
         TextField("물용량", value: $step.waterAmount, format: .number)
             .focused($focusedField, equals: .waterAmount)
+            .disableAutocorrection(true)
             .multilineTextAlignment(.trailing)
             .fixedSize()
             .keyboardType(.decimalPad)
