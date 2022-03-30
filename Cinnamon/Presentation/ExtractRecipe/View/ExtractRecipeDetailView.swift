@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExtractRecipeDetailView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: ExtractRecipeDetailViewModel
     
     init(recipe: ExtractRecipe) {
@@ -16,20 +17,36 @@ struct ExtractRecipeDetailView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("원두 용량 : ")
-                TextField("0g", value: $viewModel.recipe.beanAmount, format: .number)
-            }
-            .font(.system(.title2))
-            .padding()
-            
-            
             ReusableView
-                .navigationTitle(viewModel.recipe.title)
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("추출 단계")
+                .navigationBarTitleDisplayMode(.large)
                 .listStyle(.plain)
                 .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .principal) {
+                        HStack {
+                            Image(systemName: "info.circle")
+                                .font(.system(.subheadline))
+                                .hidden()
+                            Text(viewModel.recipe.title)
+                            Image(systemName: "info.circle")
+                                .font(.system(.subheadline))
+                                .foregroundColor(.blue)
+                        }
+                        .onTapGesture {
+                            viewModel.showBaseInfo.toggle()
+                        }
+                        .sheet(isPresented: $viewModel.showBaseInfo) {
+                            ExtractRecipeBaseInfoView(recipe: viewModel.recipe,
+                                                    viewMode: viewModel.isRecipeEditing ? .update : .read)
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("추출 레시피") { dismiss() }
+                            .padding(.leading, -20)
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             if viewModel.isRecipeEditing { viewModel.completeEditing() }
                             else { viewModel.startEditing() }
@@ -38,6 +55,7 @@ struct ExtractRecipeDetailView: View {
                         }
                         .disabled(viewModel.isStepEditing)
                     }
+                    
                     ToolbarItem(placement: .keyboard) {
                         HStack {
                             Spacer()

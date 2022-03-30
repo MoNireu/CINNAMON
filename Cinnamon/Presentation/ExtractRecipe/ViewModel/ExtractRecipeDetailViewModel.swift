@@ -13,6 +13,7 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     private var cancelBag = Set<AnyCancellable>()
     private var usecase: ExtractRecipeDetailUseCase
     @Published var recipe: ExtractRecipe
+    @Published var showBaseInfo: Bool = false
     @Published var isRecipeEditing: Bool = false
     @Published var isPickerShowing: Bool = false
     

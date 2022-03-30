@@ -15,6 +15,7 @@ class ExtractRecipeRepository: ObservableObject {
     private var cache: [ExtractRecipe]
     
     var getListSubject = PassthroughSubject<[ExtractRecipe], Never>()
+    var createdRecipeSubject = PassthroughSubject<ExtractRecipe, Never>()
     
     private init() {
         print("Log -", #fileID, #function, #line)
@@ -75,23 +76,29 @@ class ExtractRecipeRepository: ObservableObject {
         getListSubject.send(cache)
     }
     
-    func add(newRecipe: ExtractRecipe) {
+    func add(newRecipe: ExtractRecipe){
         cache.append(newRecipe)
         get()
+        createdRecipeSubject.send(newRecipe)
     }
     
     func add(newStep: RecipeStep, to recipe: ExtractRecipe) {
         
     }
     
-    func update(newRecipe: ExtractRecipe) {
-        if let index = getRecipeIndex(recipe: newRecipe) {
-            cache[index] = newRecipe
-            print("Log -", #fileID, #function, #line, "Recipe Updated!")
-            self.get()
-        }
-        else {
-            print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
+    @discardableResult
+    func update(newRecipe: ExtractRecipe) -> Future<ExtractRecipe, Error> {
+        return Future { [weak self] promise in
+            if let index = self?.getRecipeIndex(recipe: newRecipe) {
+                self?.cache[index] = newRecipe
+                print("Log -", #fileID, #function, #line, "Recipe Updated!")
+                promise(.success(newRecipe))
+                self?.get()
+            }
+            else {
+                print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
+                promise(.failure(NSError()))
+            }
         }
     }
     

@@ -21,11 +21,14 @@ struct ExtractRecipeListView: View {
                 RecipeListView
                 NewRecipeEditView
             }
+            .toolbar {
+                ToolBarButtons
+            }
         }
         .listStyle(.plain)
         .onAppear(perform: viewModel.onAppear)
         .sheet(isPresented: $viewModel.isCreateRecipeShowing) {
-            CreateExtractRecipeView(viewModel: viewModel)
+            ExtractRecipeBaseInfoView(extractType: viewModel.selectedExtractType)
         }
     }
 }
@@ -57,9 +60,6 @@ extension ExtractRecipeListView {
         }
         .navigationTitle("추출 레시피")
         .environment(\.editMode, viewModel.isEditing ? .constant(.active) : .constant(.inactive))
-        .toolbar {
-            ToolBarButtons
-        }
     }
     
     @ToolbarContentBuilder var ToolBarButtons: some ToolbarContent {
@@ -78,7 +78,7 @@ extension ExtractRecipeListView {
                     print("Log -", #fileID, #function, #line)
                 }
                 else {
-                    viewModel.isCreateRecipeShowing = true
+                    viewModel.showCreateRecipeView()
                 }
             } label: {
                 Image(systemName: viewModel.isEditing ? "trash" : "plus")
@@ -88,7 +88,7 @@ extension ExtractRecipeListView {
     }
     
     @ViewBuilder var NewRecipeEditView: some View {
-        if viewModel.recipeCreated() {
+        if viewModel.createdRecipe != nil {
             let recipe = viewModel.createdRecipe!
             NavigationLink(isActive: .constant(true)) {
                 ExtractRecipeDetailView(recipe: recipe)

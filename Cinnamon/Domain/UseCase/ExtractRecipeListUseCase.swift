@@ -22,6 +22,10 @@ class ExtractRecipeListUseCase: ObservableObject {
             .eraseToAnyPublisher()
     }
     
+    var getCreatedRecipe: AnyPublisher<ExtractRecipe, Never> {
+        repository.createdRecipeSubject.eraseToAnyPublisher()
+    }
+    
     
     // MARK: - Init
     init() {
@@ -54,10 +58,5 @@ class ExtractRecipeListUseCase: ObservableObject {
     
     private func filterRecipeListByExtractType(_ list: [ExtractRecipe]) -> [ExtractRecipe] {
         return list.filter({$0.extractType == self.extractType})
-    }
-    
-    func addNewRecipe(_ recipe: ExtractRecipe) {
-        repository.add(newRecipe: recipe)
-        //TODO: Save Recipe
     }
 }

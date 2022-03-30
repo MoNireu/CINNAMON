@@ -37,16 +37,17 @@ class ExtractRecipeListViewModel: ObservableObject {
         usecase.requestFetchFromRepository()
     }
     
-    func createRecipe(title: String, description: String, beanAmount: Float) {
-        let newRecipe = ExtractRecipe(title: title, description: description, extractType: selectedExtractType, beanAmount: beanAmount)
-        createdRecipe = newRecipe
-        usecase.addNewRecipe(newRecipe)
-        isCreateRecipeShowing = false
-    }
-    
     func recipeCreated() -> Bool {
         if createdRecipe != nil { return true }
         else { return false }
+    }
+    
+    func showCreateRecipeView() {
+        isCreateRecipeShowing = true
+    }
+    
+    func dismissCreateRecipeView() {
+        isCreateRecipeShowing = false
     }
     
     
@@ -55,6 +56,7 @@ class ExtractRecipeListViewModel: ObservableObject {
         reloadOnRecipesChange()
         reloadRecipesOnPickerChange()
         resetSelectedRecipesOnEditFinish()
+        showEditStepOnCreateRecipeComplete()
     }
     
     
@@ -77,5 +79,12 @@ class ExtractRecipeListViewModel: ObservableObject {
                 if editingFinished { self?.selectedRecipe = Set<UUID>() }
             }
             .store(in: &cancelBag)
+    }
+    
+    private func showEditStepOnCreateRecipeComplete() {
+        usecase.getCreatedRecipe.sink { [weak self] recipe in
+            self?.createdRecipe = recipe
+        }
+        .store(in: &cancelBag)
     }
 }
