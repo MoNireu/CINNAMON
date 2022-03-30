@@ -17,17 +17,15 @@ struct ExtractRecipeDetailView: View {
     
     var body: some View {
         VStack {
+            TitleView
+            
             ReusableView
-                .navigationTitle("추출 단계")
-                .navigationBarTitleDisplayMode(.large)
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
                 .listStyle(.plain)
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         HStack {
-                            Image(systemName: "info.circle")
-                                .font(.system(.subheadline))
-                                .hidden()
                             Text(viewModel.recipe.title)
                             Image(systemName: "info.circle")
                                 .font(.system(.subheadline))
@@ -50,6 +48,7 @@ struct ExtractRecipeDetailView: View {
                             HStack {
                                 Image(systemName: "chevron.backward")
                                 Text("추출 레시피")
+                                    .padding(.leading, -5)
                             }
                         }
                     }
@@ -84,6 +83,31 @@ struct ExtractRecipeDetailView: View {
 }
 
 extension ExtractRecipeDetailView {
+    
+    @ViewBuilder var TitleView: some View {
+        HStack {
+            Text("추출 단계")
+                .font(.largeTitle)
+                .bold()
+                .padding(.leading)
+            
+            Button {
+                print("Log -", #fileID, #function, #line)
+            } label: {
+                Image(systemName: "play.fill")
+                    .font(.system(size: 15))
+                    .padding(7)
+                    .foregroundColor(.white)
+                    .background{
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(.blue)
+                    }
+            }
+            .isHidden(viewModel.isRecipeEditing ? true : false)
+            Spacer()
+        }
+        .padding(.top)
+    }
     
     @ViewBuilder var ReusableView: some View {
         if viewModel.isRecipeEditing {
