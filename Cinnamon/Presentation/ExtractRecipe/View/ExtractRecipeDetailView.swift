@@ -20,6 +20,7 @@ struct ExtractRecipeDetailView: View {
             ReusableView
                 .navigationTitle("추출 단계")
                 .navigationBarTitleDisplayMode(.large)
+                .navigationBarBackButtonHidden(true)
                 .listStyle(.plain)
                 .toolbar {
                     ToolbarItem(placement: .principal) {
@@ -42,8 +43,15 @@ struct ExtractRecipeDetailView: View {
                     }
                     
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button("추출 레시피") { dismiss() }
-                            .padding(.leading, -20)
+                        // Dismiss Button
+                        Button {
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.backward")
+                                Text("추출 레시피")
+                            }
+                        }
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
