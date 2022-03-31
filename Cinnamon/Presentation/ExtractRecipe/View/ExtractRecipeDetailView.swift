@@ -81,6 +81,7 @@ struct ExtractRecipeDetailView: View {
         }
         .fullScreenCover(isPresented: $viewModel.isRecipeExecuteShowing) {
             //TODO: 레시피 실행 화면
+            ExtractRecipeExecuteView(recipe: viewModel.recipe)
         }
     }
 }
@@ -95,7 +96,7 @@ extension ExtractRecipeDetailView {
                 .padding(.leading)
             
             Button {
-                print("Log -", #fileID, #function, #line)
+                viewModel.isRecipeExecuteShowing = true
             } label: {
                 Image(systemName: "play.fill")
                     .font(.system(size: 15))
