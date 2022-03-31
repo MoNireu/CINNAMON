@@ -1,5 +1,5 @@
 //
-//  ExtractRecipeExecute.swift
+//  ExtractRecipeExecuteView.swift
 //  Cinnamon
 //
 //  Created by MoNireu on 2022/03/31.
@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ExtractRecipeExecuteView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: ExtractRecipeExecuteViewModel
+    @StateObject var viewModel: ExtractRecipeExecuteViewModel
     
     init(recipe: ExtractRecipe) {
-        self._viewModel = .init(initialValue: ExtractRecipeExecuteViewModel(recipe: recipe))
+        print("Log -", #fileID, #function, #line)
+        self._viewModel = .init(wrappedValue: ExtractRecipeExecuteViewModel(recipe: recipe))
     }
     
     var body: some View {
@@ -25,13 +26,16 @@ struct ExtractRecipeExecuteView: View {
             TopBarItemsView
             
             TabView(selection: $viewModel.pageIndex) {
-                ExecuteStartView.tag(0)
+                ExecuteStartView
+                
                 ForEach(1..<viewModel.recipe.steps.count+1, id: \.self) { index in
                     ExtractRecipeExecuteStepView(countCompleted: $viewModel.countDownDidComplete,
-                                                 step: viewModel.recipe.steps[index-1]).tag(index)
+                                                 step: viewModel.recipe.steps[index-1],
+                                                 currentPage: $viewModel.pageIndex,
+                                                 stepIndex: index)
                 }
             }
-            .tabViewStyle(.page)
+            .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.default, value: viewModel.pageIndex)
             
             BottomBarItemsView

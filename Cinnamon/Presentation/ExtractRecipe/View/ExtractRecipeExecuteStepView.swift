@@ -9,11 +9,19 @@ import SwiftUI
 
 struct ExtractRecipeExecuteStepView: View {
     @Binding var countCompleted: Bool
-    @ObservedObject var viewModel: ExtractRecipeExecuteStepViewModel
+    @Binding var currentPage: Int
+    var stepIndex: Int
+    @StateObject var viewModel: ExtractRecipeExecuteStepViewModel
     
-    init(countCompleted: Binding<Bool>, step: RecipeStep) {
+    init(countCompleted: Binding<Bool>,
+         step: RecipeStep,
+         currentPage: Binding<Int>,
+         stepIndex: Int) {
+        print("Log -", #fileID, #function, #line)
         self._countCompleted = countCompleted
-        self._viewModel = .init(initialValue: ExtractRecipeExecuteStepViewModel(step: step))
+        self._viewModel = .init(wrappedValue: ExtractRecipeExecuteStepViewModel(step: step))
+        self._currentPage = currentPage
+        self.stepIndex = stepIndex
     }
     
     var body: some View {
@@ -56,8 +64,13 @@ struct ExtractRecipeExecuteStepView: View {
                 self.countCompleted = true
             }
         }
-        .onAppear {
-            viewModel.onAppear()
+        .onChange(of: currentPage) { pageIndex in
+            if pageIndex == stepIndex {
+                viewModel.startTimer()
+            }
+            else {
+                viewModel.stopTimer()
+            }
         }
     }
 }
@@ -66,6 +79,8 @@ struct ExtractRecipeExecuteStepView_Previews: PreviewProvider {
     static var previews: some View {
         let recipe = ExtractRecipeDummyData.extractRecipeList[0]
         ExtractRecipeExecuteStepView(countCompleted: .constant(false),
-                                     step: recipe.steps[0])
+                                     step: recipe.steps[0],
+                                     currentPage: .constant(1),
+                                     stepIndex: 0)
     }
 }

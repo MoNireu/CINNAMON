@@ -19,6 +19,9 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
         self.recipe = recipe
         self.moveToNextPageOnCountDownComplete()
     }
+    deinit {
+        print("Log -", #fileID, #function, #line)
+    }
     
     func moveToPreviousPage() {
         guard pageIndex != 0 else { return }
