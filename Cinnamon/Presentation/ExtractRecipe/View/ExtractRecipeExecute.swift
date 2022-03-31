@@ -9,6 +9,11 @@ import SwiftUI
 
 struct ExtractRecipeExecute: View {
     @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: ExtractRecipeExecuteViewModel
+    
+    init(recipe: ExtractRecipe) {
+        self._viewModel = .init(initialValue: ExtractRecipeExecuteViewModel(recipe: recipe))
+    }
     
     var body: some View {
         VStack {
@@ -17,15 +22,19 @@ struct ExtractRecipeExecute: View {
             
             TopBarItemsView
             
-            TabView {
-                ExecuteStartView
-                ExecuteStepView
-                ExecuteStepView
-                ExecuteStepView
+            TabView(selection: $viewModel.pageIndex) {
+                ExecuteStartView.tag(0)
+                ForEach(1..<viewModel.recipe.steps.count+1, id: \.self) { index in
+                    ExecuteStepView.tag(index)
+                }
             }
             .tabViewStyle(.page)
+            .animation(.default, value: viewModel.pageIndex)
             
             BottomBarItemsView
+        }
+        .onChange(of: viewModel.pageIndex) { newValue in
+            print("Log -", #fileID, #function, #line, newValue)
         }
     }
 }
@@ -62,14 +71,14 @@ extension ExtractRecipeExecute {
             Spacer()
             
             VStack {
-                Text("레시피 제목")
-                Text("레시피 부제")
-                Text("원두용량: 20g")
+                Text(viewModel.recipe.title)
+                Text(viewModel.recipe.description)
+                Text(String(format: "%0.1fg", viewModel.recipe.beanAmount))
             }
             .frame(maxHeight: .infinity)
             
             VStack {
-                Text("00:00")
+                Text(viewModel.recipe.totalExtractTime.toMinuteString())
                     .font(.system(size: 100))
                 
                 HStack {
@@ -94,8 +103,11 @@ extension ExtractRecipeExecute {
     @ViewBuilder var ExecuteStepView: some View {
         VStack {
             VStack {
+                Text(viewModel.currentStep.title)
+                    .font(.title)
+                    .bold()
                 Spacer()
-                Text("00:00")
+                Text(viewModel.currentStep.extractTime.toMinuteString())
                     .font(.system(size: 100))
                 
                 HStack {
@@ -104,22 +116,23 @@ extension ExtractRecipeExecute {
                 }
                 .padding(.top, -30)
                 
-                Text("20ml")
+                Text(String(format: "%0.1fml", viewModel.currentStep.waterAmount!))
                     .font(.largeTitle)
                 Spacer()
-                    .visibility(.gone)
+                    .visibility(viewModel.currentStep.description.isEmpty ? .visible : .gone)
             }
             .frame(maxHeight: .infinity)
             
             VStack {
-                Text("이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. 이곳에 설명이 들어갑니다. ")
+                Spacer()
+                Text(viewModel.currentStep.description)
                     .font(.title3)
                     .bold()
                     .multilineTextAlignment(.center)
                     .padding()
                 Spacer()
             }
-            .visibility(.visible)
+            .visibility(viewModel.currentStep.description.isEmpty ? .gone : .visible)
             .frame(maxHeight: .infinity)
         }
     }
@@ -128,25 +141,28 @@ extension ExtractRecipeExecute {
     @ViewBuilder var BottomBarItemsView: some View {
         ZStack {
             HStack {
-                Button("이전 단계") { print("") }
+                Button("이전 단계") { viewModel.moveToPreviousPage() }
                     .padding()
                 Spacer()
-                Button("다음 단계") { print("") }
+                Button("다음 단계") { viewModel.moveToNextPage() }
                     .padding()
             }
             
-            Button("시작") { print() }
+            Button("시작") { viewModel.moveToNextPage() }
                 .frame(maxWidth: .infinity)
                 .padding()
                 .foregroundColor(.white)
                 .background(RoundedRectangle(cornerRadius: 10).fill(.blue))
                 .padding()
+                .visibility(viewModel.pageIndex == 0 ? .visible : .gone)
         }
     }
 }
 
 struct ExtractRecipeExecute_Previews: PreviewProvider {
     static var previews: some View {
-        ExtractRecipeExecute()
+        
+        let recipe = ExtractRecipeDummyData.extractRecipeList[0]
+        ExtractRecipeExecute(recipe: recipe)
     }
 }

@@ -57,6 +57,8 @@
 		E1E69BC527F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BC427F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift */; };
 		E1E69BC727F326BE009AFC67 /* ExtractRecipeBaseInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BC627F326BE009AFC67 /* ExtractRecipeBaseInfoUseCase.swift */; };
 		E1E69BC927F53ED2009AFC67 /* ExtractRecipeExecute.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BC827F53ED2009AFC67 /* ExtractRecipeExecute.swift */; };
+		E1E69BCB27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BCA27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift */; };
+		E1E69BCE27F56767009AFC67 /* ExtractRecipeDummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BCD27F56767009AFC67 /* ExtractRecipeDummyData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +124,8 @@
 		E1E69BC427F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeBaseInfoViewModel.swift; sourceTree = "<group>"; };
 		E1E69BC627F326BE009AFC67 /* ExtractRecipeBaseInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeBaseInfoUseCase.swift; sourceTree = "<group>"; };
 		E1E69BC827F53ED2009AFC67 /* ExtractRecipeExecute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecute.swift; sourceTree = "<group>"; };
+		E1E69BCA27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecuteViewModel.swift; sourceTree = "<group>"; };
+		E1E69BCD27F56767009AFC67 /* ExtractRecipeDummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDummyData.swift; sourceTree = "<group>"; };
 		E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cinnamon.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +186,7 @@
 		E105FFBA2782E03000C6B73B /* Cinnamon */ = {
 			isa = PBXGroup;
 			children = (
+				E1E69BCC27F56751009AFC67 /* DummyData */,
 				E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */,
 				E17B8F3527EAF7CC0010B7CF /* Common */,
 				E17B8F2D27EAF4220010B7CF /* Application */,
@@ -378,6 +383,7 @@
 				E1C9287527DB097B00CD35CA /* ExtractRecipeListViewModel.swift */,
 				E121C73A27E1C9CE0036436D /* ExtractRecipeDetailViewModel.swift */,
 				E1E69BC427F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift */,
+				E1E69BCA27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -393,6 +399,14 @@
 				E142D0C927D5A46A00579C8F /* AccountSetupView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E1E69BCC27F56751009AFC67 /* DummyData */ = {
+			isa = PBXGroup;
+			children = (
+				E1E69BCD27F56767009AFC67 /* ExtractRecipeDummyData.swift */,
+			);
+			path = DummyData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -550,6 +564,7 @@
 				E105FFC82782E03200C6B73B /* Cinnamon.xcdatamodeld in Sources */,
 				E1C9287627DB097B00CD35CA /* ExtractRecipeListViewModel.swift in Sources */,
 				E15A1AC427C780F700E6B679 /* SignUpViewModel.swift in Sources */,
+				E1E69BCE27F56767009AFC67 /* ExtractRecipeDummyData.swift in Sources */,
 				E12BED2027E07A740058E65A /* ExtractRecipeDetailView.swift in Sources */,
 				E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */,
 				E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */,
@@ -574,6 +589,7 @@
 				E10CF67F27D9CDCA006AA340 /* MainTabView.swift in Sources */,
 				E15A1AC227C780C500E6B679 /* SignUpView.swift in Sources */,
 				E10CF67B27D9CA25006AA340 /* View.swift in Sources */,
+				E1E69BCB27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift in Sources */,
 				E1140E1427EED7C2007CFE58 /* ExtractRecipeBaseInfoView.swift in Sources */,
 				E1189E3A27BC94970005E590 /* SignInUpViewModel.swift in Sources */,
 			);
