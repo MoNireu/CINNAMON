@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ExtractRecipeExecute: View {
+struct ExtractRecipeExecuteView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: ExtractRecipeExecuteViewModel
     
@@ -17,15 +17,18 @@ struct ExtractRecipeExecute: View {
     
     var body: some View {
         VStack {
-            ProgressView()
+            ProgressView(value: Float(viewModel.pageIndex),
+                         total: Float(viewModel.recipe.steps.count))
                 .progressViewStyle(.linear)
+                .animation(.default, value: viewModel.pageIndex)
             
             TopBarItemsView
             
             TabView(selection: $viewModel.pageIndex) {
                 ExecuteStartView.tag(0)
                 ForEach(1..<viewModel.recipe.steps.count+1, id: \.self) { index in
-                    ExecuteStepView.tag(index)
+                    ExtractRecipeExecuteStepView(countCompleted: $viewModel.countDownDidComplete,
+                                                 step: viewModel.recipe.steps[index-1]).tag(index)
                 }
             }
             .tabViewStyle(.page)
@@ -39,7 +42,7 @@ struct ExtractRecipeExecute: View {
     }
 }
 
-extension ExtractRecipeExecute {
+extension ExtractRecipeExecuteView {
     
     @ViewBuilder var TopBarItemsView: some View {
         HStack {
@@ -52,7 +55,7 @@ extension ExtractRecipeExecute {
             }
             .padding()
             Spacer()
-            Text("단계 ( 1 / 3 )")
+            Text(viewModel.getTopBarTitle())
             Spacer()
             Button {
                 //TODO: 진동 제어
@@ -72,8 +75,12 @@ extension ExtractRecipeExecute {
             
             VStack {
                 Text(viewModel.recipe.title)
+                    .font(.title)
+                    .bold()
                 Text(viewModel.recipe.description)
+                    .font(.title3)
                 Text(String(format: "%0.1fg", viewModel.recipe.beanAmount))
+                    .font(.title3)
             }
             .frame(maxHeight: .infinity)
             
@@ -97,43 +104,6 @@ extension ExtractRecipeExecute {
                 .frame(maxHeight: .infinity)
             
             Spacer()
-        }
-    }
-    
-    @ViewBuilder var ExecuteStepView: some View {
-        VStack {
-            VStack {
-                Text(viewModel.currentStep.title)
-                    .font(.title)
-                    .bold()
-                Spacer()
-                Text(viewModel.currentStep.extractTime.toMinuteString())
-                    .font(.system(size: 100))
-                
-                HStack {
-                    Rectangle()
-                        .frame(width: 300, height: 3)
-                }
-                .padding(.top, -30)
-                
-                Text(String(format: "%0.1fml", viewModel.currentStep.waterAmount!))
-                    .font(.largeTitle)
-                Spacer()
-                    .visibility(viewModel.currentStep.description.isEmpty ? .visible : .gone)
-            }
-            .frame(maxHeight: .infinity)
-            
-            VStack {
-                Spacer()
-                Text(viewModel.currentStep.description)
-                    .font(.title3)
-                    .bold()
-                    .multilineTextAlignment(.center)
-                    .padding()
-                Spacer()
-            }
-            .visibility(viewModel.currentStep.description.isEmpty ? .gone : .visible)
-            .frame(maxHeight: .infinity)
         }
     }
     
@@ -163,6 +133,6 @@ struct ExtractRecipeExecute_Previews: PreviewProvider {
     static var previews: some View {
         
         let recipe = ExtractRecipeDummyData.extractRecipeList[0]
-        ExtractRecipeExecute(recipe: recipe)
+        ExtractRecipeExecuteView(recipe: recipe)
     }
 }

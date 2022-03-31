@@ -9,28 +9,44 @@ import Foundation
 import Combine
 
 class ExtractRecipeExecuteViewModel: ObservableObject {
+    private var cancellableBag = Set<AnyCancellable>()
+    
     let recipe: ExtractRecipe
-    @Published var currentStep: RecipeStep
     @Published var pageIndex: Int = 0
+    @Published var countDownDidComplete: Bool = false
     
     init(recipe: ExtractRecipe) {
         self.recipe = recipe
-        self.currentStep = recipe.steps[0]
+        self.moveToNextPageOnCountDownComplete()
     }
     
     func moveToPreviousPage() {
+        guard pageIndex != 0 else { return }
         pageIndex -= 1
-        updateStepInfoViews()
     }
     
     func moveToNextPage() {
+        guard pageIndex != recipe.steps.count else { return }
         pageIndex += 1
-        updateStepInfoViews()
     }
     
-    func updateStepInfoViews() {
-        guard pageIndex != 0 else { return }
-        currentStep = recipe.steps[pageIndex - 1]
+    private func moveToNextPageOnCountDownComplete() {
+        $countDownDidComplete.sink { [weak self] didComplete in
+            if didComplete {
+                self?.moveToNextPage()
+                self?.countDownDidComplete = false
+            }
+        }
+        .store(in: &cancellableBag)
+    }
+    
+    func getTopBarTitle() -> String {
+        if pageIndex == 0 {
+            return "총 \(recipe.steps.count)단계"
+        }
+        else {
+            return "단계 ( \(pageIndex) / \(recipe.steps.count) )"
+        }
     }
 }
 

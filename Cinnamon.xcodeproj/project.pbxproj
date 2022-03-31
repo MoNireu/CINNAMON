@@ -56,9 +56,11 @@
 		E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */; };
 		E1E69BC527F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BC427F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift */; };
 		E1E69BC727F326BE009AFC67 /* ExtractRecipeBaseInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BC627F326BE009AFC67 /* ExtractRecipeBaseInfoUseCase.swift */; };
-		E1E69BC927F53ED2009AFC67 /* ExtractRecipeExecute.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BC827F53ED2009AFC67 /* ExtractRecipeExecute.swift */; };
+		E1E69BC927F53ED2009AFC67 /* ExtractRecipeExecuteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BC827F53ED2009AFC67 /* ExtractRecipeExecuteView.swift */; };
 		E1E69BCB27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BCA27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift */; };
 		E1E69BCE27F56767009AFC67 /* ExtractRecipeDummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BCD27F56767009AFC67 /* ExtractRecipeDummyData.swift */; };
+		E1E69BD027F56F36009AFC67 /* ExtractRecipeExecuteStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BCF27F56F36009AFC67 /* ExtractRecipeExecuteStepView.swift */; };
+		E1E69BD227F56F6A009AFC67 /* ExtractRecipeExecuteStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BD127F56F6A009AFC67 /* ExtractRecipeExecuteStepViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,9 +125,11 @@
 		E1D0492B27BB88C00074A9EC /* SignInButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButtonStackView.swift; sourceTree = "<group>"; };
 		E1E69BC427F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeBaseInfoViewModel.swift; sourceTree = "<group>"; };
 		E1E69BC627F326BE009AFC67 /* ExtractRecipeBaseInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeBaseInfoUseCase.swift; sourceTree = "<group>"; };
-		E1E69BC827F53ED2009AFC67 /* ExtractRecipeExecute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecute.swift; sourceTree = "<group>"; };
+		E1E69BC827F53ED2009AFC67 /* ExtractRecipeExecuteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecuteView.swift; sourceTree = "<group>"; };
 		E1E69BCA27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecuteViewModel.swift; sourceTree = "<group>"; };
 		E1E69BCD27F56767009AFC67 /* ExtractRecipeDummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDummyData.swift; sourceTree = "<group>"; };
+		E1E69BCF27F56F36009AFC67 /* ExtractRecipeExecuteStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecuteStepView.swift; sourceTree = "<group>"; };
+		E1E69BD127F56F6A009AFC67 /* ExtractRecipeExecuteStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecuteStepViewModel.swift; sourceTree = "<group>"; };
 		E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cinnamon.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -254,7 +258,8 @@
 				E10CF68727D9DF1B006AA340 /* ExtractRecipeListCell.swift */,
 				E12BED1F27E07A740058E65A /* ExtractRecipeDetailView.swift */,
 				E12BED2127E089F90058E65A /* ExtractRecipeDetailCell.swift */,
-				E1E69BC827F53ED2009AFC67 /* ExtractRecipeExecute.swift */,
+				E1E69BC827F53ED2009AFC67 /* ExtractRecipeExecuteView.swift */,
+				E1E69BCF27F56F36009AFC67 /* ExtractRecipeExecuteStepView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				E121C73A27E1C9CE0036436D /* ExtractRecipeDetailViewModel.swift */,
 				E1E69BC427F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift */,
 				E1E69BCA27F563BD009AFC67 /* ExtractRecipeExecuteViewModel.swift */,
+				E1E69BD127F56F6A009AFC67 /* ExtractRecipeExecuteStepViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -556,6 +562,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1E69BD227F56F6A009AFC67 /* ExtractRecipeExecuteStepViewModel.swift in Sources */,
 				E126CE4C27BE5B1C00DB4CD3 /* SignInButtonView.swift in Sources */,
 				E10CF68A27D9E681006AA340 /* Int.swift in Sources */,
 				E10CF68127D9D300006AA340 /* ExtractRecipe.swift in Sources */,
@@ -568,11 +575,12 @@
 				E12BED2027E07A740058E65A /* ExtractRecipeDetailView.swift in Sources */,
 				E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */,
 				E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */,
-				E1E69BC927F53ED2009AFC67 /* ExtractRecipeExecute.swift in Sources */,
+				E1E69BC927F53ED2009AFC67 /* ExtractRecipeExecuteView.swift in Sources */,
 				E1A0303A27EC2D25000BD8CE /* ExtractRecipeDetailUseCase.swift in Sources */,
 				E12BED2227E089F90058E65A /* ExtractRecipeDetailCell.swift in Sources */,
 				E160A54227E5D3B200762847 /* MinuteSecondPicker.swift in Sources */,
 				E105FFC52782E03200C6B73B /* Persistence.swift in Sources */,
+				E1E69BD027F56F36009AFC67 /* ExtractRecipeExecuteStepView.swift in Sources */,
 				E160A54027E4CA4200762847 /* TimeConvertUtil.swift in Sources */,
 				E1E69BC527F326A0009AFC67 /* ExtractRecipeBaseInfoViewModel.swift in Sources */,
 				E1D0492C27BB88C00074A9EC /* SignInButtonStackView.swift in Sources */,
