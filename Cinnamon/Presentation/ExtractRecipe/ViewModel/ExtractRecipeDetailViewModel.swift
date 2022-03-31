@@ -16,6 +16,7 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     @Published var showBaseInfo: Bool = false
     @Published var isRecipeEditing: Bool = false
     @Published var isPickerShowing: Bool = false
+    @Published var isRecipeExecuteShowing: Bool = false
     
     // ExtractRecipeDetailCell
     @Published var selectedStepIndex: Int = 0

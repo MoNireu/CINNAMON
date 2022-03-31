@@ -79,6 +79,9 @@ struct ExtractRecipeDetailView: View {
                                    isShowing: $viewModel.isPickerShowing)
             }
         }
+        .fullScreenCover(isPresented: $viewModel.isRecipeExecuteShowing) {
+            //TODO: 레시피 실행 화면
+        }
     }
 }
 
