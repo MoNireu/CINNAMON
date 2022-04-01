@@ -23,6 +23,7 @@ struct CinnamonApp: App {
             ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
 //            ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel())
 //            CreateExtractRecipeView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
+//            ExtractRecipeExecuteView(recipe: ExtractRecipeDummyData.extractRecipeList[0])
         }
     }
 }
