@@ -35,6 +35,7 @@ struct ExtractRecipeExecuteView: View {
                                                      stepIndex: index)
                     }
                 }
+                .disabled(true)
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .animation(.default, value: viewModel.pageIndex)
                 
