@@ -28,7 +28,7 @@ struct MinuteSecondPicker: View {
             HStack {
                 Spacer()
                 Button {
-                    timeInt = TimeConvertUtil.timeToSecond(minute: minuteSelection, second: secondSelection)
+                    timeInt = TimeConvertUtil.shared.timeToSecond(minute: minuteSelection, second: secondSelection)
                     isShowing.toggle()
                 } label: {
                     Text("완료")

@@ -89,14 +89,26 @@ extension ExtractRecipeExecuteView {
             .frame(maxHeight: .infinity)
             
             VStack {
-                Text(viewModel.recipe.totalExtractTime.toMinuteString())
-                    .font(.system(size: 100))
-                
                 HStack {
-                    Rectangle()
-                        .frame(width: 300, height: 3)
+                    Group {
+                        Text(String(format: "%0.2d",
+                                    TimeConvertUtil.shared.getMinuteSecondStringByTimeInt(viewModel.recipe.totalExtractTime).minute))
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        
+                        Text(":")
+                            .fixedSize()
+                        
+                        Text(String(format: "%0.2d",
+                                    TimeConvertUtil.shared.getMinuteSecondStringByTimeInt(viewModel.recipe.totalExtractTime).second))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    }
+                    .font(.system(size: 100))
                 }
-                .padding(.top, -30)
+                
+                Rectangle()
+                    .frame(width: 300, height: 3)
+                    .padding(.top, -30)
                 
                 Text("20ml")
                     .font(.largeTitle)

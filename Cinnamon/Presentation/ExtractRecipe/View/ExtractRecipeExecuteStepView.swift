@@ -31,14 +31,30 @@ struct ExtractRecipeExecuteStepView: View {
                     .font(.title)
                     .bold()
                 Spacer()
-                Text(viewModel.timeRemaining.toMinuteString())
+                
+                HStack {
+                    Group {
+                        Text(String(format: "%0.2d",
+                                    TimeConvertUtil.shared.getMinuteSecondStringByTimeInt(viewModel.timeRemaining).minute))
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        
+                        Text(":")
+                            .fixedSize()
+                        
+                        Text(String(format: "%0.2d",
+                                    TimeConvertUtil.shared.getMinuteSecondStringByTimeInt(viewModel.timeRemaining).second))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    }
                     .font(.system(size: 100))
+                }
+                
                 
                 HStack {
                     Rectangle()
                         .frame(width: 300, height: 3)
+                        .padding(.top, -30)
                 }
-                .padding(.top, -30)
                 
                 Text(String(format: "%0.1fml", viewModel.step.waterAmount!))
                     .font(.largeTitle)

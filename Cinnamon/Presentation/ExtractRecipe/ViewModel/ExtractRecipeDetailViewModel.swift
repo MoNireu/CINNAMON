@@ -17,10 +17,10 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     @Published var isRecipeEditing: Bool = false
     @Published var isPickerShowing: Bool = false
     @Published var isRecipeExecuteShowing: Bool = false
+    @Published var isAlertShowing: Bool = false
     
     // ExtractRecipeDetailCell
     @Published var selectedStepIndex: Int = 0
-    @Published var isStepEditing: Bool = false
     @Published var stopFocus: Bool = false
 
     
@@ -53,9 +53,14 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     }
     
     func completeEditing() {
-        setTotalExtractTime()
-        usecase.updateRecipe(recipe)
-        isRecipeEditing = false
+        if isAllStepValid() {
+            setTotalExtractTime()
+            usecase.updateRecipe(recipe)
+            isRecipeEditing = false
+        }
+        else {
+            isAlertShowing = true
+        }
     }
     
     private func setTotalExtractTime() {
@@ -67,17 +72,16 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     }
         
     
-    func checkStepValid(_ step: RecipeStep) {
-        print("Log -", #fileID, #function, #line)
-        if !step.title.isEmpty,
-           step.waterAmount != nil,
-           step.waterAmount != 0,
-           step.extractTime != 0 {
-            isStepEditing = false
+    func isAllStepValid() -> Bool {
+        for step in recipe.steps {
+            if step.title.isEmpty ||
+                step.extractTime == 0 ||
+                step.waterAmount == nil ||
+                step.waterAmount == 0 {
+                return false
+            }
         }
-        else {
-            isStepEditing = true
-        }
+        return true
     }
     
     // MARK: - Cell Functions
@@ -114,6 +118,5 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     
     func sendStopFocus() {
         self.stopFocus = true
-        self.isStepEditing = false
     }
 }

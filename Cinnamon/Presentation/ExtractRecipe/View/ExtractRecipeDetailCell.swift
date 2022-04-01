@@ -86,10 +86,6 @@ struct ExtractRecipeDetailCell: View {
             else {
                 isDescriptionPlaceHolderVisible = isDescriptionEmpty()
             }
-            
-            if field != nil {
-                viewModel.checkStepValid(self.step)
-            }
         }
     }
 }
@@ -126,16 +122,10 @@ extension ExtractRecipeDetailCell {
     }
     
     @ViewBuilder var ExtractTimeView: some View {
-        Text("\(TimeConvertUtil.timeIntToString(time: step.extractTime))")
+        Text("\(TimeConvertUtil.shared.timeIntToString(time: step.extractTime))")
             .foregroundColor(step.extractTime == 0 ? .gray : .primary)
             .onTapGesture {
                 viewModel.showTimePicker(step: step)
-            }
-            .onReceive(viewModel.$isPickerShowing) { isPickerShowing in
-                guard viewModel.getSelectedStep().id == self.step.id else { return }
-                // 레시피 수정 완료 활성/비활성화를 위해서 작성.
-                if isPickerShowing { viewModel.isStepEditing = true }
-                else { viewModel.checkStepValid(self.step) }
             }
     }
     

@@ -60,7 +60,6 @@ struct ExtractRecipeDetailView: View {
                         } label: {
                             Text(viewModel.isRecipeEditing ? "완료" : "편집")
                         }
-                        .disabled(viewModel.isStepEditing)
                     }
                     
                     ToolbarItem(placement: .keyboard) {
@@ -80,8 +79,12 @@ struct ExtractRecipeDetailView: View {
             }
         }
         .fullScreenCover(isPresented: $viewModel.isRecipeExecuteShowing) {
-            //TODO: 레시피 실행 화면
             ExtractRecipeExecuteView(recipe: viewModel.recipe)
+        }
+        .alert(isPresented: $viewModel.isAlertShowing) {
+            Alert(title: Text("미완료 항목"),
+                  message: Text("작성을 완료하지 않은 항목이 있습니다."),
+                  dismissButton: .default(Text("확인")))
         }
     }
 }
