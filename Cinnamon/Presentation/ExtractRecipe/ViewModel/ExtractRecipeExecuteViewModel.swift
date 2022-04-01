@@ -28,6 +28,7 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     }
     deinit {
         print("Log -", #fileID, #function, #line)
+        FeedBackUtil.shared.releaseFeedBackGenerator()
     }
     
     private func setTopBarTitle() {
@@ -50,6 +51,7 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
             if didComplete {
                 if self.isLastPage() {
                     self.isExecuteCompleteMessageShowing = true
+                    FeedBackUtil.shared.haptic(notificationType: .success)
                 }
                 else {
                     self.moveToNextPage()
@@ -61,6 +63,8 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     }
     
     func startPrepareTimer() {
+        FeedBackUtil.shared.prepareFeedBackGenerator()
+        FeedBackUtil.shared.haptic(notificationType: .warning)
         prepareSecond = 3
         isPrepareCountDownShowing = true
         let timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -72,6 +76,9 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
                     self?.isPrepareCountDownShowing = false
                     timer.connect().cancel()
                     self?.moveToNextPage()
+                }
+                else {
+                    FeedBackUtil.shared.haptic(notificationType: .warning)
                 }
             }
             .store(in: &cancellableBag)

@@ -82,7 +82,7 @@ struct ExtractRecipeExecuteStepView: View {
         }
         .onChange(of: currentPage) { pageIndex in
             if pageIndex == stepIndex {
-                viewModel.startTimer()
+                viewModel.setTimerAndFeedBack()
             }
             else {
                 viewModel.stopTimer()

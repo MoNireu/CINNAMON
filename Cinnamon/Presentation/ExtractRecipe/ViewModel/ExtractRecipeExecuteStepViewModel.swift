@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class ExtractRecipeExecuteStepViewModel: ObservableObject {
     private var cancellableBag = Set<AnyCancellable>()
@@ -26,21 +27,25 @@ class ExtractRecipeExecuteStepViewModel: ObservableObject {
         print("Log -", #fileID, #function, #line)
     }
     
-    func startTimer() {
+    func setTimerAndFeedBack() {
         print("Log -", #fileID, #function, #line)
         timeRemaining = step.extractTime
-        setTimer()
+        startTimer()
     }
     
-    private func setTimer() {
+    private func startTimer() {
         self.timer = Timer.publish(every: 1, on: .main, in: .common)
         self.timer.autoconnect()
             .sink { [weak self] _ in
                 print("Log -", #fileID, #function, #line)
-                self?.timeRemaining -= 1
-                if self?.timeRemaining == 0 {
-                    self?.stopTimer()
-                    self?.countDownCompleted = true
+                guard let self = self else { return }
+                self.timeRemaining -= 1
+                if self.timeRemaining == 0 {
+                    self.stopTimer()
+                    self.countDownCompleted = true
+                }
+                else if self.timeRemaining <= 5 {
+                    FeedBackUtil.shared.haptic(notificationType: .warning)
                 }
             }
             .store(in: &cancellableBag)
