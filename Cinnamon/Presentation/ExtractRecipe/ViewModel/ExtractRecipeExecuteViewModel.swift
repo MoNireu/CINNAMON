@@ -14,6 +14,7 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     let recipe: ExtractRecipe
     @Published var pageIndex: Int = 0
     @Published var countDownDidComplete: Bool = false
+    @Published private(set) var topBarTitle: String = ""
     @Published private(set) var prepareSecond: Int = 3
     @Published private(set) var isPrepareCountDownShowing: Bool = false
     @Published var prepareCountDownScale: Float = 1.0
@@ -22,23 +23,26 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     
     init(recipe: ExtractRecipe) {
         self.recipe = recipe
+        self.setTopBarTitle()
         self.moveToNextPageOnCountDownComplete()
     }
     deinit {
         print("Log -", #fileID, #function, #line)
     }
     
-//    private func showExecuteCompleteMessageOnEnd() {
-//        $countDownDidComplete.sink { [weak self] didComplete in
-//            print("Log -", #fileID, #function, #line)
-//            guard let self = self else { return }
-//            if didComplete && self.isLastPage() {
-//                self.isExecuteCompleteMessageShowing = true
-//            }
-//        }
-//        .store(in: &cancellableBag)
-//    }
-    
+    private func setTopBarTitle() {
+        $pageIndex.sink { [weak self] index in
+            guard let self = self else { return }
+            
+            if self.pageIndex == 0 {
+                self.topBarTitle = "총 \(self.recipe.steps.count)단계"
+            }
+            else {
+                self.topBarTitle = "단계 ( \(index) / \(self.recipe.steps.count) )"
+            }
+        }
+        .store(in: &cancellableBag)
+    }
     
     private func moveToNextPageOnCountDownComplete() {
         $countDownDidComplete.sink { [weak self] didComplete in
@@ -90,18 +94,5 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     func isFirstPage() -> Bool {
         return pageIndex == 0
     }
-    
-    
-    
-    func getTopBarTitle() -> String {
-        if pageIndex == 0 {
-            return "총 \(recipe.steps.count)단계"
-        }
-        else {
-            return "단계 ( \(pageIndex) / \(recipe.steps.count) )"
-        }
-    }
-    
-    
 }
 

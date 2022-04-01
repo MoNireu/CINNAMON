@@ -46,6 +46,7 @@ struct ExtractRecipeExecuteStepView: View {
                         
                     }
                     .font(.system(size: 100))
+                    .foregroundColor(viewModel.timeRemaining <= 5 ? .red : .black)
                 }
                 
                 

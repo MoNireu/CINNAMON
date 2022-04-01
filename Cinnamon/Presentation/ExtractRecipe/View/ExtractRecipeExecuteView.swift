@@ -65,7 +65,7 @@ extension ExtractRecipeExecuteView {
             }
             .padding()
             Spacer()
-            Text(viewModel.getTopBarTitle())
+            Text(viewModel.topBarTitle)
             Spacer()
             Button {
                 //TODO: 진동 제어
