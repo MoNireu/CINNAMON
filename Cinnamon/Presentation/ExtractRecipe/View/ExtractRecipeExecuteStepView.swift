@@ -10,17 +10,22 @@ import SwiftUI
 struct ExtractRecipeExecuteStepView: View {
     @Binding var countCompleted: Bool
     @Binding var currentPage: Int
+    @Binding var isFeedBackAllowed: Bool
     var stepIndex: Int
     @StateObject var viewModel: ExtractRecipeExecuteStepViewModel
     
     init(countCompleted: Binding<Bool>,
          step: RecipeStep,
          currentPage: Binding<Int>,
-         stepIndex: Int) {
+         stepIndex: Int,
+         isFeedBackAllowed: Binding<Bool>) {
         self._countCompleted = countCompleted
-        self._viewModel = .init(wrappedValue: ExtractRecipeExecuteStepViewModel(step: step))
+        self._viewModel = .init(
+            wrappedValue: ExtractRecipeExecuteStepViewModel(step: step,
+                                                            isFeedBackAllowed: isFeedBackAllowed.wrappedValue))
         self._currentPage = currentPage
         self.stepIndex = stepIndex
+        self._isFeedBackAllowed = isFeedBackAllowed
     }
     
     var body: some View {
@@ -88,6 +93,9 @@ struct ExtractRecipeExecuteStepView: View {
                 viewModel.stopTimer()
             }
         }
+        .onChange(of: isFeedBackAllowed) { feedBackAllowed in
+            viewModel.isFeedBackAllowed = feedBackAllowed
+        }
     }
 }
 
@@ -97,6 +105,7 @@ struct ExtractRecipeExecuteStepView_Previews: PreviewProvider {
         ExtractRecipeExecuteStepView(countCompleted: .constant(false),
                                      step: recipe.steps[0],
                                      currentPage: .constant(1),
-                                     stepIndex: 0)
+                                     stepIndex: 0,
+                                     isFeedBackAllowed: .constant(true))
     }
 }

@@ -15,12 +15,14 @@ class ExtractRecipeExecuteStepViewModel: ObservableObject {
     let step: RecipeStep
     @Published var timeRemaining: Int
     @Published var countDownCompleted: Bool = false
+    var isFeedBackAllowed: Bool
     
-    init(step: RecipeStep) {
+    init(step: RecipeStep, isFeedBackAllowed: Bool) {
         print("Log -", #fileID, #function, #line)
         self.step = step
         print("Log -", #fileID, #function, #line, step.extractTime)
         self.timeRemaining = 0
+        self.isFeedBackAllowed = isFeedBackAllowed
     }
     
     deinit {
@@ -45,7 +47,7 @@ class ExtractRecipeExecuteStepViewModel: ObservableObject {
                     self.countDownCompleted = true
                 }
                 else if self.timeRemaining <= 5 {
-                    FeedBackUtil.shared.haptic(notificationType: .warning)
+                    self.feedBackIfAllowed()
                 }
             }
             .store(in: &cancellableBag)
@@ -53,5 +55,9 @@ class ExtractRecipeExecuteStepViewModel: ObservableObject {
     
     func stopTimer() {
         self.timer.connect().cancel()
+    }
+    
+    func feedBackIfAllowed() {
+        if isFeedBackAllowed { FeedBackUtil.shared.haptic(notificationType: .warning) }
     }
 }

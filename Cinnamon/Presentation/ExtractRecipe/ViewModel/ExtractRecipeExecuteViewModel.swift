@@ -17,6 +17,7 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     @Published private(set) var topBarTitle: String = ""
     @Published private(set) var prepareSecond: Int = 3
     @Published private(set) var isPrepareCountDownShowing: Bool = false
+    @Published var isFeedBackAllowed: Bool = true
     @Published var prepareCountDownScale: Float = 1.0
     @Published var prepareCountDownOpacity: Float = 1.0
     @Published var isExecuteCompleteMessageShowing: Bool = false
@@ -64,7 +65,7 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     
     func startPrepareTimer() {
         FeedBackUtil.shared.prepareFeedBackGenerator()
-        FeedBackUtil.shared.haptic(notificationType: .warning)
+        feedBackIfAllowed()
         prepareSecond = 3
         isPrepareCountDownShowing = true
         let timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -78,7 +79,7 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
                     self?.moveToNextPage()
                 }
                 else {
-                    FeedBackUtil.shared.haptic(notificationType: .warning)
+                    self?.feedBackIfAllowed()
                 }
             }
             .store(in: &cancellableBag)
@@ -100,6 +101,14 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     
     func isFirstPage() -> Bool {
         return pageIndex == 0
+    }
+    
+    func toggleFeedBackAllowed() {
+        self.isFeedBackAllowed.toggle()
+    }
+    
+    func feedBackIfAllowed() {
+        if isFeedBackAllowed { FeedBackUtil.shared.haptic(notificationType: .warning) }
     }
 }
 

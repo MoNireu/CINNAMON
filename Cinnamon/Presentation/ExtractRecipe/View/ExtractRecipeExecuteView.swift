@@ -32,7 +32,8 @@ struct ExtractRecipeExecuteView: View {
                         ExtractRecipeExecuteStepView(countCompleted: $viewModel.countDownDidComplete,
                                                      step: viewModel.recipe.steps[index-1],
                                                      currentPage: $viewModel.pageIndex,
-                                                     stepIndex: index)
+                                                     stepIndex: index,
+                                                     isFeedBackAllowed: $viewModel.isFeedBackAllowed)
                     }
                 }
                 .disabled(true)
@@ -68,10 +69,10 @@ extension ExtractRecipeExecuteView {
             Text(viewModel.topBarTitle)
             Spacer()
             Button {
-                //TODO: 진동 제어
+                viewModel.toggleFeedBackAllowed()
             } label: {
                 Image(systemName: "iphone.radiowaves.left.and.right")
-                    .tint(.gray)
+                    .tint(viewModel.isFeedBackAllowed ? .blue : .gray)
                     .font(.system(size: 25))
             }
             .padding()
