@@ -16,7 +16,7 @@ struct ExtractRecipeExecuteView: View {
     }
     
     var body: some View {
-        ZStack {
+        
             VStack {
                 ProgressView(value: Float(viewModel.pageIndex),
                              total: Float(viewModel.recipe.steps.count))
@@ -43,10 +43,9 @@ struct ExtractRecipeExecuteView: View {
             .onChange(of: viewModel.pageIndex) { newValue in
                 print("Log -", #fileID, #function, #line, newValue)
             }
-            
-            PrepareTimerView
-            
-        }
+            .overlay {
+                PrepareTimerView
+            }
     }
 }
 
@@ -137,6 +136,7 @@ extension ExtractRecipeExecuteView {
                 Button("다음 단계") { viewModel.moveToNextPage() }
                     .padding()
             }
+            .visibility(viewModel.pageIndex == 0 ? .gone : .visible)
             
             Button {
                 viewModel.startPrepareTimer()
@@ -145,10 +145,12 @@ extension ExtractRecipeExecuteView {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .foregroundColor(.white)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(.blue))
+                    .background(RoundedRectangle(cornerRadius: 10)
+                        .fill(viewModel.isPrepareCountDownShowing ? .gray : .blue))
                     .padding()
                     .visibility(viewModel.pageIndex == 0 ? .visible : .gone)
             }
+            .disabled(viewModel.isPrepareCountDownShowing ? true : false)
                 
         }
     }
@@ -156,12 +158,12 @@ extension ExtractRecipeExecuteView {
     @ViewBuilder var PrepareTimerView: some View {
         Text("\(viewModel.prepareSecond)")
             .font(.system(size: 80))
-            .scaleEffect(CGFloat(viewModel.scaleTest))
+            .scaleEffect(CGFloat(viewModel.prepareCountDownScale))
             .animation(.linear(duration: 1).repeatForever(autoreverses: false),
-                       value: viewModel.scaleTest)
-            .opacity(Double(viewModel.opacityTest))
+                       value: viewModel.prepareCountDownScale)
+            .opacity(Double(viewModel.prepareCountDownOpacity))
             .animation(.easeInOut(duration: 0.5).delay(0.5).repeatForever(autoreverses: false),
-                       value: viewModel.opacityTest)
+                       value: viewModel.prepareCountDownOpacity)
             .frame(width: 200, height: 200, alignment: .center)
             .background {
                 RoundedRectangle(cornerRadius: 10)
@@ -169,13 +171,9 @@ extension ExtractRecipeExecuteView {
                     .shadow(radius: 5)
             }
             .visibility(viewModel.isPrepareCountDownShowing ? .visible : .gone)
-            .onAppear {
-                viewModel.scaleTest = 1.5
-                viewModel.opacityTest = 0.0
-            }
-            .onDisappear {
-                viewModel.scaleTest = 1.0
-                viewModel.opacityTest = 1.0
+            .onChange(of: viewModel.isPrepareCountDownShowing) { showing in
+                viewModel.prepareCountDownScale = showing ? 1.5 : 1.0
+                viewModel.prepareCountDownOpacity = showing ? 0.0 : 1.0
             }
     }
 }

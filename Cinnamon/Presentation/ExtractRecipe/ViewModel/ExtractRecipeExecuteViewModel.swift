@@ -16,8 +16,8 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     @Published var countDownDidComplete: Bool = false
     @Published var prepareSecond: Int = 3
     @Published var isPrepareCountDownShowing: Bool = false
-    @Published var scaleTest: Float = 1.0
-    @Published var opacityTest: Float = 1.0
+    @Published var prepareCountDownScale: Float = 1.0
+    @Published var prepareCountDownOpacity: Float = 1.0
     
     init(recipe: ExtractRecipe) {
         self.recipe = recipe
