@@ -40,11 +40,13 @@ struct ExtractRecipeExecuteView: View {
                 
                 BottomBarItemsView
             }
-            .onChange(of: viewModel.pageIndex) { newValue in
-                print("Log -", #fileID, #function, #line, newValue)
-            }
             .overlay {
                 PrepareTimerView
+            }
+            .alert(isPresented: $viewModel.isExecuteCompleteMessageShowing) {
+                Alert(title: Text("레시피 실행 완료"),
+                      message: Text("레시피 실행이 완료 되었습니다."),
+                      dismissButton: .default(Text("확인")) { self.dismiss() })
             }
     }
 }
@@ -135,8 +137,9 @@ extension ExtractRecipeExecuteView {
                 Spacer()
                 Button("다음 단계") { viewModel.moveToNextPage() }
                     .padding()
+                    .visibility(viewModel.isLastPage() ? .invisible : .visible)
             }
-            .visibility(viewModel.pageIndex == 0 ? .gone : .visible)
+            .visibility(viewModel.isFirstPage() ? .gone : .visible)
             
             Button {
                 viewModel.startPrepareTimer()
@@ -148,7 +151,7 @@ extension ExtractRecipeExecuteView {
                     .background(RoundedRectangle(cornerRadius: 10)
                         .fill(viewModel.isPrepareCountDownShowing ? .gray : .blue))
                     .padding()
-                    .visibility(viewModel.pageIndex == 0 ? .visible : .gone)
+                    .visibility(viewModel.isFirstPage() ? .visible : .gone)
             }
             .disabled(viewModel.isPrepareCountDownShowing ? true : false)
                 

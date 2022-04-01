@@ -14,10 +14,11 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     let recipe: ExtractRecipe
     @Published var pageIndex: Int = 0
     @Published var countDownDidComplete: Bool = false
-    @Published var prepareSecond: Int = 3
-    @Published var isPrepareCountDownShowing: Bool = false
+    @Published private(set) var prepareSecond: Int = 3
+    @Published private(set) var isPrepareCountDownShowing: Bool = false
     @Published var prepareCountDownScale: Float = 1.0
     @Published var prepareCountDownOpacity: Float = 1.0
+    @Published var isExecuteCompleteMessageShowing: Bool = false
     
     init(recipe: ExtractRecipe) {
         self.recipe = recipe
@@ -27,11 +28,29 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
         print("Log -", #fileID, #function, #line)
     }
     
+//    private func showExecuteCompleteMessageOnEnd() {
+//        $countDownDidComplete.sink { [weak self] didComplete in
+//            print("Log -", #fileID, #function, #line)
+//            guard let self = self else { return }
+//            if didComplete && self.isLastPage() {
+//                self.isExecuteCompleteMessageShowing = true
+//            }
+//        }
+//        .store(in: &cancellableBag)
+//    }
+    
+    
     private func moveToNextPageOnCountDownComplete() {
         $countDownDidComplete.sink { [weak self] didComplete in
+            guard let self = self else { return }
             if didComplete {
-                self?.moveToNextPage()
-                self?.countDownDidComplete = false
+                if self.isLastPage() {
+                    self.isExecuteCompleteMessageShowing = true
+                }
+                else {
+                    self.moveToNextPage()
+                    self.countDownDidComplete = false
+                }
             }
         }
         .store(in: &cancellableBag)
@@ -55,14 +74,24 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
     }
     
     func moveToNextPage() {
-        guard pageIndex != recipe.steps.count else { return }
+        guard !isLastPage() else { return }
         pageIndex += 1
     }
     
+    func isLastPage() -> Bool {
+        return pageIndex == recipe.steps.count
+    }
+    
     func moveToPreviousPage() {
-        guard pageIndex != 0 else { return }
+        guard !isFirstPage() else { return }
         pageIndex -= 1
     }
+    
+    func isFirstPage() -> Bool {
+        return pageIndex == 0
+    }
+    
+    
     
     func getTopBarTitle() -> String {
         if pageIndex == 0 {
@@ -72,5 +101,7 @@ class ExtractRecipeExecuteViewModel: ObservableObject {
             return "단계 ( \(pageIndex) / \(recipe.steps.count) )"
         }
     }
+    
+    
 }
 
