@@ -17,7 +17,6 @@ struct ExtractRecipeExecuteStepView: View {
          step: RecipeStep,
          currentPage: Binding<Int>,
          stepIndex: Int) {
-        print("Log -", #fileID, #function, #line)
         self._countCompleted = countCompleted
         self._viewModel = .init(wrappedValue: ExtractRecipeExecuteStepViewModel(step: step))
         self._currentPage = currentPage

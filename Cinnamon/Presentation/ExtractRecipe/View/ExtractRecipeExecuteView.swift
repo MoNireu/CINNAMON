@@ -12,36 +12,40 @@ struct ExtractRecipeExecuteView: View {
     @StateObject var viewModel: ExtractRecipeExecuteViewModel
     
     init(recipe: ExtractRecipe) {
-        print("Log -", #fileID, #function, #line)
         self._viewModel = .init(wrappedValue: ExtractRecipeExecuteViewModel(recipe: recipe))
     }
     
     var body: some View {
-        VStack {
-            ProgressView(value: Float(viewModel.pageIndex),
-                         total: Float(viewModel.recipe.steps.count))
-                .progressViewStyle(.linear)
-                .animation(.default, value: viewModel.pageIndex)
-            
-            TopBarItemsView
-            
-            TabView(selection: $viewModel.pageIndex) {
-                ExecuteStartView
+        ZStack {
+            VStack {
+                ProgressView(value: Float(viewModel.pageIndex),
+                             total: Float(viewModel.recipe.steps.count))
+                    .progressViewStyle(.linear)
+                    .animation(.default, value: viewModel.pageIndex)
                 
-                ForEach(1..<viewModel.recipe.steps.count+1, id: \.self) { index in
-                    ExtractRecipeExecuteStepView(countCompleted: $viewModel.countDownDidComplete,
-                                                 step: viewModel.recipe.steps[index-1],
-                                                 currentPage: $viewModel.pageIndex,
-                                                 stepIndex: index)
+                TopBarItemsView
+                
+                TabView(selection: $viewModel.pageIndex) {
+                    ExecuteStartView
+                    
+                    ForEach(1..<viewModel.recipe.steps.count+1, id: \.self) { index in
+                        ExtractRecipeExecuteStepView(countCompleted: $viewModel.countDownDidComplete,
+                                                     step: viewModel.recipe.steps[index-1],
+                                                     currentPage: $viewModel.pageIndex,
+                                                     stepIndex: index)
+                    }
                 }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .animation(.default, value: viewModel.pageIndex)
+                
+                BottomBarItemsView
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.default, value: viewModel.pageIndex)
+            .onChange(of: viewModel.pageIndex) { newValue in
+                print("Log -", #fileID, #function, #line, newValue)
+            }
             
-            BottomBarItemsView
-        }
-        .onChange(of: viewModel.pageIndex) { newValue in
-            print("Log -", #fileID, #function, #line, newValue)
+            PrepareTimerView
+            
         }
     }
 }
@@ -134,14 +138,45 @@ extension ExtractRecipeExecuteView {
                     .padding()
             }
             
-            Button("시작") { viewModel.moveToNextPage() }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .foregroundColor(.white)
-                .background(RoundedRectangle(cornerRadius: 10).fill(.blue))
-                .padding()
-                .visibility(viewModel.pageIndex == 0 ? .visible : .gone)
+            Button {
+                viewModel.startPrepareTimer()
+            } label: {
+                Text("시작")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(RoundedRectangle(cornerRadius: 10).fill(.blue))
+                    .padding()
+                    .visibility(viewModel.pageIndex == 0 ? .visible : .gone)
+            }
+                
         }
+    }
+    
+    @ViewBuilder var PrepareTimerView: some View {
+        Text("\(viewModel.prepareSecond)")
+            .font(.system(size: 80))
+            .scaleEffect(CGFloat(viewModel.scaleTest))
+            .animation(.linear(duration: 1).repeatForever(autoreverses: false),
+                       value: viewModel.scaleTest)
+            .opacity(Double(viewModel.opacityTest))
+            .animation(.easeInOut(duration: 0.5).delay(0.5).repeatForever(autoreverses: false),
+                       value: viewModel.opacityTest)
+            .frame(width: 200, height: 200, alignment: .center)
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.white)
+                    .shadow(radius: 5)
+            }
+            .visibility(viewModel.isPrepareCountDownShowing ? .visible : .gone)
+            .onAppear {
+                viewModel.scaleTest = 1.5
+                viewModel.opacityTest = 0.0
+            }
+            .onDisappear {
+                viewModel.scaleTest = 1.0
+                viewModel.opacityTest = 1.0
+            }
     }
 }
 
