@@ -26,6 +26,13 @@ struct ExtractRecipe: Identifiable {
         }
         return totalTime
     }
+    var totalWaterAmount: Float {
+        var totalWater: Float = 0
+        for steps in steps {
+            totalWater += steps.waterAmount!
+        }
+        return totalWater
+    }
     var date: Date = Date.now
 }
 

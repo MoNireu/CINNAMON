@@ -117,7 +117,7 @@ extension ExtractRecipeExecuteView {
                     .frame(width: 300, height: 3)
                     .padding(.top, -30)
                 
-                Text("20ml")
+                Text(String(format: "%0.1fml", viewModel.recipe.totalWaterAmount))
                     .font(.largeTitle)
             }
             .frame(maxHeight: .infinity)
