@@ -18,8 +18,14 @@ struct ExtractRecipe: Identifiable {
     var description: String = ""
     var extractType: ExtractType
     var beanAmount: Float
-    var totalExtractTime: Int = 0
     var steps: [RecipeStep] = []
+    var totalExtractTime: Int {
+        var totalTime = 0
+        for steps in steps {
+            totalTime += steps.extractTime
+        }
+        return totalTime
+    }
     var date: Date = Date.now
 }
 

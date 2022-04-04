@@ -177,16 +177,7 @@ extension ExtractRecipeDetailView {
 
 struct ExtractRecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let recipe = ExtractRecipe(title: "브루잉 레시피 1",
-                                   description: "1분 브루잉 레시피",
-                                   extractType: .brew,
-                                   beanAmount: 20.0,
-                                   totalExtractTime: 60,
-                                   steps: [
-                                     RecipeStep(title: "뜸 들이기", description: "약 60초 동안 뜸을 들여줍니다.", waterAmount: 40, extractTime: 60),
-                                     RecipeStep(title: "1차 푸어링", description: "", waterAmount: 80, extractTime: 60),
-                                     RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
-                                   ])
+        let recipe = ExtractRecipeDummyData.extractRecipeList[3]
         ExtractRecipeDetailView(recipe: recipe)
     }
 }

@@ -54,21 +54,13 @@ class ExtractRecipeDetailViewModel: ObservableObject {
     
     func completeEditing() {
         if isAllStepValid() {
-            setTotalExtractTime()
+//            setTotalExtractTime()
             usecase.updateRecipe(recipe)
             isRecipeEditing = false
         }
         else {
             isAlertShowing = true
         }
-    }
-    
-    private func setTotalExtractTime() {
-            var totalExtractTime = 0
-            for steps in recipe.steps {
-                totalExtractTime += steps.extractTime
-            }
-            recipe.totalExtractTime = totalExtractTime
     }
         
     
