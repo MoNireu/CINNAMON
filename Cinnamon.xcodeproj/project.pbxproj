@@ -266,6 +266,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E14024E327FC170800F905BC /* PersistenceStorages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PersistenceStorages;
+			sourceTree = "<group>";
+		};
 		E142D0CB27D5B26000579C8F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +325,7 @@
 		E17B8F2C27EAF3AF0010B7CF /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				E14024E327FC170800F905BC /* PersistenceStorages */,
 				E17B8F3627EAF8BE0010B7CF /* Repository */,
 			);
 			path = Data;
