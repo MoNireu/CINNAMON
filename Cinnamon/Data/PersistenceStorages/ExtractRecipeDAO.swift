@@ -11,6 +11,16 @@ import CoreData
 
 class ExtractRecipePersistenceStorage {
     
+    func fetch() -> [NSManagedObject] {
+        let context = PersistenceController.shared.container.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeEntity")
+        
+        let result = try! context.fetch(fetchRequest)
+        
+        return result
+    }
+    
     func save(recipe: ExtractRecipe) -> Bool {
         let context = PersistenceController.shared.container.viewContext
         

@@ -9,7 +9,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="totalExtractTime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalWaterAmount" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="extractRecipeStep" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ExtractRecipeStepEntity" inverseName="extractRecipe" inverseEntity="ExtractRecipeStepEntity"/>
+        <relationship name="extractRecipeStep" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ExtractRecipeStepEntity" inverseName="extractRecipe" inverseEntity="ExtractRecipeStepEntity"/>
     </entity>
     <entity name="ExtractRecipeStepEntity" representedClassName="ExtractRecipeStepEntity" syncable="YES" codeGenerationType="class">
         <attribute name="desc" optional="YES" attributeType="String"/>
