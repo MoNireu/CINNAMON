@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 
-class ExtractRecipePersistenceStorage {
+class ExtractRecipeDAO {
     
     func fetch() -> [NSManagedObject] {
         let context = PersistenceController.shared.container.viewContext
