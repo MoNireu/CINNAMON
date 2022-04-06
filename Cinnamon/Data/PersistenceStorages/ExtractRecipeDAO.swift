@@ -11,15 +11,47 @@ import CoreData
 
 class ExtractRecipeDAO {
     
-    func fetch() -> [NSManagedObject] {
+    func fetch() -> [ExtractRecipe]? {
         let context = PersistenceController.shared.container.viewContext
-        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeEntity")
+        let fetchedRecipes = try! context.fetch(fetchRequest) as? [ExtractRecipeEntity]
         
-        let result = try! context.fetch(fetchRequest)
-        
-        return result
+        guard let fetchedRecipes = fetchedRecipes else { return nil }
+        var recipeList: [ExtractRecipe] = []
+        for fetchedRecipe in fetchedRecipes {
+            var recipe = getRecipeFrom(fetchedRecipe)
+
+            guard let fetchedSteps = fetchedRecipe.extractRecipeStep?.array as? [ExtractRecipeStepEntity] else {
+                recipeList.append(recipe)
+                continue
+            }
+            for fetchedStep in fetchedSteps {
+                let step = getRecipeStepFrom(fetchedStep)
+                recipe.steps.append(step)
+            }
+            recipeList.append(recipe)
+        }
+        return recipeList
     }
+    
+    private func getRecipeFrom(_ fetchedRecipe: ExtractRecipeEntity) -> ExtractRecipe {
+        return ExtractRecipe(id: fetchedRecipe.id!,
+                                   title: fetchedRecipe.title!,
+                                   description: fetchedRecipe.desc!,
+                                   extractType: ExtractType(rawValue: fetchedRecipe.extractType!)!,
+                                   beanAmount: fetchedRecipe.beanAmount,
+                                   steps: [],
+                                   date: fetchedRecipe.date!)
+    }
+    
+    private func getRecipeStepFrom(_ fetchedStep: ExtractRecipeStepEntity) -> RecipeStep {
+        return RecipeStep(id: fetchedStep.id!,
+                          title: fetchedStep.title!,
+                          description: fetchedStep.desc!,
+                          waterAmount: fetchedStep.waterAmount,
+                          extractTime: Int(fetchedStep.extractTime))
+    }
+    
     
     func save(recipe: ExtractRecipe) -> Bool {
         let context = PersistenceController.shared.container.viewContext
@@ -33,6 +65,7 @@ class ExtractRecipeDAO {
         recipeObject.beanAmount = recipe.beanAmount
         recipeObject.totalExtractTime = Int16(recipe.totalExtractTime)
         recipeObject.totalWaterAmount = recipe.totalWaterAmount
+        recipeObject.date = recipe.date
         
         for step in recipe.steps {
             let stepObject = NSEntityDescription.insertNewObject(forEntityName: "ExtractRecipeStepEntity", into: context) as! ExtractRecipeStepEntity
