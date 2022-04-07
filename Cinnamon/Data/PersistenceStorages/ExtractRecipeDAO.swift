@@ -52,6 +52,18 @@ class ExtractRecipeDAO {
                           extractTime: Int(fetchedStep.extractTime))
     }
     
+    func fetch2() {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeStepEntity")
+        let fetchedRecipes = try! context.fetch(fetchRequest) as? [ExtractRecipeStepEntity]
+        
+        guard let fetchedRecipes = fetchedRecipes else { return }
+        for fetchedRecipe in fetchedRecipes {
+            var recipe = getRecipeStepFrom(fetchedRecipe)
+            print(recipe)
+        }
+    }
+    
     
     func save(recipe: ExtractRecipe) -> Bool {
         let context = PersistenceController.shared.container.viewContext
@@ -88,6 +100,21 @@ class ExtractRecipeDAO {
             print("Log -", #fileID, #function, #line, "Error: Save Recipe Failed")
             return false
         }
+    }
+    
+    func delete(recipe: ExtractRecipe) -> Bool {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeEntity")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", "\(recipe.id)")
         
+        do {
+            let fetchedObjects = try context.fetch(fetchRequest)
+            guard let fetchObject = fetchedObjects.first else { return false }
+            context.delete(fetchObject)
+            return true
+        } catch {
+            print(error)
+            return false
+        }
     }
 }

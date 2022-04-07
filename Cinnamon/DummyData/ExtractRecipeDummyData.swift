@@ -9,14 +9,18 @@ import Foundation
 
 enum ExtractRecipeDummyData {
     static let extractRecipeList = [
-        ExtractRecipe(title: "에스프레소 레시피 1",
+        ExtractRecipe(id: UUID(uuidString: "CA5346DD-90F1-416C-8AE0-A0ABBBB6D5CA")!,
+                      title: "에스프레소 레시피 1",
                       description: "1분 에스프레소 레시피",
                       extractType: .espresso,
                       beanAmount: 20.0,
                       steps: [
-                        RecipeStep(title: "뜸 들이기", description: "약 60초 동안 뜸을 들여줍니다.", waterAmount: 40, extractTime: 60),
-                        RecipeStep(title: "1차 푸어링", description: "", waterAmount: 80, extractTime: 60),
-                        RecipeStep(title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
+                        RecipeStep(id: UUID(uuidString: "CA5346DD-90F1-416C-8AE0-A0ABBBB6D5CB")!,
+                                   title: "뜸 들이기", description: "약 60초 동안 뜸을 들여줍니다.", waterAmount: 40, extractTime: 60),
+                        RecipeStep(id: UUID(uuidString: "CA5346DD-90F1-416C-8AE0-A0ABBBB6D5CC")!,
+                                   title: "1차 푸어링", description: "", waterAmount: 80, extractTime: 60),
+                        RecipeStep(id: UUID(uuidString: "CA5346DD-90F1-416C-8AE0-A0ABBBB6D5CD")!,
+                                   title: "2차 푸어링", description: "", waterAmount: 40, extractTime: 40)
                       ]),
         ExtractRecipe(title: "에스프레소 레시피 2",
                       description: "1분 에스프레소 레시피",

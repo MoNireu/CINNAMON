@@ -10,6 +10,9 @@ import XCTest
 
 class CoreDataTests: XCTestCase {
 
+    let recipeStorage = ExtractRecipeDAO()
+    let recipe = ExtractRecipeDummyData.extractRecipeList[0]
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -24,11 +27,6 @@ class CoreDataTests: XCTestCase {
         // Any test you write for XCTest can be annotated as throws and async.
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-        
-        let recipeStorage = ExtractRecipeDAO()
-        let recipe = ExtractRecipeDummyData.extractRecipeList[0]
-        
-        
         XCTAssertTrue(recipeStorage.save(recipe: recipe))
     }
 
@@ -37,6 +35,13 @@ class CoreDataTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    func testExtractRecipeDelete() throws {
+        let deleteResult = recipeStorage.delete(recipe: recipe)
+        print(recipeStorage.fetch())
+        print(recipeStorage.fetch2())
+        XCTAssertTrue(deleteResult)
     }
 
 }
