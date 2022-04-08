@@ -20,7 +20,7 @@
         <relationship name="extractRecipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExtractRecipeEntity" inverseName="extractRecipeStep" inverseEntity="ExtractRecipeEntity"/>
     </entity>
     <elements>
-        <element name="ExtractRecipeEntity" positionX="-140.4151611328125" positionY="-207.3641357421875" width="128" height="178"/>
+        <element name="ExtractRecipeEntity" positionX="-140.4151611328125" positionY="-207.3641357421875" width="128" height="164"/>
         <element name="ExtractRecipeStepEntity" positionX="-54" positionY="63" width="128" height="133"/>
     </elements>
 </model>

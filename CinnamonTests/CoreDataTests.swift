@@ -11,7 +11,7 @@ import XCTest
 class CoreDataTests: XCTestCase {
 
     let recipeStorage = ExtractRecipeDAO()
-    let recipe = ExtractRecipeDummyData.extractRecipeList[0]
+    var recipe = ExtractRecipeDummyData.extractRecipeList[0]
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -37,10 +37,25 @@ class CoreDataTests: XCTestCase {
         }
     }
     
+    func testFetchAll() throws {
+        recipe.title = "테스트0"
+        recipe.steps[0].title = "테스트1"
+        recipe.steps[1].title = "테스트2"
+        recipe.steps[2].title = "테스트3"
+        let result = recipeStorage.update(recipe: recipe)
+        print(recipeStorage.fetch())
+        print("=============================")
+        print(recipeStorage.fetchAllSteps())
+        
+        XCTAssertTrue(result)
+    }
+    
+    
+    
     func testExtractRecipeDelete() throws {
         let deleteResult = recipeStorage.delete(recipe: recipe)
         print(recipeStorage.fetch())
-        print(recipeStorage.fetch2())
+        print(recipeStorage.fetchAllSteps())
         XCTAssertTrue(deleteResult)
     }
 

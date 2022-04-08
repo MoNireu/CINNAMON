@@ -34,6 +34,19 @@ class ExtractRecipeDAO {
         return recipeList
     }
     
+    // TEST: TestCode
+    func fetchAllSteps() {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeStepEntity")
+        let fetchedSteps = try! context.fetch(fetchRequest) as? [ExtractRecipeStepEntity]
+        
+        guard let fetchedRecipes = fetchedSteps else { return }
+        for fetchedRecipe in fetchedRecipes {
+            let recipe = getRecipeStepFrom(fetchedRecipe)
+            print(recipe)
+        }
+    }
+    
     private func getRecipeFrom(_ fetchedRecipe: ExtractRecipeEntity) -> ExtractRecipe {
         return ExtractRecipe(id: fetchedRecipe.id!,
                                    title: fetchedRecipe.title!,
@@ -52,17 +65,7 @@ class ExtractRecipeDAO {
                           extractTime: Int(fetchedStep.extractTime))
     }
     
-    func fetch2() {
-        let context = PersistenceController.shared.container.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeStepEntity")
-        let fetchedRecipes = try! context.fetch(fetchRequest) as? [ExtractRecipeStepEntity]
-        
-        guard let fetchedRecipes = fetchedRecipes else { return }
-        for fetchedRecipe in fetchedRecipes {
-            var recipe = getRecipeStepFrom(fetchedRecipe)
-            print(recipe)
-        }
-    }
+    
     
     
     func save(recipe: ExtractRecipe) -> Bool {
@@ -70,24 +73,11 @@ class ExtractRecipeDAO {
         
         let recipeObject = NSEntityDescription.insertNewObject(forEntityName: "ExtractRecipeEntity", into: context) as! ExtractRecipeEntity
                 
-        recipeObject.id = recipe.id
-        recipeObject.title = recipe.title
-        recipeObject.desc = recipe.description
-        recipeObject.extractType = recipe.extractType.rawValue
-        recipeObject.beanAmount = recipe.beanAmount
-        recipeObject.totalExtractTime = Int16(recipe.totalExtractTime)
-        recipeObject.totalWaterAmount = recipe.totalWaterAmount
-        recipeObject.date = recipe.date
+        setRecipeObject(recipeObject, from: recipe)
         
         for step in recipe.steps {
             let stepObject = NSEntityDescription.insertNewObject(forEntityName: "ExtractRecipeStepEntity", into: context) as! ExtractRecipeStepEntity
-            
-            stepObject.id = step.id
-            stepObject.title = step.title
-            stepObject.desc = step.description
-            stepObject.waterAmount = step.waterAmount!
-            stepObject.extractTime = Int16(step.extractTime)
-    
+            setStepObject(stepObject, from: step)
             recipeObject.addToExtractRecipeStep(stepObject)
         }
         
@@ -100,6 +90,61 @@ class ExtractRecipeDAO {
             print("Log -", #fileID, #function, #line, "Error: Save Recipe Failed")
             return false
         }
+    }
+    
+    func update(recipe: ExtractRecipe) -> Bool {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeEntity")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", "\(recipe.id)")
+        
+        do {
+            guard let recipeObject = try context.fetch(fetchRequest).first as? ExtractRecipeEntity
+            else { return false }
+            setRecipeObject(recipeObject, from: recipe)
+            
+            guard let stepObjects = recipeObject.extractRecipeStep?.array as? [NSManagedObject]
+            else { return false }
+            for stepObject in  stepObjects {
+                context.delete(stepObject)
+            }
+            
+            for step in recipe.steps {
+                let stepObject = NSEntityDescription.insertNewObject(forEntityName: "ExtractRecipeStepEntity", into: context) as! ExtractRecipeStepEntity
+                setStepObject(stepObject, from: step)
+                recipeObject.addToExtractRecipeStep(stepObject)
+            }
+            
+            do {
+                try context.save()
+                return true
+                
+            } catch {
+                print(error)
+                return false
+            }
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
+    private func setRecipeObject(_ recipeObject: ExtractRecipeEntity, from recipe: ExtractRecipe) {
+        recipeObject.id = recipe.id
+        recipeObject.title = recipe.title
+        recipeObject.desc = recipe.description
+        recipeObject.extractType = recipe.extractType.rawValue
+        recipeObject.beanAmount = recipe.beanAmount
+        recipeObject.totalExtractTime = Int16(recipe.totalExtractTime)
+        recipeObject.totalWaterAmount = recipe.totalWaterAmount
+        recipeObject.date = recipe.date
+    }
+    
+    private func setStepObject(_ stepObject: ExtractRecipeStepEntity, from step: RecipeStep) {
+        stepObject.id = step.id
+        stepObject.title = step.title
+        stepObject.desc = step.description
+        stepObject.waterAmount = step.waterAmount!
+        stepObject.extractTime = Int16(step.extractTime)
     }
     
     func delete(recipe: ExtractRecipe) -> Bool {
