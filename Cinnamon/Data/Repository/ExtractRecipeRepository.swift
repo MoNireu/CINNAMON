@@ -10,8 +10,9 @@ import Combine
 
 
 class ExtractRecipeRepository: ObservableObject {
-    
     static let shared: ExtractRecipeRepository = ExtractRecipeRepository()
+    private var cancellableBag = Set<AnyCancellable>()
+    private let extractReicpeDAO = ExtractRecipeDAO()
     private var cache: [ExtractRecipe]
     
     var getListSubject = PassthroughSubject<[ExtractRecipe], Never>()
@@ -24,9 +25,25 @@ class ExtractRecipeRepository: ObservableObject {
     
     func fetch() -> Future<Bool, Never> {
         return Future() { [weak self] promise in
-            print("Log -", #fileID, #function, #line)
-            self?.cache = ExtractRecipeDummyData.extractRecipeList
-            promise(.success(true))
+            var cancellableBag = Set<AnyCancellable>()
+            self?.extractReicpeDAO.fetch()
+                .sink { complete in
+                    switch complete {
+                    case .finished:
+                        print("Log -", #fileID, #function, #line, "Fetch Completed")
+                        promise(.success(true))
+                        break
+                    case .failure(let error):
+                        print("Log -", #fileID, #function, #line, error.localizedDescription)
+                        promise(.success(false))
+                        break
+                    }
+                } receiveValue: { result in
+                    self?.cache = result
+                    self?.get()
+                    print("Log -", #fileID, #function, #line, "Retrived Fetch Result")
+                }
+                .store(in: &cancellableBag)
         }
     }
     

@@ -37,7 +37,7 @@ class ExtractRecipeListUseCase: ObservableObject {
         repository.fetch()
             .sink(receiveValue: { didSuccess in
                 if didSuccess {
-                    self.requestGetFromRepositoryCache()
+                    print("Log -", #fileID, #function, #line, "FetchComplete")
                 }
                 else {
                     print("Log -", #fileID, #function, #line, "Repository Fetch Failed")
