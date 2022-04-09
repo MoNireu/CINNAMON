@@ -74,16 +74,30 @@ class ExtractRecipeRepository: ObservableObject {
     @discardableResult
     func update(newRecipe: ExtractRecipe) -> Future<ExtractRecipe, Error> {
         return Future { [weak self] promise in
-            if let index = self?.getRecipeIndex(recipe: newRecipe) {
-                self?.cache[index] = newRecipe
-                print("Log -", #fileID, #function, #line, "Recipe Updated!")
-                promise(.success(newRecipe))
-                self?.get()
-            }
-            else {
-                print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
-                promise(.failure(NSError()))
-            }
+            var cancellableBag = Set<AnyCancellable>()
+            self?.extractReicpeDAO.update(recipe: newRecipe)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        print("Log -", #fileID, #function, #line, "Recipe Updated!")
+                        break
+                    case .failure(let error):
+                        promise(.failure(error))
+                        print("Log -", #fileID, #function, #line, error)
+                        break
+                    }
+                }, receiveValue: { result in
+                    guard let index = self?.getRecipeIndex(recipe: result)
+                    else {
+                        print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
+                        promise(.failure(NSError()))
+                        return
+                    }
+                    self?.cache[index] = result
+                    self?.get()
+                    promise(.success(result))
+                })
+                .store(in: &cancellableBag)
         }
     }
     
