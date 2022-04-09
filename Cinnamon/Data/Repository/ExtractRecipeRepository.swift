@@ -16,7 +16,7 @@ class ExtractRecipeRepository: ObservableObject {
     private var cache: [ExtractRecipe]
     
     var getListSubject = PassthroughSubject<[ExtractRecipe], Never>()
-    var createdRecipeSubject = PassthroughSubject<ExtractRecipe, Never>()
+    var createdRecipeSubject = PassthroughSubject<ExtractRecipe, Error>()
     
     private init() {
         print("Log -", #fileID, #function, #line)
@@ -27,8 +27,8 @@ class ExtractRecipeRepository: ObservableObject {
         return Future() { [weak self] promise in
             var cancellableBag = Set<AnyCancellable>()
             self?.extractReicpeDAO.fetch()
-                .sink { complete in
-                    switch complete {
+                .sink { completion in
+                    switch completion {
                     case .finished:
                         print("Log -", #fileID, #function, #line, "Fetch Completed")
                         promise(.success(true))
@@ -53,13 +53,22 @@ class ExtractRecipeRepository: ObservableObject {
     }
     
     func add(newRecipe: ExtractRecipe){
-        cache.append(newRecipe)
-        get()
-        createdRecipeSubject.send(newRecipe)
-    }
-    
-    func add(newStep: RecipeStep, to recipe: ExtractRecipe) {
-        
+        extractReicpeDAO.save(recipe: newRecipe)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("Log -", #fileID, #function, #line, error.localizedDescription)
+                    self?.createdRecipeSubject.send(completion: .failure(error))
+                    break
+                }
+            } receiveValue: { [weak self] result in
+                self?.cache.append(result)
+                self?.get()
+                self?.createdRecipeSubject.send(result)
+            }
+            .store(in: &cancellableBag)
     }
     
     @discardableResult

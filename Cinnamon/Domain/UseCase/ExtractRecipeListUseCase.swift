@@ -22,7 +22,7 @@ class ExtractRecipeListUseCase: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    var getCreatedRecipe: AnyPublisher<ExtractRecipe, Never> {
+    var getCreatedRecipe: AnyPublisher<ExtractRecipe, Error> {
         repository.createdRecipeSubject.eraseToAnyPublisher()
     }
     

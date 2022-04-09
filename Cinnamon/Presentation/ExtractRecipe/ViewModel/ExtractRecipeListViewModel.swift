@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class ExtractRecipeListViewModel: ObservableObject {
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     private var usecase: ExtractRecipeListUseCase
     @Published var recipes: [ExtractRecipe] = []
     @Published var selectedExtractType: ExtractType = .espresso
@@ -69,7 +69,7 @@ class ExtractRecipeListViewModel: ObservableObject {
         $selectedExtractType.sink { [weak self] extractType in
             self?.usecase.changeExtractTypeAndRelod(extractType)
         }
-        .store(in: &cancelBag)
+        .store(in: &cancellableBag)
     }
     
     private func resetSelectedRecipesOnEditFinish() {
@@ -78,13 +78,21 @@ class ExtractRecipeListViewModel: ObservableObject {
             .sink { [weak self] editingFinished in
                 if editingFinished { self?.selectedRecipe = Set<UUID>() }
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     private func showEditStepOnCreateRecipeComplete() {
-        usecase.getCreatedRecipe.sink { [weak self] recipe in
+        usecase.getCreatedRecipe.sink { completion in
+            switch completion {
+            case .finished:
+                break
+            case .failure(let error):
+                //TODO: 생성 실패 Alert
+                print(error.localizedDescription)
+            }
+        } receiveValue: { [weak self] recipe in
             self?.createdRecipe = recipe
         }
-        .store(in: &cancelBag)
+        .store(in: &cancellableBag)
     }
 }
