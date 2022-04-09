@@ -10,12 +10,13 @@ import Combine
 
 
 class ExtractRecipeRepository: ObservableObject {
-    
     static let shared: ExtractRecipeRepository = ExtractRecipeRepository()
+    private var cancellableBag = Set<AnyCancellable>()
+    private let extractReicpeDAO = ExtractRecipeDAO()
     private var cache: [ExtractRecipe]
     
     var getListSubject = PassthroughSubject<[ExtractRecipe], Never>()
-    var createdRecipeSubject = PassthroughSubject<ExtractRecipe, Never>()
+    var createdRecipeSubject = PassthroughSubject<ExtractRecipe, Error>()
     
     private init() {
         print("Log -", #fileID, #function, #line)
@@ -24,9 +25,25 @@ class ExtractRecipeRepository: ObservableObject {
     
     func fetch() -> Future<Bool, Never> {
         return Future() { [weak self] promise in
-            print("Log -", #fileID, #function, #line)
-            self?.cache = ExtractRecipeDummyData.extractRecipeList
-            promise(.success(true))
+            var cancellableBag = Set<AnyCancellable>()
+            self?.extractReicpeDAO.fetch()
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("Log -", #fileID, #function, #line, "Fetch Completed")
+                        promise(.success(true))
+                        break
+                    case .failure(let error):
+                        print("Log -", #fileID, #function, #line, error.localizedDescription)
+                        promise(.success(false))
+                        break
+                    }
+                } receiveValue: { result in
+                    self?.cache = result
+                    self?.get()
+                    print("Log -", #fileID, #function, #line, "Retrived Fetch Result")
+                }
+                .store(in: &cancellableBag)
         }
     }
     
@@ -36,28 +53,79 @@ class ExtractRecipeRepository: ObservableObject {
     }
     
     func add(newRecipe: ExtractRecipe){
-        cache.append(newRecipe)
-        get()
-        createdRecipeSubject.send(newRecipe)
-    }
-    
-    func add(newStep: RecipeStep, to recipe: ExtractRecipe) {
-        
+        extractReicpeDAO.save(recipe: newRecipe)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("Log -", #fileID, #function, #line, error.localizedDescription)
+                    self?.createdRecipeSubject.send(completion: .failure(error))
+                    break
+                }
+            } receiveValue: { [weak self] result in
+                self?.cache.append(result)
+                self?.get()
+                self?.createdRecipeSubject.send(result)
+            }
+            .store(in: &cancellableBag)
     }
     
     @discardableResult
     func update(newRecipe: ExtractRecipe) -> Future<ExtractRecipe, Error> {
         return Future { [weak self] promise in
-            if let index = self?.getRecipeIndex(recipe: newRecipe) {
-                self?.cache[index] = newRecipe
-                print("Log -", #fileID, #function, #line, "Recipe Updated!")
-                promise(.success(newRecipe))
-                self?.get()
-            }
-            else {
-                print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
-                promise(.failure(NSError()))
-            }
+            var cancellableBag = Set<AnyCancellable>()
+            self?.extractReicpeDAO.update(recipe: newRecipe)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        print("Log -", #fileID, #function, #line, "Recipe Updated!")
+                        break
+                    case .failure(let error):
+                        promise(.failure(error))
+                        print("Log -", #fileID, #function, #line, error)
+                        break
+                    }
+                }, receiveValue: { result in
+                    guard let index = self?.getRecipeIndex(recipe: result)
+                    else {
+                        print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
+                        promise(.failure(NSError()))
+                        return
+                    }
+                    self?.cache[index] = result
+                    self?.get()
+                    promise(.success(result))
+                })
+                .store(in: &cancellableBag)
+        }
+    }
+    
+    func remove(recipe: ExtractRecipe) -> Future<Bool, Never> {
+        return Future() { [weak self] promise in
+            var cancellableBag = Set<AnyCancellable>()
+            self?.extractReicpeDAO.delete(recipe: recipe)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        print("Log -", #fileID, #function, #line, "Recipe removed")
+                        promise(.success(true))
+                        break
+                    case .failure(let error):
+                        print("Log -", #fileID, #function, #line, error.localizedDescription)
+                        promise(.success(false))
+                        break
+                    }
+                }, receiveValue: { result in
+                    guard let recipeIndex = self?.getRecipeIndex(recipe: result)
+                    else {
+                        print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
+                        return
+                    }
+                    self?.cache.remove(at: recipeIndex)
+                    self?.get()
+                })
+                .store(in: &cancellableBag)
         }
     }
     

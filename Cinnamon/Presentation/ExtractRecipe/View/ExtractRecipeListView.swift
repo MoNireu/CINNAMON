@@ -57,6 +57,7 @@ extension ExtractRecipeListView {
                                           time: recipe.totalExtractTime)
                 }
             }
+            .onDelete(perform: viewModel.deleteRecipe)
         }
         .navigationTitle("추출 레시피")
         .environment(\.editMode, viewModel.isEditing ? .constant(.active) : .constant(.inactive))

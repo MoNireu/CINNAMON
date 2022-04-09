@@ -10,7 +10,7 @@ import Combine
 
 class ExtractRecipeListUseCase: ObservableObject {
     @Published private var repository: ExtractRecipeRepository = ExtractRecipeRepository.shared
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     private var extractType: ExtractType = .espresso
     
     var getExtractRecipeList: AnyPublisher<[ExtractRecipe], Never> {
@@ -22,7 +22,7 @@ class ExtractRecipeListUseCase: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    var getCreatedRecipe: AnyPublisher<ExtractRecipe, Never> {
+    var getCreatedRecipe: AnyPublisher<ExtractRecipe, Error> {
         repository.createdRecipeSubject.eraseToAnyPublisher()
     }
     
@@ -37,13 +37,13 @@ class ExtractRecipeListUseCase: ObservableObject {
         repository.fetch()
             .sink(receiveValue: { didSuccess in
                 if didSuccess {
-                    self.requestGetFromRepositoryCache()
+                    print("Log -", #fileID, #function, #line, "FetchComplete")
                 }
                 else {
                     print("Log -", #fileID, #function, #line, "Repository Fetch Failed")
                 }
             })
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     func changeExtractTypeAndRelod(_ extractType: ExtractType) {
@@ -54,6 +54,15 @@ class ExtractRecipeListUseCase: ObservableObject {
     func requestGetFromRepositoryCache() {
         print("Log -", #fileID, #function, #line)
         repository.get()
+    }
+    
+    func removeRecipe(_ recipe: ExtractRecipe) {
+        repository.remove(recipe: recipe)
+            .sink { isDeleted in
+                if isDeleted { print("Log -", #fileID, #function, #line, "Recipe Deleted")}
+                else {print("Log -", #fileID, #function, #line, "Recipe Delete Failed")}
+            }
+            .store(in: &cancellableBag)
     }
     
     private func filterRecipeListByExtractType(_ list: [ExtractRecipe]) -> [ExtractRecipe] {
