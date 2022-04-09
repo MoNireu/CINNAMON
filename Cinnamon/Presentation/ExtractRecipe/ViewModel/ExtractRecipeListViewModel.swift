@@ -50,6 +50,11 @@ class ExtractRecipeListViewModel: ObservableObject {
         isCreateRecipeShowing = false
     }
     
+    func deleteRecipe(indexSet: IndexSet) {
+        guard let index = indexSet.first else {return}
+        usecase.removeRecipe(recipes[index])
+    }
+    
     
     // MARK: - Private Functions
     private func addSubscriptions() {

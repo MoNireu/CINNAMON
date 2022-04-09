@@ -181,7 +181,13 @@ struct ExtractRecipeDAO {
                     return
                 }
                 context.delete(fetchObject)
-                promise(.success(recipe))
+                do {
+                    try context.save()
+                    promise(.success(recipe))
+                }
+                catch {
+                    promise(.failure(DAOError.deleteFailed))
+                }
             } catch {
                 promise(.failure(DAOError.deleteFailed))
             }

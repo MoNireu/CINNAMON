@@ -101,6 +101,34 @@ class ExtractRecipeRepository: ObservableObject {
         }
     }
     
+    func remove(recipe: ExtractRecipe) -> Future<Bool, Never> {
+        return Future() { [weak self] promise in
+            var cancellableBag = Set<AnyCancellable>()
+            self?.extractReicpeDAO.delete(recipe: recipe)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        print("Log -", #fileID, #function, #line, "Recipe removed")
+                        promise(.success(true))
+                        break
+                    case .failure(let error):
+                        print("Log -", #fileID, #function, #line, error.localizedDescription)
+                        promise(.success(false))
+                        break
+                    }
+                }, receiveValue: { result in
+                    guard let recipeIndex = self?.getRecipeIndex(recipe: result)
+                    else {
+                        print("Log -", #fileID, #function, #line, "Error: Recipe Not Found")
+                        return
+                    }
+                    self?.cache.remove(at: recipeIndex)
+                    self?.get()
+                })
+                .store(in: &cancellableBag)
+        }
+    }
+    
     private func getRecipeIndex(recipe: ExtractRecipe) -> Int? {
         return cache.firstIndex(where: {$0.id == recipe.id})
     }
