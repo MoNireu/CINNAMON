@@ -10,7 +10,7 @@ import Combine
 
 class ExtractRecipeDetailUseCase {
     private var cancelBag = Set<AnyCancellable>()
-    private var repository: ExtractRecipeRepository = ExtractRecipeRepository.shared
+    private var repository: ExtractRecipeRepository = ExtractRecipeRepositoryImpl.shared
     var getRecipe = PassthroughSubject<ExtractRecipe, Never>()
     private let recipeId: UUID
     

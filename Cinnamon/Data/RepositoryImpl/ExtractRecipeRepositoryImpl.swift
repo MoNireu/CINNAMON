@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 
-class ExtractRecipeRepository: ObservableObject {
-    static let shared: ExtractRecipeRepository = ExtractRecipeRepository()
+final class ExtractRecipeRepositoryImpl: ObservableObject, ExtractRecipeRepository{
+    static let shared: ExtractRecipeRepositoryImpl = ExtractRecipeRepositoryImpl()
     private var cancellableBag = Set<AnyCancellable>()
     private let extractReicpeDAO = ExtractRecipeDAO()
     private var cache: [ExtractRecipe]

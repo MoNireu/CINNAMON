@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class ExtractRecipeListUseCase: ObservableObject {
-    @Published private var repository: ExtractRecipeRepository = ExtractRecipeRepository.shared
+    @Published private var repository: ExtractRecipeRepository = ExtractRecipeRepositoryImpl.shared
     private var cancellableBag = Set<AnyCancellable>()
     private var extractType: ExtractType = .espresso
     

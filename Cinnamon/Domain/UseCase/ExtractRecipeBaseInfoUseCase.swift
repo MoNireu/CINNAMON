@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class ExtractRecipeBaseInfoUseCase {
-    private let repository = ExtractRecipeRepository.shared
+    private let repository = ExtractRecipeRepositoryImpl.shared
     
     func addNewRecipe(_ recipe: ExtractRecipe) {
         repository.add(newRecipe: recipe)
