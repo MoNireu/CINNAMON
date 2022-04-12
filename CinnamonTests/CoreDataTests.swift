@@ -10,7 +10,7 @@ import XCTest
 
 class CoreDataTests: XCTestCase {
 
-    let recipeStorage = ExtractRecipeDAO()
+    let recipeStorage = ExtractRecipeStorageImpl()
     var recipe = ExtractRecipeDummyData.extractRecipeList[0]
     
     override func setUpWithError() throws {

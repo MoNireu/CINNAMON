@@ -10,10 +10,10 @@ import Combine
 
 
 final class ExtractRecipeRepositoryImpl: ObservableObject, ExtractRecipeRepository{
-    static let shared: ExtractRecipeRepositoryImpl = ExtractRecipeRepositoryImpl()
-    private var cancellableBag = Set<AnyCancellable>()
-    private let extractReicpeDAO = ExtractRecipeDAO()
+    static let shared: ExtractRecipeRepository = ExtractRecipeRepositoryImpl()
+    private let extractReicpeDAO: ExtractRecipeStorage = ExtractRecipeStorageImpl()
     private var cache: [ExtractRecipe]
+    private var cancellableBag = Set<AnyCancellable>()
     
     var getListSubject = PassthroughSubject<[ExtractRecipe], Never>()
     var createdRecipeSubject = PassthroughSubject<ExtractRecipe, Error>()

@@ -33,7 +33,7 @@
 		E12BED2227E089F90058E65A /* ExtractRecipeDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12BED2127E089F90058E65A /* ExtractRecipeDetailCell.swift */; };
 		E12E81D827BB9A8700EC6B76 /* SignInFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */; };
 		E136F54E27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 in Resources */ = {isa = PBXBuildFile; fileRef = E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */; };
-		E14024E527FC20E000F905BC /* ExtractRecipeDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14024E427FC20E000F905BC /* ExtractRecipeDAO.swift */; };
+		E14024E527FC20E000F905BC /* ExtractRecipeStorageImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14024E427FC20E000F905BC /* ExtractRecipeStorageImpl.swift */; };
 		E14024E727FC286800F905BC /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14024E627FC286800F905BC /* CoreDataTests.swift */; };
 		E142D0CA27D5A46A00579C8F /* AccountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142D0C927D5A46A00579C8F /* AccountSetupView.swift */; };
 		E142D0CD27D5B28900579C8F /* AccountSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142D0CC27D5B28900579C8F /* AccountSetupViewModel.swift */; };
@@ -65,6 +65,7 @@
 		E1E69BCE27F56767009AFC67 /* ExtractRecipeDummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BCD27F56767009AFC67 /* ExtractRecipeDummyData.swift */; };
 		E1E69BD027F56F36009AFC67 /* ExtractRecipeExecuteStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BCF27F56F36009AFC67 /* ExtractRecipeExecuteStepView.swift */; };
 		E1E69BD227F56F6A009AFC67 /* ExtractRecipeExecuteStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E69BD127F56F6A009AFC67 /* ExtractRecipeExecuteStepViewModel.swift */; };
+		E1FFAD88280502A80075887D /* ExtractRecipeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FFAD87280502A80075887D /* ExtractRecipeStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,7 +115,7 @@
 		E12BED2127E089F90058E65A /* ExtractRecipeDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDetailCell.swift; sourceTree = "<group>"; };
 		E12E81D727BB9A8700EC6B76 /* SignInFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFieldView.swift; sourceTree = "<group>"; };
 		E136F54D27BCAC7500FF49F0 /* AuthKey_MX4ZHMC3NL.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_MX4ZHMC3NL.p8; sourceTree = "<group>"; };
-		E14024E427FC20E000F905BC /* ExtractRecipeDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeDAO.swift; sourceTree = "<group>"; };
+		E14024E427FC20E000F905BC /* ExtractRecipeStorageImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeStorageImpl.swift; sourceTree = "<group>"; };
 		E14024E627FC286800F905BC /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		E142D0C927D5A46A00579C8F /* AccountSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupView.swift; sourceTree = "<group>"; };
 		E142D0CC27D5B28900579C8F /* AccountSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupViewModel.swift; sourceTree = "<group>"; };
@@ -139,6 +140,7 @@
 		E1E69BCF27F56F36009AFC67 /* ExtractRecipeExecuteStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecuteStepView.swift; sourceTree = "<group>"; };
 		E1E69BD127F56F6A009AFC67 /* ExtractRecipeExecuteStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeExecuteStepViewModel.swift; sourceTree = "<group>"; };
 		E1F0B71527BCA26E0058EBED /* Cinnamon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cinnamon.entitlements; sourceTree = "<group>"; };
+		E1FFAD87280502A80075887D /* ExtractRecipeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractRecipeStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,7 +286,8 @@
 		E14024E327FC170800F905BC /* PersistenceStorages */ = {
 			isa = PBXGroup;
 			children = (
-				E14024E427FC20E000F905BC /* ExtractRecipeDAO.swift */,
+				E1FFAD87280502A80075887D /* ExtractRecipeStorage.swift */,
+				E14024E427FC20E000F905BC /* ExtractRecipeStorageImpl.swift */,
 			);
 			path = PersistenceStorages;
 			sourceTree = "<group>";
@@ -595,7 +598,8 @@
 				E10CF68A27D9E681006AA340 /* Int.swift in Sources */,
 				E10CF68127D9D300006AA340 /* ExtractRecipe.swift in Sources */,
 				E17B8F3827EAF9260010B7CF /* ExtractRecipeRepositoryImpl.swift in Sources */,
-				E14024E527FC20E000F905BC /* ExtractRecipeDAO.swift in Sources */,
+				E1FFAD88280502A80075887D /* ExtractRecipeStorage.swift in Sources */,
+				E14024E527FC20E000F905BC /* ExtractRecipeStorageImpl.swift in Sources */,
 				E15B310F27EF459F00F22A47 /* String.swift in Sources */,
 				E105FFC82782E03200C6B73B /* Cinnamon.xcdatamodeld in Sources */,
 				E1C9287627DB097B00CD35CA /* ExtractRecipeListViewModel.swift in Sources */,

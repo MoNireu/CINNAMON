@@ -9,16 +9,7 @@ import Foundation
 import CoreData
 import Combine
 
-
-enum DAOError: String, Error {
-    case fetchFailed = "Error: Fetch Failed"
-    case saveFailed = "Error: Save Failed"
-    case updateFailed = "Error: Update Failed"
-    case deleteFailed = "Error: Delete Failed"
-}
-
-
-struct ExtractRecipeDAO {
+struct ExtractRecipeStorageImpl: ExtractRecipeStorage {
     
     func fetch() -> Future<[ExtractRecipe], Error> {
         return Future() { promise in
