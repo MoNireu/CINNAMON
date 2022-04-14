@@ -18,7 +18,14 @@ struct ExtractRecipeListView: View {
         NavigationView {
             VStack {
                 ExtractTypePicker
-                RecipeListView
+                ZStack {
+                    RecipeListView
+                    if viewModel.isRecipeEmpty {
+                        Text("레시피를 추가해주세요")
+                            .font(.title2)
+                            .multilineTextAlignment(.center)
+                    }
+                }
                 NewRecipeEditView
             }
             .toolbar {

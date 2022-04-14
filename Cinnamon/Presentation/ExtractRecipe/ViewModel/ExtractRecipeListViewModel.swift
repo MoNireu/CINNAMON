@@ -16,6 +16,7 @@ class ExtractRecipeListViewModel: ObservableObject {
     @Published var selectedExtractType: ExtractType = .espresso
     @Published var isEditing: Bool = false
     @Published var selectedRecipe = Set<UUID>()
+    @Published var isRecipeEmpty: Bool = false
     
     // CreateExtractRecipe
     @Published var isCreateRecipeShowing: Bool = false
@@ -60,6 +61,7 @@ class ExtractRecipeListViewModel: ObservableObject {
     private func addSubscriptions() {
         reloadOnRecipesChange()
         reloadRecipesOnPickerChange()
+        checkRecipeEmptyOnRecipeReload()
         resetSelectedRecipesOnEditFinish()
         showEditStepOnCreateRecipeComplete()
     }
@@ -75,6 +77,12 @@ class ExtractRecipeListViewModel: ObservableObject {
             self?.usecase.changeExtractTypeAndRelod(extractType)
         }
         .store(in: &cancellableBag)
+    }
+    
+    private func checkRecipeEmptyOnRecipeReload() {
+        $recipes
+            .map({$0.isEmpty})
+            .assign(to: &$isRecipeEmpty)
     }
     
     private func resetSelectedRecipesOnEditFinish() {
