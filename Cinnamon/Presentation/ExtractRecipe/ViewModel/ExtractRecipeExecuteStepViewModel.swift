@@ -11,7 +11,7 @@ import UIKit
 
 class ExtractRecipeExecuteStepViewModel: ObservableObject {
     private var cancellableBag = Set<AnyCancellable>()
-    private var timer = Timer.publish(every: 1, on: .main, in: .common)
+    private lazy var timer = Timer.publish(every: 1, on: .main, in: .common)
     let step: RecipeStep
     @Published var timeRemaining: Int
     @Published var countDownCompleted: Bool = false
