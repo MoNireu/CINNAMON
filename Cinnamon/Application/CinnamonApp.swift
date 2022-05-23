@@ -18,9 +18,15 @@ struct CinnamonApp: App {
     
     var body: some Scene {
         WindowGroup {
+            TabView {
+                ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
+                    .tabItem {
+                        Image(systemName: "list.dash")
+                        Text("레시피 목록")
+                    }
+            }
 //            SignInUpView(viewModel: SignInUpViewModel())
 //            AccountSetupView(viewModel: AccountSetupViewModel())
-            ExtractRecipeListView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
 //            ExtractRecipeDetailView(viewModel: ExtractRecipeDetailViewModel())
 //            CreateExtractRecipeView(viewModel: ExtractRecipeListViewModel(usecase: ExtractRecipeListUseCase()))
 //            ExtractRecipeExecuteView(recipe: ExtractRecipeDummyData.extractRecipeList[0])
