@@ -11,7 +11,7 @@ import Combine
 
 struct ExtractRecipeStorageImpl: ExtractRecipeStorage {
     
-    func fetch() -> Future<[ExtractRecipe], Error> {
+    func fetch() -> Future<[ExtractRecipe], DAOError> {
         return Future() { promise in
             let context = PersistenceController.shared.container.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeEntity")
@@ -68,7 +68,7 @@ struct ExtractRecipeStorageImpl: ExtractRecipeStorage {
     }
     
     
-    func save(recipe: ExtractRecipe) -> Future<ExtractRecipe, Error> {
+    func save(recipe: ExtractRecipe) -> Future<ExtractRecipe, DAOError> {
         return Future() { promise in
             let context = PersistenceController.shared.container.viewContext
             
@@ -95,7 +95,7 @@ struct ExtractRecipeStorageImpl: ExtractRecipeStorage {
     }
 
     
-    func update(recipe: ExtractRecipe) -> Future<ExtractRecipe, Error> {
+    func update(recipe: ExtractRecipe) -> Future<ExtractRecipe, DAOError> {
         return Future() { promise in
             let context = PersistenceController.shared.container.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeEntity")
@@ -159,7 +159,7 @@ struct ExtractRecipeStorageImpl: ExtractRecipeStorage {
     
     
     
-    func delete(recipe: ExtractRecipe) -> Future<ExtractRecipe, Error> {
+    func delete(recipe: ExtractRecipe) -> Future<ExtractRecipe, DAOError> {
         return Future { promise in
             let context = PersistenceController.shared.container.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExtractRecipeEntity")

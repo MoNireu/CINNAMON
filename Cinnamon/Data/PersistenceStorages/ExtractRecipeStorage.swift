@@ -16,8 +16,8 @@ enum DAOError: String, Error {
 }
 
 protocol ExtractRecipeStorage {
-    func fetch() -> Future<[ExtractRecipe], Error>
-    func save(recipe: ExtractRecipe) -> Future<ExtractRecipe, Error>
-    func update(recipe: ExtractRecipe) -> Future<ExtractRecipe, Error>
-    func delete(recipe: ExtractRecipe) -> Future<ExtractRecipe, Error>
+    func fetch() -> Future<[ExtractRecipe], DAOError>
+    func save(recipe: ExtractRecipe) -> Future<ExtractRecipe, DAOError>
+    func update(recipe: ExtractRecipe) -> Future<ExtractRecipe, DAOError>
+    func delete(recipe: ExtractRecipe) -> Future<ExtractRecipe, DAOError>
 }
